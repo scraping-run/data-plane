@@ -7,7 +7,7 @@
 分页查询是指将查询结果分页返回，以便于客户端进行分页展示。在云数据库中，分页查询可以通过 `limit` 和 `skip` 来实现。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -28,7 +28,7 @@ export default async function () {
 ## 分页查询示例
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function (ctx: FunctionContext) {

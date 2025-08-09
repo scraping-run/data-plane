@@ -9,7 +9,7 @@ Laf 为每个应用提供了一个开箱即用的数据库，并且非常易用�
 ## 新建数据库实例
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 // db 为新建的数据库实例
 ```
@@ -21,7 +21,7 @@ const db = cloud.database()
 如下例子：往 `user` 集合中添加一个文档，`name` 为 `Jack` 的数据
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 
 export async function main(ctx: FunctionContext) {
@@ -49,7 +49,7 @@ export async function main(ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 
 export async function main(ctx: FunctionContext) {
@@ -71,7 +71,7 @@ export async function main(ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 
 export async function main(ctx: FunctionContext) {
@@ -97,7 +97,7 @@ export async function main(ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 
 export async function main(ctx: FunctionContext) {
@@ -130,7 +130,7 @@ export async function main(ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database() 
 
 export async function main(ctx: FunctionContext) {

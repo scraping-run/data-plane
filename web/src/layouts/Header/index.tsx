@@ -5,7 +5,6 @@ import clsx from "clsx";
 
 import ColorModeSwitch from "@/components/ColorModeSwitch";
 import { ChatIcon, DocIcon } from "@/components/CommonIcon";
-import LanguageSwitch from "@/components/LanguageSwitch";
 import { Logo, LogoText } from "@/components/LogoIcon";
 import { COLOR_MODE, Routes } from "@/constants";
 import { getAvatarUrl } from "@/utils/getAvatarUrl";
@@ -97,9 +96,6 @@ const Header = (props: { className?: string }) => {
             </span>
           );
         })}
-        <LanguageSwitch
-          className={darkMode ? "hover:bg-grayIron-200/5" : "hover:bg-grayIron-700/5"}
-        />
         <ColorModeSwitch
           className={clsx(
             "ml-4 mr-6 rounded p-2",

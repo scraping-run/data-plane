@@ -1,6 +1,6 @@
 ### 介绍
 
-Javascript client sdk of [`laf`](https://github.com/labring/laf).
+Javascript client sdk of [`laf`](https://github.com/scraping-run/laf).
 
 ### 安装
 
@@ -68,7 +68,7 @@ const cloud = new Cloud({
   baseUrl: "https://APPID.lafyun.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   dbProxyUrl: "/proxy/app",
-  getAccessToken: () => wx.getStorageSync('access_token'),
+  getAccessToken: () => wx.getStorageSync("access_token"),
   environment: "wxmp",
 });
 ```

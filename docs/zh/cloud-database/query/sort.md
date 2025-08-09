@@ -12,7 +12,7 @@ sort({ field: 1 })
 ## 升序查询
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -28,7 +28,7 @@ export default async function () {
 ## 降序查询
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

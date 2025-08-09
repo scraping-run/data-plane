@@ -1,4 +1,3 @@
-
 # Introduction
 
 ## 👀 What is `laf`
@@ -7,11 +6,9 @@
 
 ![dev](./ide.png)
 
-
 ## 🖥 Online experience
 
 🎉 [laf.dev](https://laf.dev) Free experience `laf` cloud development.
-
 
 ## 🎉 Features of `laf`
 
@@ -26,7 +23,7 @@
 
 1. Front-end developers + `laf` = Full-stack developers, transforming front-end developers into true full-stack developers.
 
-   - `laf` provides [laf-client-sdk](https://github.com/labring/laf/tree/main/packages/client-sdk) for front-end developers, suitable for any JavaScript runtime environment.
+   - `laf` provides [laf-client-sdk](https://github.com/scraping-run/laf/tree/main/packages/client-sdk) for front-end developers, suitable for any JavaScript runtime environment.
    - `laf` allows front-end and back-end code to be developed using JavaScript/TypeScript, eliminating the barrier between them and enabling a quick learning curve.
    - `laf` offers static website hosting, allowing direct deployment of front-end built web pages without the need for server configuration, nginx, domains, etc.
    - `laf` will provide SDKs for various client platforms (Flutter/Android/iOS, etc.) in the future, offering backend development services and a consistent development experience for all client developers.
@@ -55,7 +52,6 @@
 
 > life is short, you need laf:)
 
-
 ## 🏘️ Community Groups
 
 - [Discord](https://discord.gg/uWZqAwwdvy)
@@ -63,4 +59,4 @@
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=labring/laf&type=Date)](https://star-history.com/#labring/laf&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=scraping-run/laf&type=Date)](https://star-history.com/#scraping-run/laf&Date)

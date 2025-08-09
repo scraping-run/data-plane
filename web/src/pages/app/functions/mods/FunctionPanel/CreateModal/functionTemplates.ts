@@ -3,7 +3,7 @@ import { t } from "i18next";
 const functionTemplates = [
   {
     label: "hello laf",
-    value: `import cloud from '@lafjs/cloud'
+    value: `import cloud from '@scraping-run/cloud'
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')
   return { data: 'hi, laf' }
@@ -12,7 +12,7 @@ export default async function (ctx: FunctionContext) {
   },
   {
     label: t("database example"),
-    value: `import cloud from '@lafjs/cloud'
+    value: `import cloud from '@scraping-run/cloud'
 export default async function (ctx: FunctionContext) {
   const db = cloud.database()
   // insert data
@@ -26,7 +26,7 @@ export default async function (ctx: FunctionContext) {
   },
   {
     label: t("upload example"),
-    value: `import cloud from '@lafjs/cloud'
+    value: `import cloud from '@scraping-run/cloud'
 import { S3 } from "@aws-sdk/client-s3"
 export default async function (ctx: FunctionContext) {
   // Create your bucket first
@@ -56,7 +56,7 @@ export default async function (ctx: FunctionContext) {
   },
   {
     label: t("ChatGPT example"),
-    value: `import cloud from '@lafjs/cloud'
+    value: `import cloud from '@scraping-run/cloud'
 const apiKey = cloud.env.API_KEY
 export default async function (ctx: FunctionContext) {
   const { ChatGPTAPI } = await import('chatgpt')

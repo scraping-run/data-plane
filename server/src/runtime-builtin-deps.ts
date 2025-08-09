@@ -3,7 +3,7 @@ export const RUNTIME_BUILTIN_DEPENDENCIES = {
   '@aws-sdk/client-sts': '^3.231.0',
   '@aws-sdk/s3-request-presigner': '^3.231.0',
   '@kubernetes/client-node': '^0.18.0',
-  '@lafjs/cloud': '^1.0.0-beta.13',
+  '@scraping-run/cloud': '^1.0.0-beta.13',
   '@types/pako': '^2.0.2',
   axios: '^1.4.0',
   chalk: '^4.1.2',

@@ -13,7 +13,7 @@
 
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')
@@ -40,7 +40,7 @@ curl -X PUT -H "Content-Type: text/html" -d 'hi, laf' YOUR_UPLOAD_URL
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')

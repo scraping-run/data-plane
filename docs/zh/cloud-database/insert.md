@@ -26,7 +26,7 @@
 
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -64,7 +64,7 @@ export default async function () {
 执行成功后，该方法返回一个 `InsertManyResult` 实例，该实例表示新文档的 `_id`。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

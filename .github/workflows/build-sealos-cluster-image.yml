@@ -42,7 +42,7 @@ jobs:
 
       - name: Install sealos
         run: |
-          echo "deb [trusted=yes] https://apt.fury.io/labring/ /" | sudo tee /etc/apt/sources.list.d/labring.list
+          echo "deb [trusted=yes] https://apt.fury.io/scraping-run/ /" | sudo tee /etc/apt/sources.list.d/scraping-run.list
           sudo apt update
           sudo apt install sealos=4.1.4
           sudo sealos version
@@ -51,8 +51,8 @@ jobs:
         run: |
           sudo apt remove buildah -y || true
           arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
-          sudo echo "download buildah in https://github.com/labring/cluster-image/releases/download/depend/buildah.linux.${arch}"
-          sudo wget -qO "buildah" "https://github.com/labring/cluster-image/releases/download/depend/buildah.linux.${arch}"
+          sudo echo "download buildah in https://github.com/scraping-run/cluster-image/releases/download/depend/buildah.linux.${arch}"
+          sudo wget -qO "buildah" "https://github.com/scraping-run/cluster-image/releases/download/depend/buildah.linux.${arch}"
           sudo chmod a+x buildah
           sudo mv buildah /usr/bin
 
@@ -103,7 +103,7 @@ jobs:
           sudo buildah manifest push --all $IMAGE:$VERSION docker://$IMAGE:$VERSION
 
       - name: Renew issue and Sync Images
-        uses: labring/gh-rebot@v0.0.6
+        uses: scraping-run/gh-rebot@v0.0.6
         with:
           version: v0.0.8-rc1
         env:
@@ -113,7 +113,7 @@ jobs:
           SEALOS_ISSUE_BODYFILE: "build/README.md"
           SEALOS_ISSUE_LABEL: "dayly-report"
           SEALOS_ISSUE_TYPE: "day"
-          SEALOS_ISSUE_REPO: "labring-actions/cluster-image"
+          SEALOS_ISSUE_REPO: "scraping-run-actions/cluster-image"
           SEALOS_COMMENT_BODY: "/imagesync ghcr.io/${{ github.repository_owner }}/${{ env.image }}:${{ env.tag }}"
 
   # trigger-workflow-e2e:

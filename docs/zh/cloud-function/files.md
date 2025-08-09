@@ -67,7 +67,7 @@ export default async function (ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 import { createReadStream } from 'node:fs'
 
 export default async function (ctx: FunctionContext) {

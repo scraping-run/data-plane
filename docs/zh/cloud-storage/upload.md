@@ -9,7 +9,7 @@
 ## 上传文件
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -27,7 +27,7 @@ export default async function (ctx: FunctionContext) {
 在上面的示例中，文件类型默认为 `application/octet-stream`，如果需要指定文件类型，可以在 `writeFile` 方法中传入 `options.ContentType` 参数：
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -48,7 +48,7 @@ export default async function (ctx: FunctionContext) {
 ## 上传文件流
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 import { createReadStream } from 'node:fs'
 
 export default async function (ctx: FunctionContext) {
@@ -69,7 +69,7 @@ export default async function (ctx: FunctionContext) {
 ## 上传文件 Buffer
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 import { readFile } from 'node:fs/promises'
 
 export default async function (ctx: FunctionContext) {
