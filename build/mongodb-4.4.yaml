@@ -1,0 +1,230 @@
+---
+# MongoDB 4.4 for Oracle Cloud ARM64 (Oracle Linux 8)
+# MongoDB 5.0+ requires ARM LSE atomic instructions not available on some Oracle Cloud ARM instances
+# MongoDB Secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+  namespace: data-plane-system
+type: Opaque
+stringData:
+  mongodb-root-username: "root"
+  mongodb-root-password: "DataPlane2024!@#"  # 반드시 변경하세요!
+  mongodb-database: "data-plane"
+---
+# MongoDB PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+  namespace: data-plane-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: openebs-hostpath
+  resources:
+    requests:
+      storage: $CAPACITY
+---
+# MongoDB Deployment (StatefulSet보다 간단한 단일 인스턴스용)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: data-plane-system
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate  # PVC 사용 시 필수
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:4.4.29  # MongoDB 4.4 최신 패치 버전 (ARM64 지원)
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 27017
+          name: mongodb
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-password
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-database
+        volumeMounts:
+        - name: mongodb-data
+          mountPath: /data/db
+        resources:
+          limits:
+            cpu: "2000m"
+            memory: "6Gi"
+          requests:
+            cpu: "500m"
+            memory: "2Gi"
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - |
+              mongo --eval "db.adminCommand('ping')" || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - |
+              mongo --eval "db.adminCommand('ping')" || exit 1
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: mongodb-data
+        persistentVolumeClaim:
+          claimName: mongodb-pvc
+      # 단일 노드에서 실행 허용
+      tolerations:
+      - operator: Exists
+      # ARM64 아키텍처 확인
+      nodeSelector:
+        kubernetes.io/arch: arm64
+---
+# MongoDB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: data-plane-system
+  labels:
+    app: mongodb
+spec:
+  type: ClusterIP
+  ports:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+    name: mongodb
+  selector:
+    app: mongodb
+---
+# MongoDB NodePort Service (디버깅용, 선택사항)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-nodeport
+  namespace: data-plane-system
+  labels:
+    app: mongodb
+spec:
+  type: NodePort
+  ports:
+  - port: 27017
+    targetPort: 27017
+    nodePort: 30017
+    protocol: TCP
+    name: mongodb
+  selector:
+    app: mongodb
+---
+# MongoDB 초기화 ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-init-script
+  namespace: data-plane-system
+data:
+  init.js: |
+    // Switch to data-plane database
+    db = db.getSiblingDB('data-plane');
+    
+    // Create application user
+    db.createUser({
+      user: 'dataplane',
+      pwd: 'dataplane123',
+      roles: [
+        { role: 'readWrite', db: 'data-plane' }
+      ]
+    });
+    
+    // Create initial collections
+    db.createCollection('applications');
+    db.createCollection('functions');
+    db.createCollection('users');
+    
+    print('MongoDB initialization completed');
+---
+# MongoDB 초기화 Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-init
+  namespace: data-plane-system
+spec:
+  ttlSecondsAfterFinished: 300  # Job 완료 후 5분 후 자동 삭제
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: mongodb-init
+        image: mongo:4.4.29
+        command:
+        - bash
+        - -c
+        - |
+          echo "Waiting for MongoDB to be ready..."
+          until mongo --host mongodb.data-plane-system.svc.cluster.local --eval "print('MongoDB is ready')"; do
+            sleep 5
+          done
+          
+          echo "Initializing MongoDB..."
+          mongo --host mongodb.data-plane-system.svc.cluster.local \
+            -u "$MONGO_ROOT_USERNAME" \
+            -p "$MONGO_ROOT_PASSWORD" \
+            --authenticationDatabase admin \
+            /scripts/init.js
+          
+          echo "MongoDB initialization completed"
+        env:
+        - name: MONGO_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-username
+        - name: MONGO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-password
+        volumeMounts:
+        - name: init-script
+          mountPath: /scripts
+      volumes:
+      - name: init-script
+        configMap:
+          name: mongodb-init-script
+      tolerations:
+      - operator: Exists

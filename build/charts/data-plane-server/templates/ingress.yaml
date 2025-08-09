@@ -4,14 +4,15 @@ kind: Ingress
 metadata:
   name: data-plane-server-ingress
   annotations:
-    cert-manager.io/issuer: "data-plane-issuer"
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - {{ .Values.apiServerHost }}
-    secretName: api-tls
+    secretName: {{ .Values.default_region.tls.wildcard_certificate_secret_name | default "prod-scraping-run-wildcards-tls" }}
   rules:
   - host: {{ .Values.apiServerHost }}
     http:

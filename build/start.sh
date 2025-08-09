@@ -26,13 +26,15 @@ kubectl create namespace ${NAMESPACE} || true
 set -e
 set -x
 
-sed "s/\$CAPACITY/${DB_PV_SIZE:-5Gi}/g" mongodb.yaml | kubectl apply -n ${NAMESPACE} -f -
-kubectl wait --for=condition=Ready --timeout=120s cluster.apps.kubeblocks.io/mongodb -n ${NAMESPACE}
+sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-4.4.yaml | kubectl apply -n ${NAMESPACE} -f -
+kubectl wait --for=condition=available --timeout=120s deployment/mongodb -n ${NAMESPACE}
 
-DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-conn-credential -ojsonpath='{.data.username}' | base64 -d)
-DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-conn-credential -ojsonpath='{.data.password}' | base64 -d)
-DB_ENDPOINT=$(kubectl get secret -n ${NAMESPACE} mongodb-conn-credential -ojsonpath='{.data.headlessEndpoint}' | base64 -d)
-DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_ENDPOINT}/sys_db?authSource=admin&replicaSet=mongodb-mongodb&w=majority"
+# MongoDB 4.4 credentials from mongodb-secret
+DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-username}' | base64 -d)
+DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
+DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
+DB_ENDPOINT="mongodb.${NAMESPACE}.svc.cluster.local:27017"
+DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_ENDPOINT}/${DB_DATABASE}?authSource=admin"
 
 ## 2. install prometheus
 PROMETHEUS_URL=http://prometheus-operated.${NAMESPACE}.svc.cluster.local:9090
