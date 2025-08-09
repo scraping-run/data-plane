@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Monaco Editor와 기타 라이브러리 스타일 */
+.monaco-editor {
+  background: transparent !important;
+}
+
+/* Focus styles */
+.js-focus-visible :focus:not([data-focus-visible-added]) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Simplebar 스타일 */
+.simplebar-track {
+  background-color: transparent;
+}
+
+.simplebar-scrollbar:before {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Chakra UI와 호환되는 기본 스타일 */
+* {
+  box-sizing: border-box;
+}
+
+#__next {
+  min-height: 100vh;
+}
