@@ -432,12 +432,12 @@ export interface CreateWebsiteDto {
 export interface PasswdSignupDto {
   /**
    * username, 3-64 characters
-   * @example "data-planea-plane-user"
+   * @example "data-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "data-planea-plane-user-password"
+   * @example "data-plane-user-password"
    */
   password: string
   /**
@@ -465,12 +465,12 @@ export interface PasswdSignupDto {
 export interface PasswdSigninDto {
   /**
    * username
-   * @example "data-planea-plane-user"
+   * @example "data-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "data-planea-plane-user-password"
+   * @example "data-plane-user-password"
    */
   password: string
 }
@@ -478,7 +478,7 @@ export interface PasswdSigninDto {
 export interface PasswdResetDto {
   /**
    * new password, 8-64 characters
-   * @example "data-planea-plane-user-password"
+   * @example "data-plane-user-password"
    */
   password: string
   /**
@@ -501,7 +501,7 @@ export interface PasswdResetDto {
 export interface PasswdCheckDto {
   /**
    * username | phone | email
-   * @example "data-planea-plane-user | 1380571data-plane8 | dadata-planeplane-user@data-plane.com"
+   * @example "data-plane-user | 1380571data-plane8 | dadata-planeplane-user@data-plane.com"
    */
   username: string
 }
@@ -528,12 +528,12 @@ export interface PhoneSigninDto {
   code: string
   /**
    * username
-   * @example "data-planea-plane-user"
+   * @example "data-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "data-planea-plane-user-password"
+   * @example "data-plane-user-password"
    */
   password: string
   /**
@@ -629,7 +629,7 @@ export interface BindEmailDto {
 export interface BindUsernameDto {
   /**
    * username
-   * @example "data-planea-plane-user"
+   * @example "data-plane-user"
    */
   username: string
 }

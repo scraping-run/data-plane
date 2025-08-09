@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "data-planea-plane/docs"
+  "extends": "data-plane/docs"
 }

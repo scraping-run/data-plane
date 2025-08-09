@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "data-planea-plane/test"
+  "extends": "data-plane/test"
 }

@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "data-planea-plane/runtime"
+  "extends": "data-plane/runtime"
 }

@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "data-planea-plane/cli"
+  "extends": "data-plane/cli"
 }

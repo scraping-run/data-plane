@@ -1,4 +1,4 @@
 node_modules
 .app.yaml
 package-lock.json
-data-planea-plane.yaml
+data-plane.yaml

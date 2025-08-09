@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Intro: Start a VM by multipass with data-planea-plane deployment environment.
+# Intro: Start a VM by multipass with data-plane deployment environment.
 
 # [ Required ] Install multipass by before run this script (https://multipass.run/install): 
 #   MacOS:   brew install --cask multipass
@@ -9,9 +9,9 @@
 
 # Usage: ./vm_run.sh <vm_name> <kubeconfig_output>
 # - sh install-on-mac.sh
-# - sh install-on-mac.sh data-planea-plane-dev ~/.kube/config
+# - sh install-on-mac.sh data-plane-dev ~/.kube/config
 
-NAME="data-planea-plane-dev"
+NAME="data-plane-dev"
 # if set first param in command line
 if [ -n "$1" ]; then
     NAME="$1"
@@ -67,9 +67,9 @@ while ! multipass list | grep -e "^$NAME " | grep -e "Running"; do
     sleep 1
 done
 
-# mount data-planea-plane project root to vm
-echo "Mounting project to vm: $PROJECT_ROOT -> $NAME:/data-planea-plane/"
-multipass mount $PROJECT_ROOT $NAME:/data-planea-plane/
+# mount data-plane project root to vm
+echo "Mounting project to vm: $PROJECT_ROOT -> $NAME:/data-plane/"
+multipass mount $PROJECT_ROOT $NAME:/data-plane/
 
 # shellcheck disable=SC2139
 alias vm_root_exec="multipass exec $NAME -- sudo -u root"
@@ -78,7 +78,7 @@ vm_ip=$(multipass info "$NAME" | grep IPv4: | awk '{print $2}')
 # install k8s cluster
 echo "Installing k8s cluster"
 DOMAIN="$vm_ip.nip.io"
-vm_root_exec sh /data-planea-plane/deploy/install-on-linux.sh $DOMAIN
+vm_root_exec sh /data-plane/deploy/install-on-linux.sh $DOMAIN
 
 # waiting for k8s cluster to be ready
 i=0
