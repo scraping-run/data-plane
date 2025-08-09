@@ -1,11 +1,11 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: laf-issuer
+  name: data-plane-issuer
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: laf-deploy@{{ .Values.default_region.runtime_domain }}
+    email: data-plane-deploy@{{ .Values.default_region.runtime_domain }}
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:

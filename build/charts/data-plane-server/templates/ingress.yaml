@@ -2,16 +2,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: laf-server-ingress
+  name: data-plane-server-ingress
+  annotations:
+    cert-manager.io/issuer: "data-plane-issuer"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.apiServerHost }}
+    secretName: api-tls
   rules:
   - host: {{ .Values.apiServerHost }}
     http:
       paths:
       - backend:
           service:
-            name: laf-server
+            name: data-plane-server
             port:
               number: 3000
         path: /
