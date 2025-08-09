@@ -1,4 +1,4 @@
-import { CloudSdkInterface, Cloud } from '@lafjs/cloud'
+import { CloudSdkInterface, Cloud } from '@scraping-run/cloud'
 import { getDb } from 'database-proxy'
 import { DatabaseAgent } from '../db'
 import { getToken, parseToken } from './token'

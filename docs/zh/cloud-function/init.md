@@ -20,7 +20,7 @@
 下面的代码展示在应用启动时初始化一个管理员：
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const db = cloud.mongo.db

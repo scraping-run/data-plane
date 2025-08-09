@@ -23,7 +23,7 @@ Node.js 驱动程序提供了以下方法来查找文档：
 `findOne()` 方法返回集合中第一个匹配查询条件的文档。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -56,7 +56,7 @@ export default async function () {
 `find()` 方法返回集合中所有匹配查询条件的文档。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -96,7 +96,7 @@ export default async function () {
 ## 查询文档数量
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

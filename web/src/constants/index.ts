@@ -69,7 +69,7 @@ export const Routes = {
 };
 
 export const site_url = {
-  laf_github: "https://github.com/labring/laf",
+  laf_github: "https://github.com/scraping-run/laf",
   laf_index_video: "https://itceb8-video.oss.laf.run/laf-website.mp4",
 };
 
@@ -80,7 +80,7 @@ export const COLOR_MODE = {
   dark: "dark",
 };
 
-export const DEFAULT_CODE = `import cloud from '@lafjs/cloud'
+export const DEFAULT_CODE = `import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')

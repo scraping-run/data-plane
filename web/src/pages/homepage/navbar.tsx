@@ -8,7 +8,6 @@ import clsx from "clsx";
 import { GithubIcon, MenuIcon } from "@/components/CommonIcon";
 import { COLOR_MODE, Routes, site_url } from "@/constants";
 
-import LanguageSwitch from "../../components/LanguageSwitch";
 import useSiteSettingStore from "../siteSetting";
 
 const Navbar = () => {
@@ -51,7 +50,7 @@ const Navbar = () => {
   useEffect(() => {
     (async () => {
       const axiosRes = await axios.get(
-        "https://img.shields.io/github/stars/labring/laf?style=plastic",
+        "https://img.shields.io/github/stars/scraping-run/laf?style=plastic",
       );
       const str = axiosRes.data;
       const reg = /(\d+(\.\d+)?)(k)/;
@@ -141,9 +140,6 @@ const Navbar = () => {
                 {stars}
               </a>
             ) : null}
-            <div className="hover:opacity-75">
-              <LanguageSwitch className="text-xl !font-normal" size="24px" color="#1A202C" />
-            </div>
             <div>
               <Link
                 to={Routes.dashboard}
@@ -237,14 +233,6 @@ const Navbar = () => {
                   {stars}
                 </a>
               ) : null}
-
-              <div
-                className={
-                  darkMode ? "flex px-4 py-2 hover:bg-gray-900" : "flex px-4 py-2 hover:bg-gray-100"
-                }
-              >
-                <LanguageSwitch className="text-[24px]" />
-              </div>
             </div>
           </ul>
         </div>

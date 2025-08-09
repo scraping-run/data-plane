@@ -55,7 +55,7 @@ export default async function (ctx: FunctionContext) {
 ## 访问数据库
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function (ctx: FunctionContext) {

@@ -12,7 +12,7 @@
 如果您想从集合中删除现有文档，可以使用 `deleteOne()` 删除一个文档，该方法接受一个查询条件，匹配您想要删除的文档。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -44,7 +44,7 @@ export default async function () {
 如果您想从集合中删除多个文档，可以使用 `deleteMany()` 删除多个文档，该方法接受一个查询条件，匹配您想要删除的文档。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

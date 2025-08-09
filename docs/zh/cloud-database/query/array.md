@@ -28,7 +28,7 @@
 下面的示例查询所有喜欢打乒乓球的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -66,7 +66,7 @@ export default async function () {
 下面的示例查询服役年份大于等于 2011 年的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

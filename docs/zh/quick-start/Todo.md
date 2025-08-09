@@ -23,14 +23,14 @@ title: 快速开始
 然后在`get-list`云函数中写上以下代码，写完以后记得在右上角找到`发布`两个字，点一下发布。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from "@scraping-run/cloud";
 
-const db = cloud.database()
+const db = cloud.database();
 export async function main(ctx: FunctionContext) {
   // 从 list 集合中查询数据
-  const res = await db.collection('list').get()
+  const res = await db.collection("list").get();
   // 返回给前端
-  return res
+  return res;
 }
 ```
 
@@ -39,51 +39,48 @@ export async function main(ctx: FunctionContext) {
 `add-todo`
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from "@scraping-run/cloud";
 
-const db = cloud.database()
+const db = cloud.database();
 export async function main(ctx: FunctionContext) {
   // ctx.body 是前端传入的参数
-  const data = ctx.body
-  const res = await db.collection('list').add(data)
+  const data = ctx.body;
+  const res = await db.collection("list").add(data);
 
-  return res
+  return res;
 }
 ```
 
 `del-todo`
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from "@scraping-run/cloud";
 
-const db = cloud.database()
+const db = cloud.database();
 export async function main(ctx: FunctionContext) {
-
-  const { id } = ctx.body
+  const { id } = ctx.body;
   // 根据 id 删除数据
-  const res = db.collection("list").where({ _id: id }).remove()
+  const res = db.collection("list").where({ _id: id }).remove();
 
-  return res
+  return res;
 }
 ```
 
 `update-todo`
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from "@scraping-run/cloud";
 
-const db = cloud.database()
+const db = cloud.database();
 export async function main(ctx: FunctionContext) {
-
-  const { id, data } = ctx.body
+  const { id, data } = ctx.body;
   // _id 是唯一主键，不能修改，所以我们这里删掉
-  delete data._id
+  delete data._id;
   // 根据 id 来修改数据
-  const res = await db.collection('list').where({ _id: id }).update(data)
+  const res = await db.collection("list").where({ _id: id }).update(data);
 
-  return res
+  return res;
 }
-
 ```
 
 :::tip
@@ -100,13 +97,13 @@ export async function main(ctx: FunctionContext) {
 
 前端这里我们用的是 Vue 项目来演示，React/Angular/小程序，操作都是相同的。
 
-你也可以使用我们提供的[前端模板](https://github.com/labring/laf-examples/tree/main/laf-todo-demo)。
+你也可以使用我们提供的[前端模板](https://github.com/scraping-run/laf-examples/tree/main/laf-todo-demo)。
 
 首先需要在前端项目中安装 `laf-client-sdk`。
 
 ```shell
 npm install laf-client-sdk
-```  
+```
 
 这里我们需要用到`<APPID>`，可以在控制台找到。
 
@@ -120,7 +117,7 @@ import { Cloud } from "laf-client-sdk"; // 引入
 // 创建 cloud 对象
 const cloud = new Cloud({
   baseUrl: "https://<AppID>.laf.run", // 这里的 <AppID> 需要换成自己的 AppID
-  getAccessToken: () => '', // 这里先为空
+  getAccessToken: () => "", // 这里先为空
 });
 ```
 
@@ -147,7 +144,6 @@ async function submit() {
   getList();
 }
 
-
 async function complete(index, id) {
   list.value[index].complete = !list.value[index].complete;
   // 调用 update-todo 传入参数
@@ -156,7 +152,6 @@ async function complete(index, id) {
     data: list.value[index],
   });
 }
-
 
 async function del(id) {
   // 调用 del-todo 传入参数

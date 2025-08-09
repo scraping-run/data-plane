@@ -81,7 +81,11 @@ const Footer = (props: Props) => {
                     </a>
                   </li>
                   <li>
-                    <a href="https://github.com/labring/sealos" target="_blank" rel="noreferrer">
+                    <a
+                      href="https://github.com/scraping-run/sealos"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       {t("HomePage.Footer.item1_2")}
                     </a>
                   </li>
@@ -269,7 +273,7 @@ const Footer = (props: Props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/labring/sealos" target="_blank" rel="noreferrer">
+                  <a href="https://github.com/scraping-run/sealos" target="_blank" rel="noreferrer">
                     {t("HomePage.Footer.item1_2")}
                   </a>
                 </li>

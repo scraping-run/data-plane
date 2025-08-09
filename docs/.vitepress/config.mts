@@ -25,10 +25,10 @@ export default defineConfig({
         logo: "/logo.png",
         footer: {
           message: "Apache License V2.0",
-          copyright: "Copyright © 2021-2024 labring/laf",
+          copyright: "Copyright © 2021-2024 scraping-run/laf",
         },
         editLink: {
-          pattern: "https://github.com/labring/laf/edit/main/docs/:path",
+          pattern: "https://github.com/scraping-run/laf/edit/main/docs/:path",
           text: "我修改这一页",
         },
         lastUpdated: {
@@ -39,7 +39,7 @@ export default defineConfig({
           next: '下一篇'
         },
         socialLinks: [
-          { icon: "github", link: "https://github.com/labring/laf" },
+          { icon: "github", link: "https://github.com/scraping-run/laf" },
           { icon: "discord", link: "https://discord.gg/KaxHF86CcF" },
           { icon: "twitter", link: "https://twitter.com/laf_dev" },
         ],
@@ -63,14 +63,14 @@ export default defineConfig({
         logo: "/logo.png",
         footer: {
           message: "Apache License V2.0",
-          copyright: "Copyright © 2021-2024 labring/laf",
+          copyright: "Copyright © 2021-2024 scraping-run/laf",
         },
         editLink: {
-          pattern: "https://github.com/labring/laf/edit/main/docs/:path",
+          pattern: "https://github.com/scraping-run/laf/edit/main/docs/:path",
           text: "Edit this page on GitHub",
         },
         socialLinks: [
-          { icon: "github", link: "https://github.com/labring/laf" },
+          { icon: "github", link: "https://github.com/scraping-run/laf" },
           { icon: "discord", link: "https://discord.gg/KaxHF86CcF" },
           { icon: "twitter", link: "https://twitter.com/laf_dev" },
         ],

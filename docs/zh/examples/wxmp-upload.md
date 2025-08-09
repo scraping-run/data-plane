@@ -9,7 +9,7 @@
 ## 接受上传文件的云函数
 
 ```typescript
-import cloud from "@lafjs/cloud"
+import cloud from "@scraping-run/cloud"
 import { readFile } from 'fs/promises'
 
 export default async function (ctx: FunctionContext) {

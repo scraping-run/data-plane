@@ -10,14 +10,14 @@
 ## 获取数据库实例
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 ```
 
 ## 插入文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -44,7 +44,7 @@ export default async function () {
 ## 查询文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -72,7 +72,7 @@ export default async function () {
 ## 更新文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -103,7 +103,7 @@ export default async function () {
 ## 删除文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

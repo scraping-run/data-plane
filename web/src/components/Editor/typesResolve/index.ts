@@ -101,7 +101,7 @@ export class AutoImportTypings {
   loadDefaults(monaco: any) {
     this.addExtraLib({ path: "globals.d.ts", content: globalDeclare, monaco });
     [
-      "@lafjs/cloud",
+      "@scraping-run/cloud",
       "globals",
       "database-proxy",
       "database-ql",

@@ -8,10 +8,10 @@ COPY start.sh ./start.sh
 COPY prometheus-helm.yaml ./prometheus-helm.yaml
 COPY mongodb.yaml ./mongodb.yaml
 
-ENV DOMAIN=127.0.0.1.nip.io
-ENV NAMESPACE=laf-system
+ENV DOMAIN=prod.scraping.run
+ENV NAMESPACE=data-plane-system
 ENV REGION=default
-ENV EXTERNAL_HTTP_SCHEMA=http
+ENV EXTERNAL_HTTP_SCHEMA=https
 ENV INTERNAL_HTTP_SCHEMA=http
 ENV ENABLE_MONITOR=true
 

@@ -4,7 +4,7 @@ title: 访问策略
 
 # 访问策略
 
-前端可使用 [laf-client-sdk](https://github.com/labring/laf/tree/main/packages/client-sdk) “直连”数据库，无需与服务端对接口。
+前端可使用 [laf-client-sdk](https://github.com/scraping-run/laf/tree/main/packages/client-sdk) “直连”数据库，无需与服务端对接口。
 
 访问策略用来对客户端对数据库的操作进行安全控制，一个访问策略由多个集合的访问规则组成，每个集合可配置读写操作权限的访问规则。
 
@@ -28,7 +28,7 @@ title: 访问策略
 ![add-polocy](../../doc-images/add-polocy.png)
 
 做完这两步之后，我们就成功的创建了一个访问策略，并且把策略放在了 user 集合上。
-这里我们解释一下规则内容：  
+这里我们解释一下规则内容：
 
 ```js
 {
@@ -51,7 +51,7 @@ title: 访问策略
 
 我们来到前端项目，这里使用 Vue 项目来演示，其他项目同理。
 
-### 首先安装 SDK  
+### 首先安装 SDK
 
 ```bash
 npm i laf-client-sdk
@@ -65,10 +65,10 @@ npm i laf-client-sdk
 import { Cloud } from "laf-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https:/<APP_ID>.laf.run",   // <APP_ID> 在首页应用列表获取
-  getAccessToken: () => "",    // 这里不需要授权，先填空
+  baseUrl: "https:/<APP_ID>.laf.run", // <APP_ID> 在首页应用列表获取
+  getAccessToken: () => "", // 这里不需要授权，先填空
   dbProxyUrl: "/proxy/app", // 这里就填写我们刚刚强调的“入口地址”
-})
+});
 ```
 
 创建完 cloud 对像之后我们尝试一下在前端直接发起查询。
@@ -77,19 +77,19 @@ const cloud = new Cloud({
 async function get() {
   const res = await cloud.database().collection("user").get();
   console.log(res);
-//   {
-//   "data": [
-//       {
-//           "_id": "641d22292de2b789c963e5fd",
-//           "name": "jack"
-//       },
-//       {
-//           "_id": "641e87d52c9ce609db4d6047",
-//           "name": "rose"
-//       }
-//   ],
-//   "ok": true
-// }
+  //   {
+  //   "data": [
+  //       {
+  //           "_id": "641d22292de2b789c963e5fd",
+  //           "name": "jack"
+  //       },
+  //       {
+  //           "_id": "641e87d52c9ce609db4d6047",
+  //           "name": "rose"
+  //       }
+  //   ],
+  //   "ok": true
+  // }
 }
 ```
 
@@ -187,14 +187,12 @@ async function get() {
 ### 简单示例 2：多用户博客
 
 ```json
-
 {
   "read": true,
   "update": "uid === query.author_id",
   "add": "uid === query.author_id",
   "remove": "uid === query.author_id"
 }
-
 ```
 
 ### 复杂示例 1：数据验证

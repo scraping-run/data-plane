@@ -8,7 +8,7 @@
 ## 获取文件列表
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -43,7 +43,7 @@ export default async function (ctx: FunctionContext) {
 ## 只获取当前目录下的文件列表
   
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -65,7 +65,7 @@ export default async function (ctx: FunctionContext) {
 
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -85,7 +85,7 @@ export default async function (ctx: FunctionContext) {
 ## 获取指定数量的文件列表
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -104,7 +104,7 @@ export default async function (ctx: FunctionContext) {
 ## 分页获取文件列表
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const marker = ctx.query.marker
