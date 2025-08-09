@@ -14,7 +14,8 @@
       "Bash(npm run build:*)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

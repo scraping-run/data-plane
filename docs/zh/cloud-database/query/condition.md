@@ -32,7 +32,7 @@
 你可以使用多个查询操作符来组合查询条件。例如，以下查询条件将匹配年龄大于 40 且小于 50 的用户：
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -53,7 +53,7 @@ export default async function () {
 以下示例将匹配年龄为 12、24 或 36 的用户：
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -84,7 +84,7 @@ export default async function () {
 
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

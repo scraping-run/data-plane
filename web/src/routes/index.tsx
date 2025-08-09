@@ -4,6 +4,7 @@ import { wrapUseRoutes } from "@sentry/react";
 
 import AuthLayout from "@/layouts/Auth";
 import BasicLayout from "@/layouts/Basic";
+import EmbedLayout from "@/layouts/Embed";
 import FunctionLayout from "@/layouts/Function";
 import TemplateLayout from "@/layouts/Template";
 import useSiteSettingStore, { SiteSettings } from "@/pages/siteSetting";
@@ -61,6 +62,17 @@ const routes = [
           {
             path: "/app/:appid/:pageId/:id?/*",
             element: () => import("@/pages/app/index"),
+          },
+        ],
+      },
+      {
+        path: "/embed",
+        element: <EmbedLayout />,
+        auth: true,
+        children: [
+          {
+            path: "/embed/app/:appid/:pageId/:id?/*",
+            element: () => import("@/pages/embed/index"),
           },
         ],
       },

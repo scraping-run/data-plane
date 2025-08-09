@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   return {
     server: {
-      port: 3001,
+      port: 3002,
       host: "0.0.0.0",
       proxy: {
         "/v1": {

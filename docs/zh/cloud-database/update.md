@@ -24,7 +24,7 @@ Node.js 驱动程序提供了以下方法来更改文档：
 ## 更新单个文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -59,7 +59,7 @@ export default async function () {
 ## 更新多条文档
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -96,7 +96,7 @@ export default async function () {
 `replaceOne()` 方法替换集合中的单个文档。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

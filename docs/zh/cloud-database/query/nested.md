@@ -33,7 +33,7 @@
 下面的示例使用 `.` 表示法查询所有居住在北京的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -68,7 +68,7 @@ export default async function () {
 以下示例将查询居住在北京或上海的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

@@ -1,3 +1,4 @@
+DOMAIN=${DOMAIN:-prod.scraping.run}
 echo "DOMAIN: $DOMAIN"
 
 # check $DOMAIN is available
@@ -81,7 +82,7 @@ helm install server -n ${NAMESPACE} \
     --set default_region.minio_root_secret_key=${MINIO_ROOT_SECRET_KEY} \
     --set default_region.runtime_domain=${DOMAIN} \
     --set default_region.website_domain=${DOMAIN} \
-    --set default_region.tls.enabled=false \
+    --set default_region.tls.enabled=true \
     $([ "$ENABLE_MONITOR" = "true" ] && echo "--set default_region.runtime_exporter_secret=${RUNTIME_EXPORTER_SECRET}") \
     $([ "$ENABLE_MONITOR" = "true" ] && echo "--set default_region.prometheus_url=${PROMETHEUS_URL}") \
     ./charts/data-plane-server

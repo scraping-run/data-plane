@@ -4,7 +4,6 @@ import clsx from "clsx";
 
 import ColorModeSwitch from "@/components/ColorModeSwitch";
 import { TextIcon } from "@/components/CommonIcon";
-import LanguageSwitch from "@/components/LanguageSwitch";
 import Panel from "@/components/Panel";
 
 import Icons from "../SideBar/Icons";
@@ -26,10 +25,6 @@ function StatusBar() {
   return (
     <Panel className="!mt-1 !flex-row justify-between">
       <HStack spacing={2}>
-        <LanguageSwitch
-          className={clsx("!-space-x-1 !text-[12px]", darkMode ? "" : "!text-grayModern-700")}
-          size="14px"
-        />
         <ColorModeSwitch
           className={clsx("pr-2", darkMode ? "" : "!text-grayModern-700")}
           fontSize={13}

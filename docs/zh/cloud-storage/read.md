@@ -8,7 +8,7 @@
 ## 读文件
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶
@@ -27,7 +27,7 @@ export default async function (ctx: FunctionContext) {
 ## 读文件为 Buffer
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 获取存储桶

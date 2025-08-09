@@ -24,7 +24,7 @@
 点击 `register` 函数，进入 WebIDE，编写以下代码：
 
 ```typescript
-import cloud from "@lafjs/cloud";
+import cloud from "@scraping-run/cloud";
 import { createHash } from "crypto";
 
 const db = cloud.mongo.db
@@ -65,7 +65,7 @@ export default async function (ctx: FunctionContext) {
 同上，创建 `login` 云函数，编写以下代码：
 
 ```typescript
-import cloud from "@lafjs/cloud";
+import cloud from "@scraping-run/cloud";
 import { createHash } from "crypto";
 
 const db = cloud.mongo.db

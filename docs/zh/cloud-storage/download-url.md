@@ -17,7 +17,7 @@
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')
@@ -37,7 +37,7 @@ export default async function (ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')
@@ -63,7 +63,7 @@ curl -X GET YOUR_DOWNLOAD_URL
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')

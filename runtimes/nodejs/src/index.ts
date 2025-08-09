@@ -33,7 +33,7 @@ require('source-map-support').install({
   retrieveFile: (path) => FunctionCache.get(path)?.source.compiled,
 })
 
-// hack: set createCloudSdk to global object to make it available in @lafjs/cloud package
+// hack: set createCloudSdk to global object to make it available in @scraping-run/cloud package
 globalThis.createCloudSdk = createCloudSdk
 
 const app = express()

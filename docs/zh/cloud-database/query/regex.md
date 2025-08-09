@@ -12,7 +12,7 @@
 下面的示例使用正则表达式查询所有名字中包含`王`的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -48,7 +48,7 @@ export default async function () {
 下面的示例使用正则表达式查询所有姓`王`或`陈`的用户，即首字为`王`或`陈`的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {
@@ -85,7 +85,7 @@ export default async function () {
 下面的示例使用 `$regex` 和 `$not` 操作符查询所有**不姓**`王`的用户。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export default async function () {

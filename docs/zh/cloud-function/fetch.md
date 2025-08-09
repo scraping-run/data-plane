@@ -39,7 +39,7 @@ export default async function (ctx: FunctionContext) {
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 下载图片

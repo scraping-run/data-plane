@@ -21,7 +21,7 @@ export class FunctionModule {
 
   static require(moduleName: string, fromModule: string[], filename = ''): any {
     if (moduleName === '@/cloud-sdk') {
-      return require('@lafjs/cloud')
+      return require('@scraping-run/cloud')
     } else if (
       moduleName.startsWith('@/') ||
       moduleName.startsWith('./') ||

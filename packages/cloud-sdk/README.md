@@ -1,10 +1,10 @@
 
 
 
-> @lafjs/cloud is used in cloud function, exposing resource objects to cloud function.
+> @scraping-run/cloud is used in cloud function, exposing resource objects to cloud function.
 
 ```ts
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 
 exports.main = async function (ctx) {
 

@@ -19,7 +19,7 @@ scraping.run 云数据库支持传入不同的条件来查询数据，并且对�
 :::
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 // 获取数据库引用
 const db = cloud.database()
 
@@ -47,7 +47,7 @@ export async function main(ctx: FunctionContext) {
 如果我们查询的数据只有一条，我们也可以使用 getOne 方法，它和 get 方法不同的是它只能获取一条数据，并且 data 的格式为对象。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 // 获取数据库引用
 const db = cloud.database()
 
@@ -400,7 +400,7 @@ await db.collection("user").skip(4).get()
 `skip()` 和 `limit()` 组合可做分页查询，这里不能用 `getOne()`
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database()
 
 export async function main(ctx: FunctionContext) {
@@ -420,7 +420,7 @@ export async function main(ctx: FunctionContext) {
 如果是对象或数组中的某个字段进行查询
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database()
 
 export async function main(ctx: FunctionContext) {
@@ -464,7 +464,7 @@ export async function main(ctx: FunctionContext) {
 ```
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database()
 
 export async function main(ctx: FunctionContext) {
@@ -477,7 +477,7 @@ export async function main(ctx: FunctionContext) {
 ```
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database()
 
 export async function main(ctx: FunctionContext) {

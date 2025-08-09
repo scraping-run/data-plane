@@ -52,7 +52,7 @@ const AddFunctionModal = (props: {
         description: "",
       };
 
-  const defaultCode = `import cloud from '@lafjs/cloud'
+  const defaultCode = `import cloud from '@scraping-run/cloud'
 
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')

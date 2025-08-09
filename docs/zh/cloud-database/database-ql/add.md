@@ -19,7 +19,7 @@ scraping.run 云函数库中，新增数据非常简单，正规说法为插入�
 下例向 user 集合中添加了一条记录。
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.database()
 
 export default async function (ctx: FunctionContext) {
@@ -46,7 +46,7 @@ console.log(res)
 ## mongodb 原生写法
 
 ```typescript
-import cloud from '@lafjs/cloud'
+import cloud from '@scraping-run/cloud'
 const db = cloud.mongo.db
 
 export async function main(ctx: FunctionContext) {
