@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 export class ImportDatabaseDto {
-  @ApiProperty({ type: 'binary', format: 'binary' })
+  @ApiProperty({ type: 'string', format: 'binary' })
   file: any
 
   @ApiProperty({ type: 'string', description: 'source appid' })

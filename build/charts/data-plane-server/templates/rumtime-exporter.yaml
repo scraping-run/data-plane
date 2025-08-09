@@ -20,7 +20,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - image: docker.io/lafyun/runtime-exporter:latest
+        - image: docker.io/junsik/runtime-exporter:latest
           imagePullPolicy: Always
           name: runtime-exporter
           ports:

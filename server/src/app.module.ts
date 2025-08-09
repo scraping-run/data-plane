@@ -37,10 +37,10 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    ThrottlerModule.forRoot({
-      ttl: 60,
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
       limit: 10,
-    }),
+    }]),
     FunctionModule,
     WebsiteModule,
     HttpModule,

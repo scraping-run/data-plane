@@ -1,51 +1,23 @@
-# Default values for laf-server.
+# Default values for data-plane-web.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-apiServerHost: ""
-databaseUrl: ""
-apiServerUrl: ""
-siteName: "laf"
-# init default region conf
-default_region:
-  fixed_namespace: ""
-  # db conf
-  database_url: ""
-  # minio conf
-  minio_domain: ""
-  minio_external_endpoint: ""
-  minio_internal_endpoint: ""
-  minio_root_access_key: ""
-  minio_root_secret_key: ""
-  # gateway conf
-  tls:
-    enabled: false
-    wildcard_certificate_secret_name: ""
-  runtime_domain: ""
-  website_domain: ""
-  # runtime-exporter
-  runtime_exporter_secret: ""
-  # prometheus
-  prometheus_url: ""
-jwt:
-  secret: laf_server_abc123
-  expires_in: 7d
-
+domain: ""
 replicaCount: 1
 
 image:
-  repository: docker.io/lafyun/laf-server
+  repository: docker.io/junsik/data-plane-web
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "laf-server"
+fullnameOverride: "data-plane-web"
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -54,12 +26,10 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -69,13 +39,12 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 80
 
 ingress:
   enabled: false
   className: ""
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -88,8 +57,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following

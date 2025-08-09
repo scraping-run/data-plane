@@ -1,6 +1,6 @@
 module.exports = [
   {
-    swaggerPath: "http://api.maslow-dev.lafyun.com/-json",
+    swaggerPath: "http://api.maslow-dev.junsik.com/-json",
     typingFileName: "api-auto.d.ts",
 
     outDir: "src/apis/v1",

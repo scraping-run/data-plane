@@ -11,7 +11,7 @@ fi
 ## envs - global
 EXTERNAL_HTTP_SCHEMA=${EXTERNAL_HTTP_SCHEMA:-https}
 
-NAMESPACE=${NAMESPACE:-laf-system}
+NAMESPACE=${NAMESPACE:-data-plane-system}
 PASSWD_OR_SECRET=$(tr -cd 'a-z0-9' </dev/urandom | head -c32)
 
 ENABLE_MONITOR=${ENABLE_MONITOR:-true}
@@ -63,7 +63,7 @@ helm install minio -n ${NAMESPACE} \
     --set metrics.serviceMonitor.additionalLabels.namespace=${NAMESPACE} \
     ./charts/minio
 
-## 4. install laf-server
+## 4. install data-plane-server
 SERVER_JWT_SECRET=$PASSWD_OR_SECRET
 RUNTIME_EXPORTER_SECRET=$PASSWD_OR_SECRET
 helm install server -n ${NAMESPACE} \
@@ -84,9 +84,9 @@ helm install server -n ${NAMESPACE} \
     --set default_region.tls.enabled=false \
     $([ "$ENABLE_MONITOR" = "true" ] && echo "--set default_region.runtime_exporter_secret=${RUNTIME_EXPORTER_SECRET}") \
     $([ "$ENABLE_MONITOR" = "true" ] && echo "--set default_region.prometheus_url=${PROMETHEUS_URL}") \
-    ./charts/laf-server
+    ./charts/data-plane-server
 
-## 5. install laf-web
+## 5. install data-plane-web
 helm install web -n ${NAMESPACE} \
     --set domain=${DOMAIN} \
-    ./charts/laf-web
+    ./charts/data-plane-web

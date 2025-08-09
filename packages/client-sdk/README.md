@@ -15,7 +15,7 @@ import { Cloud } from "laf-client-sdk";
 
 const cloud = new Cloud({
   // the laf app server base url
-  baseUrl: "https://APPID.lafyun.com",
+  baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => localStorage.getItem("access_token"),
@@ -65,7 +65,7 @@ const removed = await db.collection("articles").doc("the-doc-id").remove();
 ```js
 const cloud = new Cloud({
   // the laf app server base url
-  baseUrl: "https://APPID.lafyun.com",
+  baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => wx.getStorageSync('access_token'),
@@ -78,7 +78,7 @@ const cloud = new Cloud({
 ```js
 const cloud = new Cloud({
   // the laf app server base url
-  baseUrl: "https://APPID.lafyun.com",
+  baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   getAccessToken: () => localStorage.getItem("access_token"),
   environment: "uniapp",

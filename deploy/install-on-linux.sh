@@ -59,7 +59,7 @@ sealos pull labring/helm:v3.8.2
 sealos pull labring/openebs:v1.9.0
 sealos pull labring/cert-manager:v1.8.0
 sealos pull labring/metrics-server:v0.6.2
-sealos pull lafyun/laf:latest
+sealos pull junsik/laf:latest
 sealos pull docker.io/labring/ingress-nginx:v1.8.1
 sealos pull labring/kubeblocks:v0.7.1
 
@@ -80,4 +80,4 @@ sealos run docker.io/labring/ingress-nginx:v1.8.1 \
 sealos run labring/kubeblocks:v0.7.1
 
 
-sealos run --env DOMAIN=$DOMAIN --env DB_PV_SIZE=5Gi --env OSS_PV_SIZE=5Gi --env EXTERNAL_HTTP_SCHEMA=http lafyun/laf:latest
+sealos run --env DOMAIN=$DOMAIN --env DB_PV_SIZE=5Gi --env OSS_PV_SIZE=5Gi --env EXTERNAL_HTTP_SCHEMA=http junsik/laf:latest

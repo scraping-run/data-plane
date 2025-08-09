@@ -111,11 +111,11 @@ export class ServerConfig {
   static get DEFAULT_RUNTIME_IMAGE() {
     const image =
       process.env.DEFAULT_RUNTIME_IMAGE ||
-      'docker.io/lafyun/runtime-node:latest'
+      'docker.io/junsik/runtime-node:latest'
 
     const initImage =
       process.env.DEFAULT_RUNTIME_INIT_IMAGE ||
-      'docker.io/lafyun/runtime-node-init:latest'
+      'docker.io/junsik/runtime-node-init:latest'
     return {
       image: {
         main: image,

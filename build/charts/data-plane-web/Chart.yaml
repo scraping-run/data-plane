@@ -1,6 +1,6 @@
 apiVersion: v2
-name: laf-web
-description: A Helm chart for Kubernetes
+name: data-plane-web
+description: A Helm chart for Data Plane Web
 
 # A chart can be either an 'application' or a 'library' chart.
 #

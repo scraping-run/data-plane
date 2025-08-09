@@ -24,7 +24,11 @@ export class UserQuota {
 
   @ApiProperty({
     description: 'Limits of database synchronization count and time period.',
-    type: { countLimit: Number, timePeriodInSeconds: Number },
+    type: 'object',
+    properties: {
+      countLimit: { type: 'number' },
+      timePeriodInSeconds: { type: 'number' }
+    }
   })
   limitOfDatabaseSyncCount: LimitOfDatabaseSyncCount
 

@@ -15,7 +15,7 @@ type GetAccessTokenFuncType = () => string
 
 export interface CloudOptions {
   /**
-   * `laf` 应用服务的地址，如： "https://APPID.lafyun.com"
+   * `laf` 应用服务的地址，如： "https://APPID.junsik.com"
    * @tip 后面 `不要` 以 `/` 结尾
    */
   baseUrl?: string

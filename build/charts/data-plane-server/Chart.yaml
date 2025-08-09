@@ -1,6 +1,6 @@
 apiVersion: v2
-name: laf-server
-description: A Helm chart for Kubernetes
+name: data-plane-server
+description: A Helm chart for Data Plane Server
 
 # A chart can be either an 'application' or a 'library' chart.
 #

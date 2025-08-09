@@ -2,4 +2,4 @@
 
 
 
-docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/lafyun/laf-server:debug-202306151521 -f Dockerfile .
+docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/data-plane-server:latest -f Dockerfile .

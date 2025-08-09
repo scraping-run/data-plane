@@ -65,10 +65,10 @@ export class FunctionRecycleBinItemsDto {
   @ApiPropertyOptional()
   params?: any
 
-  @ApiProperty({ type: 'date' })
+  @ApiProperty({ type: Date })
   createdAt: Date
 
-  @ApiProperty({ type: 'date' })
+  @ApiProperty({ type: Date })
   updatedAt: Date
 
   @ApiProperty()

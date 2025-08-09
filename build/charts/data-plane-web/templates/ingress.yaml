@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: laf-web-ingress
+  name: data-plane-web-ingress
 spec:
   ingressClassName: nginx
   rules:
@@ -11,7 +11,7 @@ spec:
       paths:
       - backend:
           service:
-            name: laf-web
+            name: data-plane-web
             port:
               number: 80
         path: /
