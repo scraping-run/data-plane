@@ -16,7 +16,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { t } from "i18next";
 
 import { Logo } from "@/components/LogoIcon";
-import useAuthStore from "@/pages/auth/store";
+import { useSigninByPasswordMutation } from "@/pages/auth/service";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { passwordSignIn } = useAuthStore();
+  const signinByPasswordMutation = useSigninByPasswordMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,12 +43,13 @@ export default function AdminLogin() {
     setIsLoading(true);
     
     try {
-      const res = await passwordSignIn({
+      const res = await signinByPasswordMutation.mutateAsync({
         username,
         password,
       });
       
       if (res?.data) {
+        localStorage.setItem("token", res.data.token);
         navigate("/dashboard");
       }
     } catch (error: any) {
@@ -83,7 +84,7 @@ export default function AdminLogin() {
               <FormControl isRequired>
                 <Input
                   size="lg"
-                  placeholder={t("AuthPanel.Username")}
+                  placeholder={String(t("AuthPanel.Username"))}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   autoComplete="username"
@@ -94,7 +95,7 @@ export default function AdminLogin() {
                 <InputGroup size="lg">
                   <Input
                     type={showPassword ? "text" : "password"}
-                    placeholder={t("AuthPanel.Password")}
+                    placeholder={String(t("AuthPanel.Password"))}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
@@ -119,9 +120,9 @@ export default function AdminLogin() {
                 size="lg"
                 width="100%"
                 isLoading={isLoading}
-                loadingText={t("AuthPanel.Logging")}
+                loadingText={String(t("AuthPanel.Logging"))}
               >
-                {t("AuthPanel.Login")}
+                {String(t("AuthPanel.Login"))}
               </Button>
             </VStack>
           </form>
