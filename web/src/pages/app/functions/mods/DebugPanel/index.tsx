@@ -153,16 +153,16 @@ export default function DebugPanel(props: { containerRef: any }) {
           params: mapValues(keyBy(queryParams, "name"), "value"),
           data: bodyParams?.data,
           headers: Object.assign(mapValues(keyBy(headerParams, "name"), "value"), {
-            "x-laf-develop-token": `${globalStore.currentApp?.develop_token}`,
-            "x-laf-debug-data": encodeData(_funcData),
+            "x-data-plane-develop-token": `${globalStore.currentApp?.develop_token}`,
+            "x-data-plane-debug-data": encodeData(_funcData),
             "Content-Type": bodyParams?.contentType || "application/json",
           }),
           signal,
         });
 
         setCurrentRequestId(res.headers["request-id"]);
-        setCurrentFuncLogs(res.headers["x-laf-debug-logs"]);
-        setCurrentFuncTimeUsage(res.headers["x-laf-debug-time-usage"]);
+        setCurrentFuncLogs(res.headers["x-data-plane-debug-logs"]);
+        setCurrentFuncTimeUsage(res.headers["x-data-plane-debug-time-usage"]);
 
         setRunningResData(res.data);
       }
@@ -214,7 +214,7 @@ export default function DebugPanel(props: { containerRef: any }) {
                 }}
                 style={{ color: "#7B838B", margin: "-1px 8px", padding: "0 0", fontWeight: 500 }}
               >
-                Laf Pilot
+                scraping.run Pilot
               </Tab>
             )}
             <Tab

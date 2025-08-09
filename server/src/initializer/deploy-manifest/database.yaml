@@ -9,7 +9,7 @@ metadata:
     sealos-db-provider-cr: <%- name %>
   annotations: {}
   name: <%- name %>
-  namespace: laf-system
+  namespace: data-plane-system
 spec:
   affinity:
     nodeLabels: {}
@@ -30,7 +30,7 @@ spec:
         requests:
           cpu: <%- requestCPU %>m
           memory: <%- requestMemory %>Mi
-      serviceAccountName: laf-mongodb-<%- name %>
+      serviceAccountName: data-plane-mongodb-<%- name %>
       volumeClaimTemplates:
         - name: data
           spec:

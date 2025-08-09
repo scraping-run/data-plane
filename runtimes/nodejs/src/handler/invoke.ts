@@ -37,7 +37,7 @@ export async function handleInvokeFunction(req: IRequest, res: Response) {
   }
 
   // debug mode
-  if (req.get('x-laf-develop-token')) {
+  if (req.get('x-data-plane-develop-token')) {
     return await invokeDebug(ctx, useInterceptor)
   }
 
@@ -53,7 +53,7 @@ async function invokeFunction(
 
   // trigger mode
   let isTrigger = false
-  if (parseToken(ctx.request.get('x-laf-trigger-token'))) {
+  if (parseToken(ctx.request.get('x-data-plane-trigger-token'))) {
     isTrigger = true
   }
 
@@ -112,9 +112,9 @@ async function invokeDebug(
   useInterceptor: boolean,
 ): Promise<any> {
   // verify the debug token
-  const token = ctx.request.get('x-laf-develop-token')
+  const token = ctx.request.get('x-data-plane-develop-token')
   if (!token) {
-    return ctx.response.status(400).send('x-laf-develop-token is required')
+    return ctx.response.status(400).send('x-data-plane-develop-token is required')
   }
 
   const auth = parseToken(token) || null
@@ -127,28 +127,28 @@ async function invokeDebug(
   // parse func_data
   let funcData: ICloudFunctionData
 
-  // get func_data from header `x-laf-debug-data`
-  if (ctx.request.get('x-laf-debug-data')) {
-    const funcStr = ctx.request.get('x-laf-debug-data')
+  // get func_data from header `x-data-plane-debug-data`
+  if (ctx.request.get('x-data-plane-debug-data')) {
+    const funcStr = ctx.request.get('x-data-plane-debug-data')
     try {
       // decode base64 string
       const compressed = base64ToUint8Array(funcStr)
       const restored = pako.ungzip(compressed, { to: 'string' })
       funcData = JSON.parse(restored)
     } catch (error) {
-      return ctx.response.status(400).send('x-laf-debug-data is invalid')
+      return ctx.response.status(400).send('x-data-plane-debug-data is invalid')
     }
-  } else if (ctx.request.get('x-laf-func-data')) {
-    // reserve 'x-laf-func-data' check to keep compatible to old clients (laf-web, laf-cli)
-    const funcStr = ctx.request.get('x-laf-func-data')
+  } else if (ctx.request.get('x-data-plane-func-data')) {
+    // reserve 'x-data-plane-func-data' check to keep compatible to old clients (data-plane-web, data-plane-cli)
+    const funcStr = ctx.request.get('x-data-plane-func-data')
     try {
       const decoded = decodeURIComponent(funcStr)
       funcData = JSON.parse(decoded)
     } catch (error) {
-      return ctx.response.status(400).send('x-laf-func-data is invalid')
+      return ctx.response.status(400).send('x-data-plane-func-data is invalid')
     }
   } else {
-    return ctx.response.status(400).send('x-laf-debug-data is required')
+    return ctx.response.status(400).send('x-data-plane-debug-data is required')
   }
 
   const requestId = ctx.requestId
@@ -191,17 +191,17 @@ async function invokeDebug(
     // If set to false, the headers have been sent, so do not send logs headers after that, otherwise an error will be reported.
     if (ctx.response.chunkedEncoding === false) {
       const logs = debugConsole.getLogs()
-      if (ctx.request.get('x-laf-debug-data')) {
+      if (ctx.request.get('x-data-plane-debug-data')) {
         const compressed = pako.gzip(logs)
         const base64Encoded = uint8ArrayToBase64(compressed)
-        ctx.response.set('x-laf-debug-logs', base64Encoded)
-      } else if (ctx.request.get('x-laf-func-data')) {
-        // keep compatible for old version clients(laf web & laf cli)
+        ctx.response.set('x-data-plane-debug-logs', base64Encoded)
+      } else if (ctx.request.get('x-data-plane-func-data')) {
+        // keep compatible for old version clients(data-plane web & data-plane cli)
         const encoded = encodeURIComponent(logs)
-        ctx.response.set('x-laf-func-logs', encoded)
+        ctx.response.set('x-data-plane-func-logs', encoded)
       }
 
-      ctx.response.set('x-laf-debug-time-usage', result.time_usage.toString())
+      ctx.response.set('x-data-plane-debug-time-usage', result.time_usage.toString())
     }
 
     if (result.error) {

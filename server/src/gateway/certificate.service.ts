@@ -32,8 +32,8 @@ export class CertificateService {
     const namespace = GetApplicationNamespace(region, website.appid)
     const name = this.getWebsiteCertificateName(website)
     return await this.create(region, name, namespace, website.domain, {
-      'laf.dev/website': website._id.toString(),
-      'laf.dev/website-domain': website.domain,
+      'scraping.run/website': website._id.toString(),
+      'scraping.run/website-domain': website.domain,
       [LABEL_KEY_APP_ID]: website.appid,
     })
   }
@@ -62,7 +62,7 @@ export class CertificateService {
       namespace,
       runtimeDomain.customDomain,
       {
-        'laf.dev/runtime-domain': runtimeDomain.customDomain,
+        'scraping.run/runtime-domain': runtimeDomain.customDomain,
         [LABEL_KEY_APP_ID]: runtimeDomain.appid,
       },
     )

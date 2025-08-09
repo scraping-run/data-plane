@@ -13,7 +13,7 @@ describe('db-ql(unit): db::doc().update()', () => {
       .doc('test_id')
       .update({
         uid: uid,
-        name: 'laf',
+        name: 'data-plane',
         created_at: new Date(),
         pic: new Binary(buf),
       })

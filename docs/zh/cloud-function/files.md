@@ -63,7 +63,7 @@ export default async function (ctx: FunctionContext) {
 ## 将客户端上传的文件保存到云存储
 
 ::: info
-本例演示将客户端上传的文件保存到云存储中，需要你提前在 laf 控制台创建一个文件桶，本例中文件桶名假定为 `data`。
+本例演示将客户端上传的文件保存到云存储中，需要你提前在 data-planea-plane 控制台创建一个文件桶，本例中文件桶名假定为 `data`。
 :::
 
 ```typescript

@@ -19,16 +19,16 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh-CN',
       link: '/zh/',
-      title: "Laf 开发文档",
-      description: "laf 开发文档，像写博客一样写函数。",
+      title: "scraping.run 开发文档",
+      description: "data-planea-plane 开发文档，像写博客一样写函数。",
       themeConfig: {
         logo: "/logo.png",
         footer: {
           message: "Apache License V2.0",
-          copyright: "Copyright © 2021-2024 labring/laf",
+          copyright: "Copyright © 2021-2024 scraping-run/data-planea-plane",
         },
         editLink: {
-          pattern: "https://github.com/labring/laf/edit/main/docs/:path",
+          pattern: "https://github.com/scraping-run/data-planea-plane/edit/main/docs/:path",
           text: "我修改这一页",
         },
         lastUpdated: {
@@ -39,7 +39,7 @@ export default defineConfig({
           next: '下一篇'
         },
         socialLinks: [
-          { icon: "github", link: "https://github.com/labring/laf" },
+          { icon: "github", link: "https://github.com/scraping-run/data-planea-plane" },
           { icon: "discord", link: "https://discord.gg/KaxHF86CcF" },
           { icon: "twitter", link: "https://twitter.com/laf_dev" },
         ],
@@ -57,20 +57,20 @@ export default defineConfig({
       label: 'English',
       lang: 'en',
       link: '/en/',
-      title: "Laf Documentation",
-      description: "Development documentation of laf, write function like writing blog.",
+      title: "scraping.run Documentation",
+      description: "Development documentation of data-planea-plane, write function like writing blog.",
       themeConfig: {
         logo: "/logo.png",
         footer: {
           message: "Apache License V2.0",
-          copyright: "Copyright © 2021-2024 labring/laf",
+          copyright: "Copyright © 2021-2024 scraping-run/data-planea-plane",
         },
         editLink: {
-          pattern: "https://github.com/labring/laf/edit/main/docs/:path",
+          pattern: "https://github.com/scraping-run/data-planea-plane/edit/main/docs/:path",
           text: "Edit this page on GitHub",
         },
         socialLinks: [
-          { icon: "github", link: "https://github.com/labring/laf" },
+          { icon: "github", link: "https://github.com/scraping-run/data-planea-plane" },
           { icon: "discord", link: "https://discord.gg/KaxHF86CcF" },
           { icon: "twitter", link: "https://twitter.com/laf_dev" },
         ],

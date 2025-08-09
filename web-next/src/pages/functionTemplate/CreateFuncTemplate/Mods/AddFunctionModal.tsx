@@ -56,7 +56,7 @@ const AddFunctionModal = (props: {
 
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')
-  return { data: 'hi, laf' }
+  return { data: 'hi, data-plane' }
 }
 `;
 

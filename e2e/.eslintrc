@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "laf/test"
+  "extends": "data-planea-plane/test"
 }

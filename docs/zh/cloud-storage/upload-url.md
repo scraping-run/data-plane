@@ -28,7 +28,7 @@ export default async function (ctx: FunctionContext) {
 ```bash
 #请将 YOUR_UPLOAD_URL 替换为上一步获取的上传地址
 
-curl -X PUT -H "Content-Type: text/html" -d 'hi, laf' YOUR_UPLOAD_URL
+curl -X PUT -H "Content-Type: text/html" -d 'hi, data-plane' YOUR_UPLOAD_URL
 ```
 :::
 

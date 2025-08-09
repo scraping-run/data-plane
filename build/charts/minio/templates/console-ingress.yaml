@@ -5,9 +5,15 @@ kind: Ingress
 metadata:
   annotations:
     k8s.apisix.apache.org/enable-websocket: "true"
+    cert-manager.io/issuer: "data-plane-issuer"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
   name: minio-console-ingress
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.consoleHost }}
+    secretName: minio-console-tls
   rules:
   - host: {{ .Values.consoleHost }}
     http:

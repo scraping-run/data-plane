@@ -98,7 +98,7 @@ export class InitializerService {
         port: 80,
         tls: {
           enabled: ServerConfig.DEFAULT_REGION_TLS_ENABLED,
-          issuerRef: { name: 'laf-issuer', kind: 'Issuer' },
+          issuerRef: { name: 'data-plane-issuer', kind: 'Issuer' },
           wildcardCertificateSecretName:
             ServerConfig.DEFAULT_REGION_TLS_WILDCARD_CERTIFICATE_SECRET_NAME,
         },
@@ -134,7 +134,7 @@ export class InitializerService {
     // create default runtime
     const res = await this.db.collection<Runtime>('Runtime').insertOne({
       name: 'node',
-      type: 'node:laf',
+      type: 'node:data-plane',
       image: {
         main: ServerConfig.DEFAULT_RUNTIME_IMAGE.image.main,
         init: ServerConfig.DEFAULT_RUNTIME_IMAGE.image.init,
@@ -473,51 +473,51 @@ export class InitializerService {
       {
         public: true,
         key: SettingKey.AiPilotUrl,
-        value: 'https://htr4n1.laf.run/laf-gpt',
+        value: 'https://htr4n1.data-plane.run/data-plane-gpt',
         desc: 'ai pilot url',
       },
       {
         public: true,
         key: SettingKey.LafForumUrl,
-        value: 'https://forum.laf.run',
-        desc: 'laf forum url',
+        value: 'https://forum.data-plane.run',
+        desc: 'data-plane forum url',
       },
       {
         public: true,
         key: SettingKey.LafBusinessUrl,
         value: 'https://www.wenjuan.com/s/I36ZNbl',
-        desc: 'laf business url',
+        desc: 'data-plane business url',
       },
       {
         public: true,
         key: SettingKey.LafDiscordUrl,
         value:
           'https://discord.com/channels/1061659231599738901/1098516786170839050',
-        desc: 'laf discord url',
+        desc: 'data-plane discord url',
       },
       {
         public: true,
         key: SettingKey.LafWeChatUrl,
-        value: 'https://w4mci7-images.oss.laf.run/wechat.png',
-        desc: 'laf wechat url',
+        value: 'https://w4mci7-images.oss.data-plane.run/wechat.png',
+        desc: 'data-plane wechat url',
       },
       {
         public: true,
         key: SettingKey.LafStatusUrl,
-        value: 'https://hnpsxzqqtavv.cloud.sealos.cn/status/laf',
-        desc: 'laf status url',
+        value: 'https://hnpsxzqqtavv.cloud.sealos.cn/status/data-plane',
+        desc: 'data-plane status url',
       },
       {
         public: true,
         key: SettingKey.LafAboutUsUrl,
         value: 'https://sealos.run/company/',
-        desc: 'laf about us url',
+        desc: 'data-plane about us url',
       },
       {
         public: true,
         key: SettingKey.LafDocUrl,
-        value: 'https://doc.laf.run/zh/',
-        desc: 'laf doc site url',
+        value: 'https://doc.data-plane.run/zh/',
+        desc: 'data-plane doc site url',
       },
       {
         public: true,

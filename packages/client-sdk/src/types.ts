@@ -15,7 +15,7 @@ type GetAccessTokenFuncType = () => string
 
 export interface CloudOptions {
   /**
-   * `laf` 应用服务的地址，如： "https://APPID.junsik.com"
+   * `data-plane` 应用服务的地址，如： "https://APPID.junsik.com"
    * @tip 后面 `不要` 以 `/` 结尾
    */
   baseUrl?: string
@@ -50,7 +50,7 @@ export interface CloudOptions {
    * 自定义请求类需要 实现 `RequestInterface` 接口，一般建议直接继承 `class Request`，重写父类部分方法即可。
    * 
    * ```js
-   * import { Request } from 'laf'
+   * import { Request } from 'data-plane'
    * class MyRequest extends Request {
    *  async request(url, data) {
    *    const res = await super.request(url, data)

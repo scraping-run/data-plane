@@ -75,7 +75,7 @@ export default function BasicLayout() {
         )}
       </div>
       <div className="fixed bottom-0 -z-10 w-full py-4 text-center">
-        Made with <AiFillHeart className="inline text-red-500" /> by laf team
+        Made with <AiFillHeart className="inline text-red-500" /> by data-plane team
       </div>
     </div>
   );

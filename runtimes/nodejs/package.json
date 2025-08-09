@@ -1,7 +1,7 @@
 {
   "name": "runtime-nodejs",
   "version": "1.0.0",
-  "description": "the node runtime for laf",
+  "description": "the node runtime for data-plane",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "private": "true",
@@ -18,7 +18,7 @@
     "lint": "eslint . --fix --ext .ts --ext .js"
   },
   "keywords": [
-    "laf",
+    "data-plane",
     "BaaS",
     "mongodb",
     "firebase",

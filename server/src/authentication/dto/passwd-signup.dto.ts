@@ -11,7 +11,7 @@ import {
 export class PasswdSignupDto {
   @ApiProperty({
     description: 'username, 3-64 characters',
-    example: 'laf-user',
+    example: 'data-plane-user',
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class PasswdSignupDto {
 
   @ApiProperty({
     description: 'password, 8-64 characters',
-    example: 'laf-user-password',
+    example: 'data-plane-user-password',
   })
   @IsString()
   @IsNotEmpty()

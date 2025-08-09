@@ -11,10 +11,10 @@
 
 ```bash
 # Sealos 설치
-curl -sfL https://raw.githubusercontent.com/labring/sealos/main/scripts/install.sh | sh
+curl -sfL https://raw.githubusercontent.com/scraping-run/sealos/main/scripts/install.sh | sh
 
 # KubeBlocks 설치
-sealos run labring/kubeblocks:v0.7.0
+sealos run scraping-run/kubeblocks:v0.7.0
 ```
 
 #### 2. Sealos 이미지 빌드

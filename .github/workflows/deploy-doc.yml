@@ -22,15 +22,15 @@ jobs:
       - name: Build Docs
         uses: ./.github/actions/build-docs
 
-      - name: Setup laf-cli
-        run: npm i laf-cli -g
-      - name: Login laf-cli
+      - name: Setup data-plane-cli
+        run: npm i data-plane-cli -g
+      - name: Login data-plane-cli
         run: |
-          laf user add doc -r ${{ env.LAF_API_URL }}
-          laf user switch doc
-          laf login ${{ env.LAF_CI_DOCS_PAT }}
-      - name: Deploy to laf
+          data-plane user add doc -r ${{ env.LAF_API_URL }}
+          data-plane user switch doc
+          data-plane login ${{ env.LAF_CI_DOCS_PAT }}
+      - name: Deploy to data-plane
         working-directory: docs/.vitepress
         run: |
-          laf app init ${{ env.LAF_CI_DOCS_APPID }}
-          laf storage push -f ${{ env.LAF_CI_DOCS_BUCKET_NAME }} dist/
+          data-plane app init ${{ env.LAF_CI_DOCS_APPID }}
+          data-plane storage push -f ${{ env.LAF_CI_DOCS_BUCKET_NAME }} dist/

@@ -22,13 +22,13 @@ export class ClusterService {
    * - if kubeconfig is empty, load from default config (in-cluster service account or ~/.kube/config)
    * - if kubeconfig is not empty, load from string
    */
-  static LABEL_KEY_APP_ID = 'laf.dev/appid'
+  static LABEL_KEY_APP_ID = 'scraping.run/appid'
   static LABEL_DATABASE = 'app.kubernetes.io/managed-by=kubeblocks'
   static NAMESPACE = Config.NAMESPACE
   static DB_NAMESPACE = Config.DB_NAMESPACE
 
   static loadKubeConfig() {
-    const conf = Config.KUBECONF
+    const conf = Config.
     const kc = new k8s.KubeConfig()
 
     // if conf is empty load from default config (in-cluster service account or ~/.kube/config)

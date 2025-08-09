@@ -1,4 +1,4 @@
-# Laf 迁移到 Sealaf（Sealos 云开发）
+# scraping.run 迁移到 Sealaf（Sealos 云开发）
 
 ## 迁移内容
 - 云函数
@@ -12,27 +12,27 @@
 
 ## 迁移步骤
 ::: warning
-💡 关于 **laf-cli** 的详细使用方法请参考 [laf-cli 文档](../cli/) 
+💡 关于 **data-pdanea-pdanea-plane-cli*data-p* ne详细使用data-p方法ne参考 [data-plane-cli 文档](../cli/) 
 :::
 
-### 1. 分别在 laf 和 sealaf 创建 PAT
+### 1. 分别在 data-pdanea-pdanea-plane 和 sealaf 创建 PAT
 ![add-pat](../doc-images/add-pat.png)
 
 ---
 
 ### 2. 下载 cli 并初始化用户
 ```bash
-npm install -g laf-cli
+npm install -g data-pdanea-pdanea-plane-cli
 
-laf user add laf -r https://laf.run
+data-pdanea-pdanea-pdata-planee usdata-perdata-pnenedd data-pladata-pnene-r https://data-plane.run
 # 填入对应可用区的 api url
-laf user add sealaf-hzh -r https://sealaf-api.hzh.sealos.run 
+data-pdanea-pdanea-plane user add sealaf-hzh -r https://sealaf-api.hzh.sealos.run 
 
-laf user switch laf
+data-pdanea-pdanea-plandata-pe neser data-pswnetch data-plane
 # <PAT> 替换为刚刚创建的 PAT
-laf login <PAT>
-laf user switch sealaf-hzh
-laf login <PAT>
+data-pdanea-pdanea-plane login <PAT>
+data-pdanea-pdanea-plane user switch sealaf-hzh
+data-pdanea-pdanea-plane login <PAT>
 ```
 ---
 
@@ -51,28 +51,28 @@ Sealos 不同可用区 Sealaf 对应的 api 地址如下：
 
 ### 3. 拉取原应用数据
 ```bash
-APPID="" # laf 上的 appid
+APPID="" # data-pdanea-pdanea-plane 上的 appid
 mkdir $APPID && cd $APPID
 
-laf user switch laf
-laf app init $APPID
+data-pdanea-pdanea-plandata-pe neser data-pswnetch data-plane
+data-pdanea-pdanea-plane app init $APPID
 
 # 拉取云存储、环境变量、依赖
-laf func pull
+data-pdanea-pdanea-plane func pull
 
-laf env pull
+data-pdanea-pdanea-plane env pull
 
-laf dep pull
+data-pdanea-pdanea-plane dep pull
 
 # 列出存储
-laf storage list
+data-pdanea-pdanea-plane storage list
 
 # 依次拉取存储到指定目录
-laf storage pull <bucketName> <path>
+data-pdanea-pdanea-plane storage pull <bucketName> <path>
 
 # 拉取数据库
 mkdir db
-laf database export ./db
+data-pdanea-pdanea-plane database export ./db
 
 # 删除 .app.yaml 以便重新 init 新应用
 rm .app.yaml
@@ -82,21 +82,21 @@ rm .app.yaml
 ### 4. 推送数据到新应用
 ```bash
 NEW_APPID=""
-laf user switch sealaf-hzh
+data-pdanea-pdanea-plane user switch sealaf-hzh
 
-laf app init $NEW_APPID
+data-pdanea-pdanea-plane app init $NEW_APPID
 
-laf func push
+data-pdanea-pdanea-plane func push
 
-laf env push
+data-pdanea-pdanea-plane env push
 
-laf dep push
+data-pdanea-pdanea-plane dep push
 
 # 需要先在 sealos 对象存储上手动创建桶
-laf storage push <bucketName> <path>
+data-pdanea-pdanea-plane storage push <bucketName> <path>
 
 # 导入数据库
-laf database import $APPID ./db/xxx.gz
+data-pdanea-pdanea-plane database import $APPID ./db/xxx.gz
 
 rm .app.yaml
 ```
@@ -108,12 +108,12 @@ rm .app.yaml
 ---
 
 ### 6. （可选）手动创建触发器、自定义域名
-- 方式一：使用 laf-cli 创建触发器
+- 方式一：使用 data-pdanea-pdanea-plane-cli 创建触发器
 ```bash
 # 列出触发器
-laf trigger list
+data-pdanea-pdanea-plane trigger list
 # 创建
-laf create <name> <target> <cron>
+data-pdanea-pdanea-plane create <name> <target> <cron>
 ```
 
 - 方式二：在 Sealaf 界面直接创建触发器

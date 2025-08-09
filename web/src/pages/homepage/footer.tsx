@@ -46,7 +46,7 @@ const Footer = (props: Props) => {
                       : "mt-8 w-full max-w-[380px] text-base leading-5 text-[#5E6987]"
                   }
                 >
-                  {t("HomePage.Footer.laf")}
+                  {t("HomePage.Footer.data-plane")}
                 </p>
               </div>
 
@@ -73,7 +73,7 @@ const Footer = (props: Props) => {
                   </li>
                   <li>
                     <a
-                      href="https://marketplace.visualstudio.com/items?itemName=NightWhite.laf-assistant"
+                      href="https://marketplace.visualstudio.com/items?itemName=NightWhite.data-plane-assistant"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -81,7 +81,7 @@ const Footer = (props: Props) => {
                     </a>
                   </li>
                   <li>
-                    <a href="https://github.com/labring/sealos" target="_blank" rel="noreferrer">
+                    <a href="https://github.com/scraping-run/sealos" target="_blank" rel="noreferrer">
                       {t("HomePage.Footer.item1_2")}
                     </a>
                   </li>
@@ -110,7 +110,7 @@ const Footer = (props: Props) => {
                     </a>
                   </li>
                   <li>
-                    <a href="https://api.laf.dev/" target="_blank" rel="noreferrer">
+                    <a href="https://api.scraping.run/" target="_blank" rel="noreferrer">
                       {t("HomePage.Footer.item2_2")}
                     </a>
                   </li>
@@ -240,7 +240,7 @@ const Footer = (props: Props) => {
                 : "mt-4 w-full text-base leading-5 text-[#5E6987]"
             }
           >
-            {t("HomePage.Footer.laf")}
+            {t("HomePage.Footer.data-plane")}
           </p>
 
           <div className="mt-4 flex justify-between">
@@ -261,7 +261,7 @@ const Footer = (props: Props) => {
                 </li>
                 <li>
                   <a
-                    href="https://marketplace.visualstudio.com/items?itemName=NightWhite.laf-assistant"
+                    href="https://marketplace.visualstudio.com/items?itemName=NightWhite.data-plane-assistant"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -269,7 +269,7 @@ const Footer = (props: Props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/labring/sealos" target="_blank" rel="noreferrer">
+                  <a href="https://github.com/scraping-run/sealos" target="_blank" rel="noreferrer">
                     {t("HomePage.Footer.item1_2")}
                   </a>
                 </li>
@@ -327,7 +327,7 @@ const Footer = (props: Props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://api.laf.dev/" target="_blank" rel="noreferrer">
+                  <a href="https://api.scraping.run/" target="_blank" rel="noreferrer">
                     {t("HomePage.Footer.item2_2")}
                   </a>
                 </li>
@@ -350,7 +350,7 @@ const Footer = (props: Props) => {
 
         <div className="flex flex-col gap-2 py-6 ">
           <div className={darkMode ? "text-lg text-lafWhite-700" : "text-lg text-[#3C455D]"}>
-            laf. all rights reserved. © {new Date().getFullYear()}
+            data-plane. all rights reserved. © {new Date().getFullYear()}
             <div
               dangerouslySetInnerHTML={{
                 __html: siteSettings.site_footer?.value || "",

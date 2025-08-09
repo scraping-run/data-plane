@@ -17,7 +17,7 @@ async function loadPackageTypings(packageName: string) {
       url: `${url}/_/typing/package?packageName=${packageName}`,
       method: "GET",
       headers: {
-        "x-laf-develop-token": `${currentApp?.develop_token}`,
+        "x-data-plane-develop-token": `${currentApp?.develop_token}`,
       },
     });
 

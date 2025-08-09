@@ -45,7 +45,7 @@ export default async function (ctx: FunctionContext) {
 ## 开箱即用的 `Bearer Token`
 
 ::: info
-Laf 云函数内置了 `Bearer Token` 的身份验证，即 `Authorization` 请求头的值为 `Bearer ${jwt}`，可直接使用。
+scraping.run 云函数内置了 `Bearer Token` 的身份验证，即 `Authorization` 请求头的值为 `Bearer ${jwt}`，可直接使用。
 关于 `Bearer Token` 的介绍不再赘述，需要你需要自行了解其含义用法。
 :::
 
@@ -64,7 +64,7 @@ export default async function (ctx: FunctionContext) {
 ```
 
 ::: info
-客户端请求时，只需在请求头中添加 `Authorization: Bearer ${jwt}` 即可，Laf 云函数会自动验证身份，并将解析后的 `payload` 存储在 `ctx.user` 中。
+客户端请求时，只需在请求头中添加 `Authorization: Bearer ${jwt}` 即可，scraping.run 云函数会自动验证身份，并将解析后的 `payload` 存储在 `ctx.user` 中。
 
 如果请求未携带 `Authorization` 请求头，或者 `Authorization` 请求头的值不是 `Bearer ${jwt}`，则 `ctx.user` 为 `null`。
 

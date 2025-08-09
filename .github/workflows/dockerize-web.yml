@@ -73,7 +73,7 @@ jobs:
         with:
           sourcemaps: dist/assets
           url_prefix: "~/assets/"
-          version: ${{ format('laf@{0}', github.sha) }}
+          version: ${{ format('data-plane@{0}', github.sha) }}
           working_directory: web
           ignore_missing: true
           ignore_empty: true
@@ -93,8 +93,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/laf-web
-            docker.io/${{ secrets.DOCKER_USERNAME }}/laf-web
+            ghcr.io/${{ github.repository_owner }}/data-plane-web
+            docker.io/${{ secrets.DOCKER_USERNAME }}/data-plane-web
           # https://github.com/docker/metadata-action#typesemver
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
@@ -129,7 +129,7 @@ jobs:
           context: ./web
           file: ./web/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'laf-web:pr-build' }}
+          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'data-plane-web:pr-build' }}
           labels: ${{ github.event_name != 'pull_request' && steps.meta.outputs.labels || '' }}
           platforms: linux/amd64, linux/arm64
 

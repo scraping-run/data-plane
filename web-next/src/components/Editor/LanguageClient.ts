@@ -15,7 +15,7 @@ import "./TextModel";
 
 export const createLanguageClient = (transports: MessageTransports): MonacoLanguageClient => {
   return new MonacoLanguageClient({
-    name: "Laf Language Client",
+    name: "scraping.run Language Client",
     clientOptions: {
       documentSelector: ["typescript"],
       errorHandler: {
@@ -24,7 +24,7 @@ export const createLanguageClient = (transports: MessageTransports): MonacoLangu
       },
       workspaceFolder: {
         uri: Uri.file(RUNTIMES_PATH),
-        name: "Laf Workspace",
+        name: "scraping.run Workspace",
         index: 0,
       },
     },

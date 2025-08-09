@@ -47,19 +47,19 @@ export class UserSchema {
         selected: 0,
       })
     }
-    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.laf', USER_SCHEMA_NAME)
+    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.data-plane', USER_SCHEMA_NAME)
     return loadYamlFile(configPath)
   }
 
   static write(schema: UserSchema) {
-    const directoryPath = path.join(process.env.HOME || process.env.USERPROFILE, '.laf')
+    const directoryPath = path.join(process.env.HOME || process.env.USERPROFILE, '.data-plane')
     ensureDirectory(directoryPath)
-    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.laf', USER_SCHEMA_NAME)
+    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.data-plane', USER_SCHEMA_NAME)
     writeYamlFile(configPath, schema)
   }
 
   static exist() {
-    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.laf', USER_SCHEMA_NAME)
+    const configPath = path.join(process.env.HOME || process.env.USERPROFILE, '.data-plane', USER_SCHEMA_NAME)
     return exist(configPath)
   }
 }

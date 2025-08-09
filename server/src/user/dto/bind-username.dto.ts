@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString, Length } from 'class-validator'
 export class BindUsernameDto {
   @ApiProperty({
     description: 'username',
-    example: 'laf-user',
+    example: 'data-plane-user',
   })
   @IsString()
   @IsNotEmpty()

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "laf-docs",
+  "name": "data-plane-docs",
   "private": true,
   "scripts": {
     "start": "npm run dev",
@@ -18,12 +18,12 @@
   },
   "main": "index.js",
   "keywords": [
-    "laf",
+    "data-plane",
     "junsik",
-    "laf.run",
-    "laf.dev",
+    "data-plane.run",
+    "scraping.run",
     "sealos",
-    "laf.js"
+    "data-plane.js"
   ],
   "author": "",
   "license": "ISC",

@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "laf/runtime"
+  "extends": "data-planea-plane/runtime"
 }

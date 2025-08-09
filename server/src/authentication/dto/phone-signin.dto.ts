@@ -24,7 +24,7 @@ export class PhoneSigninDto {
 
   @ApiProperty({
     description: 'username',
-    example: 'laf-user',
+    example: 'data-plane-user',
   })
   @IsOptional()
   @IsString()
@@ -33,7 +33,7 @@ export class PhoneSigninDto {
 
   @ApiProperty({
     description: 'password, 8-64 characters',
-    example: 'laf-user-password',
+    example: 'data-plane-user-password',
   })
   @IsOptional()
   @IsString()

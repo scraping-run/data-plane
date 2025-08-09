@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "laf/cli"
+  "extends": "data-planea-plane/cli"
 }

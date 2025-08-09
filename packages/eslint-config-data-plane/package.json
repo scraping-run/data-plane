@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-laf",
+  "name": "eslint-config-data-plane",
   "version": "1.0.0",
   "private": true,
   "exports": {

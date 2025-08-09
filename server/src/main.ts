@@ -40,8 +40,8 @@ async function bootstrap() {
 
   // for swagger api
   const config = new DocumentBuilder()
-    .setTitle('Open API Documentation of laf')
-    .setDescription('`The APIs of laf server`')
+    .setTitle('Open API Documentation of data-plane')
+    .setDescription('`The APIs of data-plane server`')
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     .setVersion(require('../package.json').version)
     .addServer(ServerConfig.API_SERVER_URL, 'current server')

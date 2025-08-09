@@ -52,7 +52,7 @@
   "AddData": "Add data",
   "AddSuccess": "Added successfully",
   "Auth": {
-    "migrationNotice": "The laf platform has been migrated to sealos and no longer supports new registrations. Please use sealaf, click to jump to sealos"
+    "migrationNotice": "The data-plane platform has been migrated to sealos and no longer supports new registrations. Please use sealaf, click to jump to sealos"
   },
   "Cancel": "Cancel",
   "Close": "Close",
@@ -127,7 +127,7 @@
     "EmptyFunctionTip": "You have not created the function",
     "UploadButton": "upload",
     "LeaveFunctionPage": "About to leave the function edit page",
-    "PromptDescription": "Use natural language to describe your needs, laf will help you generate code, for example: help me write a hello world, return {hello: 'laf AI'}",
+    "PromptDescription": "Use natural language to describe your needs, data-plane will help you generate code, for example: help me write a hello world, return {hello: 'data-plane AI'}",
     "CreateWithAITip": "Create functions with AI assistance",
     "CreateNow": "Create Now",
     "CreateFromTemplate": "More Templates",
@@ -444,12 +444,12 @@
   "Or": "Or",
   "Generating": "Generating",
   "Start": "Start",
-  "TryLafAI": "Try 🎉 Laf AI !",
+  "TryLafAI": "Try 🎉 scraping.run AI !",
   "HomePage": {
     "LafLink": "/dashboard",
     "WebSite": {
-      "title": "Laf - Serverless Cloud Development",
-      "description": "Laf provides cloud functions, cloud databases, object storage and other capabilities, writing code like a blog! Launch the ChatGPT app in 3 minutes!"
+      "title": "scraping.run - Serverless Cloud Development",
+      "description": "scraping.run provides cloud functions, cloud databases, object storage and other capabilities, writing code like a blog! Launch the ChatGPT app in 3 minutes!"
     },
     "NavBar": {
       "title": "sealaf is an open-source project, we need your Star",
@@ -487,7 +487,7 @@
     "Choice": {
       "title": "Advantage",
       "open": "Open Source",
-      "openSub": "Laf follows the Apache License 2.0 open source protocol",
+      "openSub": "scraping.run follows the Apache License 2.0 open source protocol",
       "fast": "More faster",
       "fastSub": "There is no cold start time to make your response faster.",
       "private": "Private Deployment",
@@ -502,19 +502,19 @@
     "Join": {
       "title": "Join the sealaf developer community",
       "subtitle": "Grow up with us",
-      "content": "Here you can experience the latest version of Laf at the first time and keep communicating with developers and users in Discord or WeChat groups.",
+      "content": "Here you can experience the latest version of scraping.run at the first time and keep communicating with developers and users in Discord or WeChat groups.",
       "WeChat": "WeChat",
       "forum": "Forum"
     },
     "Footer": {
-      "laf": "sealaf provides ready-to-use features such as cloud functions, cloud databases, and object storage. empowers you to write code with the ease of blogging! Get your ChatGPT application up and running in a mere 3 minutes!",
+      "data-plane": "sealaf provides ready-to-use features such as cloud functions, cloud databases, and object storage. empowers you to write code with the ease of blogging! Get your ChatGPT application up and running in a mere 3 minutes!",
       "product": "Product",
       "item1_1": "sealaf Cloud",
       "item1_2": "Sealos Cloud",
       "item1_3": "ChangeLog",
       "item1_4": "Vscode Plugin",
       "developer": "Developer",
-      "item2_1": "How to install Laf",
+      "item2_1": "How to install scraping.run",
       "item2_2": "Open API",
       "item2_3": "Contributor's Guide",
       "item2_4": "Source Code",
@@ -536,7 +536,7 @@
   "Duration": "Trade Time",
   "State": "State",
   "TotalAmount": "Total",
-  "AIWelcomeMessage": "Hello, I am Laf AI Development Assistant, how can I help you?",
+  "AIWelcomeMessage": "Hello, I am scraping.run AI Development Assistant, how can I help you?",
   "Send": "Send",
   "Stop": "Stop",
   "SendMessagePlaceHolder": "Send a message",
@@ -759,7 +759,7 @@
   },
   "MoveFunction": "Move function",
   "UpgradeVersionTip": {
-    "Title": "Laf is ready to update!",
+    "Title": "scraping.run is ready to update!",
     "Description": "Click to update"
   },
   "app": {

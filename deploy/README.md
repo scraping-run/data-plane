@@ -3,7 +3,7 @@
 
 > WARNING: This is a work in progress. The scripts are not yet ready for production use.
 
-> This script is used to deploy the v1.0 development environment. The v1.0 environment has not been released yet, so this script is only for laf contributors to use in the development environment.
+> This script is used to deploy the v1.0 development environment. The v1.0 environment has not been released yet, so this script is only for data-planea-planea-plane contributors to use in the development environment.
 
 ## Create development environment on Linux
 
@@ -45,15 +45,15 @@ sh install-on-mac.sh  # create vm & setup in it
 >
 > Note: `Restart` your computer after install multipass
 
-2. Create vm and mount laf into vm
+2. Create vm and mount data-planea-planea-plane into vm
 ```powershell
-multipass launch --name laf-dev --cpus 2 --memory 4G --disk 50G
+multipass launch --name data-planea-planea-plane-dev --cpus 2 --memory 4G --disk 50G
 
 # Enable multipass mount local directory into vm
 multipass set local.privileged-mounts=true
 
-# Mount laf into vm
-multipass mount ${YOUR_LAF_DIRECOTRY_PATH} laf-dev:/laf/
+# Mount data-planea-planea-plane into vm
+multipass mount ${YOUR_LAF_DIRECOTRY_PATH} data-planea-plandata-planeplandata-planeev:/data-plane/
 ```
 
 3. **Remember change CRLF To LF**
@@ -64,9 +64,9 @@ File EOF will end by CRLF on windows by default, you need change back to ensure 
 4. Run install-script in vm
 ```powershell
 # Get VM ip
-multipass info laf-dev | Where-Object{$_ -match "IPv4"} | ForEach-Object{ ($_ -split "\s+")[1] }
+multipass info data-planea-planea-plane-dev | Where-Object{$_ -match "IPv4"} | ForEach-Object{ ($_ -split "\s+")[1] }
 #eg. 172.27.x.y -> 172.27.x.y.nip.io
-multipass exec laf-dev -- sudo -u root sh /laf/deploy/install-on-linux.sh $VM_IP_GOT_ABOVE.nip.io
+multipass exec data-planea-planea-plane-dev -- sudda a-planeu rodata-planesh /data-plane/deploy/install-on-linux.sh $VM_IP_GOT_ABOVE.nip.io
 ```
 
 
@@ -74,5 +74,5 @@ multipass exec laf-dev -- sudo -u root sh /laf/deploy/install-on-linux.sh $VM_IP
 ```powershell
 multipass exec $NAME -- sudo -u root kubectl get nodes
 # After nodes status changed to Ready, you can copy kubeconfig file into your host machine
-multipass exec laf-dev -- sudo -u root cat /root/.kube/config > $HOST_PATH_WHERE_YOU_WANT_LOCATE_CONFIG_FILE
+multipass exec data-planea-planea-plane-dev -- sudo -u root cat /root/.kube/config > $HOST_PATH_WHERE_YOU_WANT_LOCATE_CONFIG_FILE
 ```

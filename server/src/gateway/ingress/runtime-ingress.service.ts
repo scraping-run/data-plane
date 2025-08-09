@@ -79,7 +79,7 @@ export class RuntimeGatewayService {
         namespace,
         labels: {
           [LABEL_KEY_APP_ID]: appid,
-          'laf.dev/ingress.type': 'runtime',
+          'scraping.run/ingress.type': 'runtime',
         },
         annotations: {
           // apisix ingress annotations

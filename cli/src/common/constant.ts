@@ -8,7 +8,7 @@ export const DEBUG_TOKEN_EXPIRE = 3600 * 24 * 7
 export const STORAGE_TOKEN_EXPIRE = 3600 * 24 * 7
 
 // remote server config
-export const DEFAULT_REMOTE_SERVER = 'https://api.laf.run'
+export const DEFAULT_REMOTE_SERVER = 'https://api.data-plane.run'
 
 // template file
 export const TEMPLATE_DIR = 'template'
@@ -20,7 +20,7 @@ export const GITIGNORE_FILE = 'gitignore'
 
 // schema path
 export const APP_SCHEMA_NAME = '.app.yaml'
-export const PROJECT_SCHEMA_NAME = 'laf.yaml'
+export const PROJECT_SCHEMA_NAME = 'data-plane.yaml'
 export const USER_SCHEMA_NAME = 'user.yaml'
 export const FUNCTION_SCHEMA_DIRECTORY = 'functions'
 export const FUNCTION_SCHEMA_SUFFIX = '.yaml'
@@ -30,4 +30,4 @@ export const ENVIRONMENT_SCHEMA_NAME = '.env'
 export const IGNORE_FILE_NAME = '.gitignore'
 export const POLICIES_DIRECTORY_NAME = 'policies'
 
-export const DEFAULT_SERVER = 'https://api.laf.run'
+export const DEFAULT_SERVER = 'https://api.data-plane.run'

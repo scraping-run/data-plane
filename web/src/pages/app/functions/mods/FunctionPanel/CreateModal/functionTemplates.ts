@@ -2,11 +2,11 @@ import { t } from "i18next";
 
 const functionTemplates = [
   {
-    label: "hello laf",
+    label: "hello data-plane",
     value: `import cloud from '@lafjs/cloud'
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')
-  return { data: 'hi, laf' }
+  return { data: 'hi, data-plane' }
 }
 `,
   },
@@ -16,7 +16,7 @@ export default async function (ctx: FunctionContext) {
 export default async function (ctx: FunctionContext) {
   const db = cloud.database()
   // insert data
-  await db.collection('test').add({ name: "hello laf" })
+  await db.collection('test').add({ name: "hello data-plane" })
   // get data
   const res = await db.collection('test').getOne()
   console.log(res)

@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString, Length } from 'class-validator'
 export class PasswdSigninDto {
   @ApiProperty({
     description: 'username',
-    example: 'laf-user',
+    example: 'data-plane-user',
   })
   @IsString()
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class PasswdSigninDto {
 
   @ApiProperty({
     description: 'password, 8-64 characters',
-    example: 'laf-user-password',
+    example: 'data-plane-user-password',
   })
   @IsString()
   @IsNotEmpty()

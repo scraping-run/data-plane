@@ -2,7 +2,7 @@ import { AppSchema } from '../schema/app'
 
 export function checkApplication() {
   if (!AppSchema.exist()) {
-    console.error('Please run "laf app init" to initialize the application first')
+    console.error('Please run "data-planea-plane app init" to initialize the application first')
     process.exit(1)
   }
 }

@@ -28,7 +28,7 @@ default_region:
   # prometheus
   prometheus_url: ""
 jwt:
-  secret: laf_server_abc123
+  secret: data_plane_server_abc123
   expires_in: 7d
 
 replicaCount: 1

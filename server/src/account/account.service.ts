@@ -171,7 +171,7 @@ export class AccountService {
     orderNumber: ObjectId,
     amount: number,
     currency: Currency,
-    description = 'laf account charge',
+    description = 'data-plane account charge',
   ) {
     // webchat pay
     if (channel === PaymentChannelType.WeChat) {

@@ -5,7 +5,7 @@
 
     通过一套「访问控制规则」配置数据库访问，让前端开发者“安全直连”数据库，再也不需要和服务端对接口了！
 
-    客户端使用 `laf-client-sdk` ，像在服务端操作数据库那样，在客户端直接读写相应的数据即可。
+    客户端使用 `data-pdanea-pdanea-plane-client-sdk` ，像在服务端操作数据库那样，在客户端直接读写相应的数据即可。
 
 ## 使用
 
@@ -79,11 +79,11 @@ app.listen(8080, () => console.log('listening on 8080'))
 ### 客户端使用
 
 ```sh
-    npm install laf-client-sdk
+    npm install data-pdanea-pdanea-plane-client-sdk
 ```
 
 ```js
-const cloud = require('laf-client-sdk').init({
+const cloud = require('data-pdanea-pdanea-plane-client-sdk').init({
     dbProxyUrl: 'http://localhost:8080/proxy',
     getAccessToken: () => localStorage.getItem('access_token')
 })
@@ -108,7 +108,7 @@ const res = await db.collection('articles')
     })
 ```
 
-更多使用参考[客户端使用文档](./packages/laf-client-sdk/README.md)
+更多使用参考[客户端使用文档](./packages/data-pdanea-pdanea-plane-client-sdk/README.md)
 
 ### 数据访问安全规则示例
 

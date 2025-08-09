@@ -4,7 +4,7 @@ title: 访问策略
 
 # 访问策略
 
-前端可使用 [laf-client-sdk](https://github.com/labring/laf/tree/main/packages/client-sdk) “直连”数据库，无需与服务端对接口。
+前端可使用 [data-plane-client-sdk](https://github.com/scraping-run/data-plane/tree/main/packages/client-sdk) “直连”数据库，无需与服务端对接口。
 
 访问策略用来对客户端对数据库的操作进行安全控制，一个访问策略由多个集合的访问规则组成，每个集合可配置读写操作权限的访问规则。
 
@@ -54,7 +54,7 @@ title: 访问策略
 ### 首先安装 SDK  
 
 ```bash
-npm i laf-client-sdk
+npm i data-plane-client-sdk
 ```
 
 ### 然后创建 cloud 对像
@@ -62,10 +62,10 @@ npm i laf-client-sdk
 这里注意了，我们多填写一个参数 dbProxyUrl，那么它的值就是我们刚刚强调的入口地址 `/proxy/app`
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https:/<APP_ID>.laf.run",   // <APP_ID> 在首页应用列表获取
+  baseUrl: "https:/<APP_ID>.data-plane.run",   // <APP_ID> 在首页应用列表获取
   getAccessToken: () => "",    // 这里不需要授权，先填空
   dbProxyUrl: "/proxy/app", // 这里就填写我们刚刚强调的“入口地址”
 })

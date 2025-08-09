@@ -7,6 +7,6 @@ npm run build
 
 # Build Docker image
 echo "Building Docker image..."
-docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/data-plane-web:latest -f Dockerfile .
+docker buildx build --platform linux/arm64 --push -t docker.io/junsik/data-plane-web:latest -f Dockerfile .
 
 echo "Build complete!"

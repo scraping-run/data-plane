@@ -1,33 +1,33 @@
 ## Project Introduction
 
-laf-cli is a command-line tool designed to help developers quickly create, deploy, and manage applications on laf.
+data-plane-cli is a command-line tool designed to help developers quickly create, deploy, and manage applications on data-plane.
 
 ## Quick Start
 
-To install laf-cli, use npm:
+To install data-plane-cli, use npm:
 ```bash
-npm install -g laf-cli
+npm install -g data-plane-cli
 ```
 
 Once installation is complete, verify the installation using:
 ```bash
-laf -v
+data-plane -v
 ```
 
 To log in, use the login command with your personal access token (PAT), which can be obtained from User Settings -> Personal Access Tokens:
 ```bash
-laf login <pat>
+data-plane login <pat>
 ```
 
 View the list of applications and initialize an application:
 ```bash
-laf app list
-laf app init <appId>
+data-plane app list
+data-plane app init <appId>
 ```
 
 For more commands and usage:
 ```bash
-laf -h
+data-plane -h
 ```
 
 ## Development
@@ -56,7 +56,7 @@ npm link
 
 5. Finally, verify that everything is working as expected:
 ```bash
-laf -v
+data-plane -v
 ```
 
 ## File Tree

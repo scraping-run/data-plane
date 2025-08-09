@@ -89,16 +89,16 @@ metadata:
   labels:
     {{- include "runtime-exporter.labels" . | nindent 4 }}
     release: prometheus
-  name: prometheus-laf-billing.rules
+  name: prometheus-data-plane-billing.rules
 spec:
   groups:
-    - name: prometheus-laf-billing.rules
+    - name: prometheus-data-plane-billing.rules
       interval: 60s
       rules:
-        - record: laf:billing:cpu
-          expr: max_over_time(sum by (appid) (laf_runtime_cpu_limit{container!=""})[1h:])
-        - record: laf:billing:memory
-          expr: max_over_time(sum by (appid) (laf_runtime_memory_limit{container!=""})[1h:])
+        - record: data-plane:billing:cpu
+          expr: max_over_time(sum by (appid) (data_plane_runtime_cpu_limit{container!=""})[1h:])
+        - record: data-plane:billing:memory
+          expr: max_over_time(sum by (appid) (data_plane_runtime_memory_limit{container!=""})[1h:])
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

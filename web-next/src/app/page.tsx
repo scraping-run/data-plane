@@ -15,12 +15,12 @@ loader.config({
 });
 
 // Initialize Sentry
-if (typeof window !== 'undefined' && ["laf.run", "laf.dev"].includes(window.location.hostname)) {
+if (typeof window !== 'undefined' && ["data-plane.run", "scraping.run"].includes(window.location.hostname)) {
   const commitId = process.env.NEXT_PUBLIC_GITHUB_SHA;
 
   Sentry.init({
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    release: `laf@${commitId}`,
+    release: `data-plane@${commitId}`,
     integrations: [
       new Sentry.BrowserTracing(),
       new Sentry.Replay(),

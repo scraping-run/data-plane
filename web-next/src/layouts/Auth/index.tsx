@@ -33,7 +33,7 @@ export default function LoginReg() {
             "text-primary-400": darkMode,
           })}
         >
-          Welcome to Laf !
+          Welcome to scraping.run !
         </div>
         <div
           className={clsx("text-[20px]", {
@@ -41,7 +41,7 @@ export default function LoginReg() {
             "text-grayModern-300": darkMode,
           })}
         >
-          life is short, you need laf.
+          life is short, you need data-plane.
         </div>
       </div>
       <Outlet />

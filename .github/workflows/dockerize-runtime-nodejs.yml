@@ -63,8 +63,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/laf-runtime-nodejs
-            docker.io/${{ secrets.DOCKER_USERNAME }}/laf-runtime-nodejs
+            ghcr.io/${{ github.repository_owner }}/data-plane-runtime-nodejs
+            docker.io/${{ secrets.DOCKER_USERNAME }}/data-plane-runtime-nodejs
           # https://github.com/docker/metadata-action#typesemver
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
@@ -99,7 +99,7 @@ jobs:
           context: ./runtimes/nodejs
           file: ./runtimes/nodejs/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'laf-runtime-nodejs:pr-build' }}
+          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'data-plane-runtime-nodejs:pr-build' }}
           labels: ${{ github.event_name != 'pull_request' && steps.meta.outputs.labels || '' }}
           platforms: linux/amd64, linux/arm64
 
@@ -124,8 +124,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/laf-runtime-nodejs-init
-            docker.io/${{ secrets.DOCKER_USERNAME }}/laf-runtime-nodejs-init
+            ghcr.io/${{ github.repository_owner }}/data-plane-runtime-nodejs-init
+            docker.io/${{ secrets.DOCKER_USERNAME }}/data-plane-runtime-nodejs-init
           # https://github.com/docker/metadata-action#typesemver
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
@@ -160,7 +160,7 @@ jobs:
           context: ./runtimes/nodejs
           file: ./runtimes/nodejs/Dockerfile.init
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'laf-runtime-nodejs-init:pr-build' }}
+          tags: ${{ github.event_name != 'pull_request' && steps.meta.outputs.tags || 'data-plane-runtime-nodejs-init:pr-build' }}
           labels: ${{ github.event_name != 'pull_request' && steps.meta.outputs.labels || '' }}
           platforms: linux/amd64, linux/arm64
 

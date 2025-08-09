@@ -11,7 +11,7 @@ import {
 export class PasswdResetDto {
   @ApiProperty({
     description: 'new password, 8-64 characters',
-    example: 'laf-user-password',
+    example: 'data-plane-user-password',
   })
   @IsString()
   @IsNotEmpty()

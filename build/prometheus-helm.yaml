@@ -1,8 +1,41 @@
 fullnameOverride: prometheus
 alertmanager:
   enabled: false
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/issuer: "data-plane-issuer"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - alertmanager.${DOMAIN}  # AlertManager 접속 도메인
+    tls:
+      - hosts:
+        - alertmanager.${DOMAIN}
+        secretName: alertmanager-tls
 grafana:
-  enabled: false
+  enabled: true
+  adminPassword: aldhr1011  # 기본 관리자 비밀번호
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/issuer: "data-plane-issuer"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - grafana.${DOMAIN}  # Grafana 접속 도메인
+    tls:
+      - hosts:
+        - grafana.${DOMAIN}
+        secretName: grafana-tls
 coreDns:
   enabled: false
 nodeExporter:

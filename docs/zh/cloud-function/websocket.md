@@ -41,7 +41,7 @@ export async function main(ctx: FunctionContext) {
 ### 客户端连接
 
 ```typescript
-const wss = new WebSocket("wss://your-own-appid.laf.run")
+const wss = new WebSocket("wss://your-own-appid.data-planea-plane.run")
 
 wss.onopen = (socket) => {
   console.log("connected")

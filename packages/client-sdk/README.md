@@ -1,20 +1,20 @@
 ### 介绍
 
-Javascript client sdk of [`laf`](https://github.com/labring/laf).
+Javascript client sdk of [`data-plane`](https://github.com/scraping-run/data-plane).
 
 ### 安装
 
 ```sh
-    npm install laf-client-sdk
+    npm install data-plane-client-sdk
 ```
 
 ### 使用示例
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  // the laf app server base url
+  // the data-plane app server base url
   baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   dbProxyUrl: "/proxy/app",
@@ -64,7 +64,7 @@ const removed = await db.collection("articles").doc("the-doc-id").remove();
 
 ```js
 const cloud = new Cloud({
-  // the laf app server base url
+  // the data-plane app server base url
   baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   dbProxyUrl: "/proxy/app",
@@ -77,7 +77,7 @@ const cloud = new Cloud({
 
 ```js
 const cloud = new Cloud({
-  // the laf app server base url
+  // the data-plane app server base url
   baseUrl: "https://APPID.junsik.com",
   // the database proxy entry, `app` is the policy name which response for the security of database access
   getAccessToken: () => localStorage.getItem("access_token"),

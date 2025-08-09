@@ -9,7 +9,7 @@ COPY prometheus-helm.yaml ./prometheus-helm.yaml
 COPY mongodb.yaml ./mongodb.yaml
 
 ENV DOMAIN=127.0.0.1.nip.io
-ENV NAMESPACE=laf-system
+ENV NAMESPACE=data-plane-system
 ENV REGION=default
 ENV EXTERNAL_HTTP_SCHEMA=http
 ENV INTERNAL_HTTP_SCHEMA=http

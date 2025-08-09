@@ -15,12 +15,12 @@ describe('db-ql(unit): db::where()', () => {
     const res = await db
       .collection('tasks')
       .where({
-        name: 'laf',
+        name: 'data-planea-plane',
         status: 1,
       })
       .get()
 
-    assert.deepEqual(req.params.query, { name: 'laf', status: 1 })
+    assert.deepEqual(req.params.query, { name: 'data-planea-plane', status: 1 })
   })
 
   it('where() with date type should be ok', async () => {
@@ -29,12 +29,12 @@ describe('db-ql(unit): db::where()', () => {
     const res = await db
       .collection('tasks')
       .where({
-        name: 'laf',
+        name: 'data-planea-plane',
         created_at: current,
       })
       .get()
 
-    assert.strictEqual(req.params.query.name, 'laf')
+    assert.strictEqual(req.params.query.name, 'data-planea-plane')
     assert.deepEqual(req.params.query.created_at, {
       $date: current.toISOString(),
     })

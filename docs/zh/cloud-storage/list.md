@@ -25,7 +25,7 @@ export default async function (ctx: FunctionContext) {
 ```json
  [
     {
-      "Key": "laf.jpg",
+      "Key": "data-plane.jpg",
       "LastModified": "2023-12-12T12:03:36.154Z",
       "ETag": "f0ce41411bdec6212f0836ebfbc56375",
       "Size": 49425

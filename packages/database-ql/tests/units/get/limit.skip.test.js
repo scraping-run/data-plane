@@ -22,7 +22,7 @@ describe('db-ql(unit): db::limit() & skip()', () => {
     const res = await db
       .collection('tasks')
       .where({
-        name: 'laf',
+        name: 'data-plane',
         status: 1,
       })
       .limit(555)
@@ -31,6 +31,6 @@ describe('db-ql(unit): db::limit() & skip()', () => {
 
     assert.strictEqual(req.params.limit, 555)
     assert.strictEqual(req.params.offset, 999)
-    assert.deepEqual(req.params.query, { name: 'laf', status: 1 })
+    assert.deepEqual(req.params.query, { name: 'data-plane', status: 1 })
   })
 })

@@ -1,6 +1,6 @@
 # Intro
 
-`runtime-nodejs` is the application service engine of `laf`, responsible for:
+`runtime-nodejs` is the application service engine of `data-plane`, responsible for:
 
 - The execution of the cloud function
 - Database access proxy
@@ -17,9 +17,9 @@
 
 ## Prerequisites
 
-- laf cluster installed locally or remotely (~/.kube/config)
+- data-plane cluster installed locally or remotely (~/.kube/config)
 - telepresence installed (see https://www.telepresence.io/reference/install)
-- a running app in laf cluster (appid)
+- a running app in data-plane cluster (appid)
 
 ## Start service locally
 
@@ -27,7 +27,7 @@
 cd runtimes/nodejs
 
 # connect the cluster if not connected
-telepresence connect -n laf-system
+telepresence connect -n data-plane-system
 
 export appid=your-app-id
 

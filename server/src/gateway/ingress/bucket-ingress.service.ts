@@ -73,8 +73,8 @@ export class BucketGatewayService {
         namespace,
         labels: {
           [LABEL_KEY_APP_ID]: appid,
-          'laf.dev/bucket.name': domain.bucketName,
-          'laf.dev/ingress.type': 'bucket',
+          'scraping.run/bucket.name': domain.bucketName,
+          'scraping.run/ingress.type': 'bucket',
         },
         annotations: {
           // apisix ingress annotations

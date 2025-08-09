@@ -4,15 +4,15 @@ title: 快速开始
 
 # 快速开始
 
-我们将在 [laf.run](https://laf.run) 上，通过开发一个简单的「Todo」的功能，快速体验 `laf` 云开发。
+我们将在 [data-plane.run](https://data-plane.run) 上，通过开发一个简单的「Todo」的功能，快速体验 `data-plane` 云开发。
 
 ![todo-demo](../doc-images/todo-demo.png)
 
 ## 准备工作
 
-1. 你需要在 [laf.run](https://laf.run) 上注册一个账户。
-2. 登录到 [laf.run](https://laf.run)，点击 `新建` 按钮，创建一个空应用。
-3. 待应用成功启动后，点击右侧「开发」按钮，进入应用的「开发控制台」，接下来，我们将在「开发控制台」进行第一个 `laf` 应用的功能开发。
+1. 你需要在 [data-plane.run](https://data-plane.run) 上注册一个账户。
+2. 登录到 [data-plane.run](https://data-plane.run)，点击 `新建` 按钮，创建一个空应用。
+3. 待应用成功启动后，点击右侧「开发」按钮，进入应用的「开发控制台」，接下来，我们将在「开发控制台」进行第一个 `data-plane` 应用的功能开发。
 
 ## 编写云函数
 
@@ -100,12 +100,12 @@ export async function main(ctx: FunctionContext) {
 
 前端这里我们用的是 Vue 项目来演示，React/Angular/小程序，操作都是相同的。
 
-你也可以使用我们提供的[前端模板](https://github.com/labring/laf-examples/tree/main/laf-todo-demo)。
+你也可以使用我们提供的[前端模板](https://github.com/scraping-run/data-plane-examples/tree/main/data-plane-todo-demo)。
 
-首先需要在前端项目中安装 `laf-client-sdk`。
+首先需要在前端项目中安装 `data-plane-client-sdk`。
 
 ```shell
-npm install laf-client-sdk
+npm install data-plane-client-sdk
 ```  
 
 这里我们需要用到`<APPID>`，可以在控制台找到。
@@ -115,11 +115,11 @@ npm install laf-client-sdk
 引入并创建 cloud 对象，这里需要注意的是`<APPID>`需要换成自己的。
 
 ```js
-import { Cloud } from "laf-client-sdk"; // 引入
+import { Cloud } from "data-plane-client-sdk"; // 引入
 
 // 创建 cloud 对象
 const cloud = new Cloud({
-  baseUrl: "https://<AppID>.laf.run", // 这里的 <AppID> 需要换成自己的 AppID
+  baseUrl: "https://<AppID>.data-plane.run", // 这里的 <AppID> 需要换成自己的 AppID
   getAccessToken: () => '', // 这里先为空
 });
 ```

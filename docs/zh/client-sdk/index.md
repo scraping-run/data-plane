@@ -1,12 +1,12 @@
 ---
-title: laf-client-sdk
+title: data-plane-client-sdk
 ---
 
-# laf-client-sdk
+# data-plane-client-sdk
 
 ## 介绍
 
-laf 为前端提供了 `laf-client-sdk` 适用于前端 js 运行环境。
+data-plane 为前端提供了 `data-plane-client-sdk` 适用于前端 js 运行环境。
 
 :::warning
 优先推荐使用 HTTP 的方式请求云函数
@@ -15,17 +15,17 @@ laf 为前端提供了 `laf-client-sdk` 适用于前端 js 运行环境。
 ## 安装
 
 ```bash
- npm install laf-client-sdk
+ npm install data-plane-client-sdk
 ```
 
 ## 使用示例
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   // 这里是访问策略的入口地址，如果没有访问策略可不填
   dbProxyUrl: "/proxy/app",
   // 请求时带的 token，可空
@@ -35,7 +35,7 @@ const cloud = new Cloud({
 
 ## 参数
 
-`baseUrl` Laf 应用链接，格式为 `https://APPID.laf.run`，APPID 为你的 Laf 应用的 appid
+`baseUrl` scraping.run 应用链接，格式为 `https://APPID.data-plane.run`，APPID 为你的 scraping.run 应用的 appid
 
 `dbProxyUrl` 数据库访问策略入口，格式为 `/proxy/` 开头加上你新建策略名，如果不需要操作数据库，可不填此参数
 
@@ -46,10 +46,10 @@ const cloud = new Cloud({
 ## 微信小程序中使用
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => wx.getStorageSync('access_token'),
   environment: "wxmp",
@@ -64,7 +64,7 @@ const cloud = new Cloud({
 
 1、终端 npm 初始化，在小程序项目文件夹中执行 `npm init -y`
 
-2、安装客户端 SDK，在小程序项目文件夹中执行 `npm i laf-client-sdk`
+2、安装客户端 SDK，在小程序项目文件夹中执行 `npm i data-plane-client-sdk`
 
 3、修改 project.config.json
 
@@ -88,7 +88,7 @@ setting 下新增：
 
 1、终端 npm 初始化，在小程序项目文件夹中执行 `npm init -y`
 
-2、安装客户端 SDK，在小程序项目文件夹中执行 `npm i laf-client-sdk`
+2、安装客户端 SDK，在小程序项目文件夹中执行 `npm i data-plane-client-sdk`
 
 3、构建 NPM，微信开发者工具中，点击"工具"-"构建 npm"
 
@@ -97,10 +97,10 @@ setting 下新增：
 ## UNI-APP 中使用
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => uni.getStorageSync("access_token"),
   environment: "uniapp",
@@ -110,10 +110,10 @@ const cloud = new Cloud({
 ## H5 中使用
 
 ```js
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => localStorage.getItem("access_token"),
   environment: "h5",
@@ -123,14 +123,14 @@ const cloud = new Cloud({
 ## 调用云函数
 
 ::: tip
-`laf-client-sdk` 调用云函数只支持 POST 请求云函数
+`data-plane-client-sdk` 调用云函数只支持 POST 请求云函数
 :::
 
 ```typescript
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   dbProxyUrl: "/proxy/app",
   getAccessToken: () => localStorage.getItem("access_token"),
 });
@@ -142,15 +142,15 @@ const res = await cloud.invoke("getCode", { phone: phone.value });
 ## 操作数据库
 
 :::tip
-通过 `laf-client-sdk` 我们可以像在云函数中一样操作数据库。
+通过 `data-plane-client-sdk` 我们可以像在云函数中一样操作数据库。
 还有就是需要配合相对应的访问策略。
 :::
 
 ```typescript
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 const cloud = new Cloud({
-  baseUrl: "https://APPID.laf.run",
+  baseUrl: "https://APPID.data-plane.run",
   dbProxyUrl: "/proxy/app", //数据库访问策略
   getAccessToken: () => localStorage.getItem("access_token"),
 });

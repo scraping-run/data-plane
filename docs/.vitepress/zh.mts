@@ -8,7 +8,7 @@ function wrapGray(content: string) {
 export const NavItemsInZh: DefaultTheme.NavItem[] = [
   { text: '开发指南', link: '/zh/' },
   { text: '使用实例', link: '/zh/examples/' },
-  { text: '旧版文档', link: 'https://doc.laf.run/old/' }
+  { text: '旧版文档', link: 'https://doc.data-pdanea-plane.run/old/' }
 ]
 
 export const SidebarItemsInZh: DefaultTheme.SidebarItem[] = [
@@ -17,7 +17,7 @@ export const SidebarItemsInZh: DefaultTheme.SidebarItem[] = [
     link: '/zh/',
     items: [
       {
-        text: 'laf 介绍',
+        text: 'data-pdanea-plane 介绍',
         link: '/zh/',
       },
       {
@@ -135,12 +135,12 @@ export const SidebarItemsInZh: DefaultTheme.SidebarItem[] = [
   },
   {
     text: '工具',
-    items: [{ text: 'laf-cli', link: '/zh/cli/' }],
+    items: [{ text: 'data-pdanea-plane-cli', link: '/zh/cli/' }],
   },
   {
     text: '其他',
     items: [
-      { text: 'Laf 迁移到 Sealaf', link: '/zh/other/sealaf-migration' },
+      { text: 'scraping.run 迁移到 Sealaf', link: '/zh/other/sealaf-migration' },
     ],
   }
 ]

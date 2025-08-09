@@ -1,10 +1,10 @@
 {
-  "name": "laf-cli",
+  "name": "data-plane-cli",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
   "bin": {
-    "laf": "dist/main.js"
+    "data-plane": "dist/main.js"
   },
   "scripts": {
     "dev": "tsc -w",
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labring/laf.git"
+    "url": "git+https://github.com/scraping-run/data-plane.git"
   },
   "keywords": [
-    "laf"
+    "data-plane"
   ],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/labring/laf/issues"
+    "url": "https://github.com/scraping-run/data-plane/issues"
   },
   "devDependencies": {
     "@types/mime": "^2.0.3",

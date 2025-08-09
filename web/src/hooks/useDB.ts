@@ -1,4 +1,4 @@
-import { Cloud } from "laf-client-sdk";
+import { Cloud } from "data-plane-client-sdk";
 
 import { VITE_SERVER_BASE_URL } from "../constants";
 

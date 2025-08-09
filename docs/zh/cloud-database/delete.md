@@ -17,7 +17,7 @@ const db = cloud.mongo.db
 
 export default async function () {
   const ret = await db.collection('users').deleteOne({
-    name: 'laf'
+    name: 'data-plane'
   })
 
   console.log(ret)

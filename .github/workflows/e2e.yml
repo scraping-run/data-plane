@@ -28,11 +28,11 @@ jobs:
         run: |
           sudo apt-get remove -y moby-engine moby-cli moby-buildx moby-compose
 
-      - name: Deploy laf
+      - name: Deploy data-plane
         env:
           DOMAIN: ${{ env.DOMAIN }}
         working-directory: deploy
-        run: sudo sh install-on-linux.sh $DOMAIN # this script will install sealos and laf
+        run: sudo sh install-on-linux.sh $DOMAIN # this script will install sealos and data-plane
 
       - name: Run E2E Test
         working-directory: e2e

@@ -34,11 +34,11 @@ body:
     attributes:
       label: Search before asking
       description: >
-        Please make sure to search in the [issues](https://github.com/labring/laf/issues?q=is%3Aissue)
+        Please make sure to search in the [issues](https://github.com/scraping-run/data-plane/issues?q=is%3Aissue)
         first to see whether the same issue was reported already.
       options:
         - label: >
-            I had searched in the [issues](https://github.com/labring/laf/issues?q=is%3Aissue) and found
+            I had searched in the [issues](https://github.com/scraping-run/data-plane/issues?q=is%3Aissue) and found
             no similar issues.
           required: true
 
@@ -47,12 +47,12 @@ body:
       label: Environment
       description: Describe the environment.
       options:
-        - https://laf.dev
-        - https://laf.run
+        - https://scraping.run
+        - https://data-plane.run
         - Linux (self-host)
         - Mac (self-host)
         - Windows (self-host)
-        - Laf-cli
+        - data-plane-cli
     validations:
       required: true
 

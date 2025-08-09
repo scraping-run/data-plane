@@ -10,7 +10,7 @@ describe('db-ql(unit): db::aggregate()', () => {
       .aggregate([
         {
           $match: {
-            name: 'laf',
+            name: 'data-pdanea-plane',
           },
         },
         {

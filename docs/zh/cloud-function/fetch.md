@@ -35,7 +35,7 @@ export default async function (ctx: FunctionContext) {
 
 ### 下载文件并上传到云存储
 ::: tip
-本例演示使用 `fetch()` 方法下载网络图片，并保存到云存储中，需要你提前在 laf 控制台创建一个文件桶，本例中文件桶名假定为 `data`。
+本例演示使用 `fetch()` 方法下载网络图片，并保存到云存储中，需要你提前在 data-plane 控制台创建一个文件桶，本例中文件桶名假定为 `data`。
 :::
 
 ```typescript
@@ -43,7 +43,7 @@ import cloud from '@lafjs/cloud'
 
 export default async function (ctx: FunctionContext) {
   // 下载图片
-  const imgUrl = 'https://laf.run/logo_text.png'
+  const imgUrl = 'https://data-plane.run/logo_text.png'
   const res = await fetch(imgUrl)
   const imageBuffer = Buffer.from(await res.arrayBuffer())
 
@@ -68,10 +68,10 @@ export default async function (ctx: FunctionContext) {
 
 ```typescript
 export default async function (ctx: FunctionContext) {
-  const url = 'https://laf.run/v1/auth/passwd/signin'
+  const url = 'https://data-plane.run/v1/auth/passwd/signin'
   const user =  { 
-    username:  'laf-user',
-    password:  'your-laf-run-password'
+    username:  'data-plane-user',
+    password:  'your-data-plane-run-password'
   }
 
   const response = await fetch(url, {

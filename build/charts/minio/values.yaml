@@ -268,7 +268,7 @@ policies:
 ## writeexamplepolicy policy grants creation or deletion of buckets with name
 ## starting with example. In addition, grants objects write permissions on buckets starting with
 ## example.
-- name: laf_owner_by_prefix
+- name: data_plane_owner_by_prefix
   statements:
     - resources:
         - 'arn:aws:s3:::${aws:username}-*'
@@ -283,7 +283,7 @@ policies:
         - "s3:DeleteObject"
         - "s3:GetBucketLocation"
 
-- name: laf_owner_readonly_by_prefix
+- name: data_plane_owner_readonly_by_prefix
   statements:
     - resources:
         - 'arn:aws:s3:::${aws:username}-*'
@@ -434,12 +434,12 @@ customCommands:
   # - command: "admin policy set myminio consoleAdmin group='cn=ops,cn=groups,dc=example,dc=com'"
   - command: "alias ls && ls /config"
   - command: "admin user add myminio temp-user abcd123456"
-  - command: "admin group add myminio laf_owner_by_prefix_group temp-user"
-  - command: "admin group add myminio laf_owner_readonly_by_prefix_group temp-user"
-  - command: "admin policy add myminio laf_owner_by_prefix /config/policy_0.json"
-  - command: "admin policy set myminio laf_owner_by_prefix group=laf_owner_by_prefix_group"
-  - command: "admin policy add myminio laf_owner_readonly_by_prefix /config/policy_1.json"
-  - command: "admin policy set myminio laf_owner_readonly_by_prefix group=laf_owner_readonly_by_prefix_group"
+  - command: "admin group add myminio data_plane_owner_by_prefix_group temp-user"
+  - command: "admin group add myminio data_plane_owner_readonly_by_prefix_group temp-user"
+  - command: "admin policy add myminio data_plane_owner_by_prefix /config/policy_0.json"
+  - command: "admin policy set myminio data_plane_owner_by_prefix group=data_plane_owner_by_prefix_group"
+  - command: "admin policy add myminio data_plane_owner_readonly_by_prefix /config/policy_1.json"
+  - command: "admin policy set myminio data_plane_owner_readonly_by_prefix group=data_plane_owner_readonly_by_prefix_group"
 
 ## Additional Annotations for the Kubernetes Job customCommandJob
 customCommandJob:

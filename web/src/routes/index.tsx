@@ -16,34 +16,11 @@ const route404 = {
 const routes = [
   {
     path: "/login",
-    element: <AuthLayout />,
     auth: false,
     children: [
       {
         path: "/login",
-        element: () => import("@/pages/auth/signin"),
-      },
-    ],
-  },
-  {
-    path: "/signup",
-    element: <AuthLayout />,
-    auth: false,
-    children: [
-      {
-        path: "/signup",
-        element: () => import("@/pages/auth/signup"),
-      },
-    ],
-  },
-  {
-    path: "/reset-password",
-    element: <AuthLayout />,
-    auth: false,
-    children: [
-      {
-        path: "/reset-password",
-        element: () => import("@/pages/auth/reset-password"),
+        element: () => import("@/pages/auth/signin/AdminLogin"),
       },
     ],
   },
@@ -62,7 +39,7 @@ const routes = [
     children: [
       {
         path: "/",
-        element: () => import("@/pages/homepage"),
+        element: () => import("@/pages/auth/signin/AdminLogin"),
         index: true,
       },
       {
@@ -150,24 +127,8 @@ function LazyElement(props: any) {
 
 function dealRoutes(routesArr: any, siteSettings: SiteSettings) {
   if (routesArr && Array.isArray(routesArr) && routesArr.length > 0) {
-    if (siteSettings.enable_web_promo_page?.value === "false") {
-      for (let i = 0; i < routesArr.length; i++) {
-        const route = routesArr[i];
-        if (route.index) {
-          routesArr[i] = {
-            path: "/",
-            element: <BasicLayout />,
-            auth: true,
-            children: [
-              {
-                path: "/",
-                element: () => import("@/pages/home/index"),
-              },
-            ],
-          };
-        }
-      }
-    }
+    // Admin login is always the default homepage
+    // No need for promotional page logic
 
     routesArr.forEach((route) => {
       if (route.element && typeof route.element == "function") {

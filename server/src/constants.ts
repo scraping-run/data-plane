@@ -126,7 +126,7 @@ export class ServerConfig {
   }
 
   static get SITE_NAME() {
-    return process.env.SITE_NAME || 'laf'
+    return process.env.SITE_NAME || 'data-plane'
   }
 
   static get API_SERVER_URL() {
@@ -194,10 +194,10 @@ export class ServerConfig {
   }
 }
 
-export const LABEL_KEY_USER_ID = 'laf.dev/user.id'
-export const LABEL_KEY_APP_ID = 'laf.dev/appid'
-export const LABEL_KEY_NAMESPACE_TYPE = 'laf.dev/namespace.type'
-export const LABEL_KEY_NODE_TYPE = 'laf.dev/node.type'
+export const LABEL_KEY_USER_ID = 'scraping.run/user.id'
+export const LABEL_KEY_APP_ID = 'scraping.run/appid'
+export const LABEL_KEY_NAMESPACE_TYPE = 'scraping.run/namespace.type'
+export const LABEL_KEY_NODE_TYPE = 'scraping.run/node.type'
 export enum NodeType {
   Runtime = 'runtime',
   Database = 'database',
@@ -212,15 +212,15 @@ export const CN_PUBLISHED_POLICIES = '__policies__'
 export const CN_PUBLISHED_CONF = '__conf__'
 export const CN_PUBLISHED_WEBSITE_HOSTING = '__website_hosting__'
 
-export const X_LAF_TRIGGER_TOKEN_KEY = 'x-laf-trigger-token'
-export const X_LAF_DEVELOP_TOKEN_KEY = 'x-laf-develop-token'
+export const X_LAF_TRIGGER_TOKEN_KEY = 'x-data-plane-trigger-token'
+export const X_LAF_DEVELOP_TOKEN_KEY = 'x-data-plane-develop-token'
 export const APPLICATION_SECRET_KEY = 'SERVER_SECRET'
 
 // Cluster constants
-export const MINIO_COMMON_USER_GROUP = 'laf_owner_by_prefix_group'
-export const MINIO_COMMON_USER_POLICY = 'laf_owner_by_prefix'
-export const MINIO_READONLY_USER_GROUP = 'laf_owner_readonly_by_prefix_group'
-export const MINIO_READONLY_USER_POLICY = 'laf_owner_readonly_by_prefix'
+export const MINIO_COMMON_USER_GROUP = 'data_plane_owner_by_prefix_group'
+export const MINIO_COMMON_USER_POLICY = 'data_plane_owner_by_prefix'
+export const MINIO_READONLY_USER_GROUP = 'data_plane_owner_readonly_by_prefix_group'
+export const MINIO_READONLY_USER_POLICY = 'data_plane_owner_readonly_by_prefix'
 // Date & times
 export const ONE_DAY_IN_SECONDS = 60 * 60 * 24 // 1 day in seconds
 export const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7 // 7 days in seconds

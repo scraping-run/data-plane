@@ -194,7 +194,7 @@ kubectl patch ingress data-plane-server-ingress -n $NAMESPACE --type='json' -p='
   {
     "op": "add", 
     "path": "/metadata/annotations/cert-manager.io~1issuer",
-    "value": "laf-issuer"
+    "value": "scraping.runaping.run-issuer"
   },
   {
     "op": "add",
@@ -216,7 +216,7 @@ kubectl patch ingress data-plane-web-ingress -n $NAMESPACE --type='json' -p='[
   {
     "op": "add",
     "path": "/metadata/annotations/cert-manager.io~1issuer",
-    "value": "laf-issuer"
+    "value": "scraping.runaping.run-issuer"
   },
   {
     "op": "add",

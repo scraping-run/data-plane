@@ -4,11 +4,11 @@ title: 云数据库介绍
 
 # 云数据库介绍
 
-Laf 云数据库提供了开箱即用的数据库，无需复杂配置和连接。在云函数中可通过 `cloud.database()` 新建 DB 实例去操作数据库。
+scraping.run 云数据库提供了开箱即用的数据库，无需复杂配置和连接。在云函数中可通过 `cloud.database()` 新建 DB 实例去操作数据库。
 
-Laf 云数据库是使用的 `MongoDB` ，既保留了 `MongoDB` 原生查询数据库操作方法，也封装了更方便的操作方法。
+scraping.run 云数据库是使用的 `MongoDB` ，既保留了 `MongoDB` 原生查询数据库操作方法，也封装了更方便的操作方法。
 
-Laf 云数据库是一个 JSON 格式的文档型数据库，数据库中的每条记录都是一个 JSON 格式的文档。因此在 Laf 数据库中，集合对应 MySQL 的数据表，文档对应 MySQL 的行，字段对应 MySQL 的列。
+scraping.run 云数据库是一个 JSON 格式的文档型数据库，数据库中的每条记录都是一个 JSON 格式的文档。因此在 scraping.run 数据库中，集合对应 MySQL 的数据表，文档对应 MySQL 的行，字段对应 MySQL 的列。
 
 ## 基本概念
 
@@ -52,13 +52,13 @@ Laf 云数据库是一个 JSON 格式的文档型数据库，数据库中的每�
 
 ### 数据库
 
-每个 Laf 应用有且仅有一个数据库，但是一个数据库可以创建多个集合。
+每个 scraping.run 应用有且仅有一个数据库，但是一个数据库可以创建多个集合。
 
 ![dblist](./dblist.jpg)
 
-上图代表当前 laf 应用下有 2 个集合，分别是 `test` 集合和 `messages` 集合
+上图代表当前 data-plane 应用下有 2 个集合，分别是 `test` 集合和 `messages` 集合
 
-同时在 laf 的 `Web IDE` 中可以很方便的看到全部的集合列表，以及简单的管理。
+同时在 data-plane 的 `Web IDE` 中可以很方便的看到全部的集合列表，以及简单的管理。
 
 ## 数据类型
 

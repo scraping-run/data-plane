@@ -1,5 +1,5 @@
-name: Build Laf Docs
-description: Build Laf Docs, to reuse in other workflows
+name: Build data-plane Docs
+description: Build data-plane Docs, to reuse in other workflows
 
 inputs:
   docs-path:

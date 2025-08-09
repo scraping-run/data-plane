@@ -5,7 +5,7 @@
 本节通过给出几个简单的云函数示例，快速展示云函数的能力和用法。
 
 ::: tip
-你可以在 `https://laf.run` 上创建一个应用，然后创建函数来调试这些云函数代码。
+你可以在 `https://data-plane.run` 上创建一个应用，然后创建函数来调试这些云函数代码。
 :::
 
 ::: info 本节目录
@@ -17,12 +17,12 @@
 ```typescript
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')
-  return 'hi, laf'
+  return 'hi, data-plane'
 }
 ```
 
-这个最简单的云函数，打印一条日志 `Hello World`，并返回 `hi, laf` 做为其响应内容。
-通过浏览器访问其地址即可看到 `hi, laf`。
+这个最简单的云函数，打印一条日志 `Hello World`，并返回 `hi, data-plane` 做为其响应内容。
+通过浏览器访问其地址即可看到 `hi, data-plane`。
 
 ## 获取请求参数
 
@@ -61,7 +61,7 @@ const db = cloud.mongo.db
 export default async function (ctx: FunctionContext) {
   // 新增数据
   await db.collection('users').insertOne({
-    username: 'laf',
+    username: 'data-plane',
     created_at: new Date()
   })
 
@@ -78,7 +78,7 @@ export default async function (ctx: FunctionContext) {
 
 ```typescript
 export default async function (ctx: FunctionContext) {
-  const res = await fetch('https://laf.run/v1/regions')
+  const res = await fetch('https://data-plane.run/v1/regions')
   const obj = await res.json()
   return obj
 }

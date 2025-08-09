@@ -1,6 +1,6 @@
 # Intro
 
-`laf server` is responsible for laf http api:
+`data-plane server` is responsible for data-plane http api:
 
 - auth & user
 - region cluster
@@ -28,7 +28,7 @@
 
 ## Prerequisites
 
-- laf cluster installed locally or remotely (~/.kube/config)
+- data-plane cluster installed locally or remotely (~/.kube/config)
 - telepresence installed (see <https://www.telepresence.io/reference/install>)
 - minio client installed (see <https://min.io/download#>)
 
@@ -40,10 +40,10 @@ cd server/
 # telepresence version v2.16.1
 # Install telepresence traffic manager 
 telepresence helm install
-# Connect your computer to laf-dev cluster (namespace laf-system)
-telepresence connect -n laf-system
-# Connect local server to laf server cluster (namespace laf-system)
-telepresence intercept laf-server  -p 3000:3000 -e $(pwd)/.env
+# Connect your computer to data-plane-dev cluster (namespace data-plane-system)
+telepresence connect -n data-plane-system
+# Connect local server to data-plane server cluster (namespace data-plane-system)
+telepresence intercept data-plane-server  -p 3000:3000 -e $(pwd)/.env
 
 npm install
 npm run dev
@@ -52,5 +52,5 @@ npm run dev
 > Clean up
 
 ```bash
-telepresence leave laf-server
+telepresence leave data-plane-server
 ```

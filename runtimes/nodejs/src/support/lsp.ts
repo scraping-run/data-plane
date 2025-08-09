@@ -27,7 +27,7 @@ export class LspWebSocket {
     {
       const token = request.headers['sec-websocket-protocol'] as string
       if (!token) {
-        request.destroy(new Error('x-laf-develop-token is needed'))
+        request.destroy(new Error('x-data-plane-develop-token is needed'))
         return
       }
 

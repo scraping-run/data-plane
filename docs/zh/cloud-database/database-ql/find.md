@@ -4,7 +4,7 @@ title: 查询数据
 
 # 查询数据
 
-Laf 云数据库支持传入不同的条件来查询数据，并且对查询结果进行处理。本文档将通过示例说明如何通过 `cloud.database()` 在云函数中执行查询。
+scraping.run 云数据库支持传入不同的条件来查询数据，并且对查询结果进行处理。本文档将通过示例说明如何通过 `cloud.database()` 在云函数中执行查询。
 
 查询数据操作主要支持 `where()` `limit()` `skip()` `orderBy()` `field()` `get()` `getOne()` `count()` 等
 
@@ -30,7 +30,7 @@ export async function main(ctx: FunctionContext) {
 
   // get 方法发起查询请求，配置 where 条件
   const result2 = await db.collection('user').where({
-    name: 'laf'
+    name: 'data-plane'
   }).get()
   console.log(result2) 
 

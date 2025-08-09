@@ -30,7 +30,7 @@ export default function Router() {
   const siteSettings = useSiteSettingStore((state) => state.siteSettings);
   const [isReady, setIsReady] = useState(false);
 
-  useDocumentTitle("HomePage.NavBar.title", "laf");
+  useDocumentTitle("HomePage.NavBar.title", "data-plane");
 
   useEffect(() => {
     setIsReady(true);
@@ -43,7 +43,7 @@ export default function Router() {
 
   useEffect(() => {
     if (siteSettings?.laf_version) {
-      console.log("🚀 ~ laf version:", siteSettings?.laf_version);
+      console.log("🚀 ~ data-plane version:", siteSettings?.laf_version);
     }
   }, [siteSettings]);
 

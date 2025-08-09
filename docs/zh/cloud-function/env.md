@@ -2,7 +2,7 @@
 
 # 环境变量
 
-在 laf「开发控制台」，点击左下角的「设置」按钮，可打开「应用设置」面板，在「环境变量」可修改/添加环境变量。
+在 data-plane「开发控制台」，点击左下角的「设置」按钮，可打开「应用设置」面板，在「环境变量」可修改/添加环境变量。
 
 
 ![Environment Variables](env.png)
@@ -39,7 +39,7 @@ NPM_INSTALL_FLAGS="--registry=https://registry.npmjs.org"
 ```
 
 ::: tip
-在 [laf.run](https://laf.run) 公有云上，为了加速中国大陆地区的应用初始化速度，使用了加速镜像，该值默认为 `--registry=https://registry.npmmirror.com --canvas_binary_host_mirror=https://npmmirror.com/mirrors/canvas --sharp_binary_host=https://npmmirror.com/mirrors/sharp --sharp_libvips_binary_host=https://npm.taobao.org/mirrors/sharp-libvips`
+在 [data-plane.run](https://data-plane.run) 公有云上，为了加速中国大陆地区的应用初始化速度，使用了加速镜像，该值默认为 `--registry=https://registry.npmmirror.com --canvas_binary_host_mirror=https://npmmirror.com/mirrors/canvas --sharp_binary_host=https://npmmirror.com/mirrors/sharp --sharp_libvips_binary_host=https://npm.taobao.org/mirrors/sharp-libvips`
 :::
 
 
@@ -76,7 +76,7 @@ NPM_INSTALL_FLAGS="--registry=https://registry.npmjs.org"
 
 ### `OSS_EXTERNAL_ENDPOINT` 
 
-`process.env.OSS_EXTERNAL_ENDPOINT` 用于获取云存储的外网访问入口地址，在公有云中其值为 `https://oss.laf.run`，请勿修改此项。
+`process.env.OSS_EXTERNAL_ENDPOINT` 用于获取云存储的外网访问入口地址，在公有云中其值为 `https://oss.data-plane.run`，请勿修改此项。
 
 ### `OSS_INTERNAL_ENDPOINT`
 

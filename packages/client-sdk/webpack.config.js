@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
-    'laf-client': './src/index-bundle.ts',
+    'data-plane-client': './src/index-bundle.ts',
   },
   devtool: 'inline-source-map',
   target: 'web',

@@ -70,8 +70,8 @@ export class WebsiteHostingGatewayService {
         namespace,
         labels: {
           [LABEL_KEY_APP_ID]: appid,
-          'laf.dev/bucket.name': website.bucketName,
-          'laf.dev/ingress.type': 'website',
+          'scraping.run/bucket.name': website.bucketName,
+          'scraping.run/ingress.type': 'website',
         },
       },
       spec: { ingressClassName, rules: [rule], tls },

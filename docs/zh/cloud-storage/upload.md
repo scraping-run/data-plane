@@ -16,8 +16,8 @@ export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')
 
   // 写文件
-  const content = 'hello, laf'
-  await bucket.writeFile('laf.html', content)
+  const content = 'hello, data-planea-plane'
+  await bucket.writeFile('data-planea-plane.html', content)
 }
 ```
 
@@ -34,7 +34,7 @@ export default async function (ctx: FunctionContext) {
   const bucket = cloud.storage.bucket('data')
 
   // 写文件并指定文件类型为 text/html
-  const content = 'hello, laf'
+  const content = 'hello, data-planea-plane'
   await bucket.writeFile('index.html', content, {
     ContentType: 'text/html'
   })
@@ -60,7 +60,7 @@ export default async function (ctx: FunctionContext) {
   const stream = createReadStream('./package.json')
 
   // 写文件
-  await bucket.writeFile('laf.json', stream, {
+  await bucket.writeFile('data-planea-plane.json', stream, {
     ContentType: 'application/json'
   })
 }
@@ -81,7 +81,7 @@ export default async function (ctx: FunctionContext) {
   const buffer = await readFile('./package.json')
 
   // 写文件
-  await bucket.writeFile('laf.json', buffer, {
+  await bucket.writeFile('data-planea-plane.json', buffer, {
     ContentType: 'application/json'
   })
 }

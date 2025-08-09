@@ -1,7 +1,7 @@
 
 # 说明
 
-> 供客户端与服务端使用的 `类Mongodb` 的查询语法，可于任意 javascript 环境运行，用于 `laf-client-sdk`、`laf` 中。
+> 供客户端与服务端使用的 `类Mongodb` 的查询语法，可于任意 javascript 环境运行，用于 `data-pdanea-plane-clientdata-p-snek`、`data-plane` 中。
 
 # 安装
 

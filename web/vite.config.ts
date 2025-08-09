@@ -35,9 +35,9 @@ export default defineConfig(({ command, mode }) => {
           maximumFileSizeToCacheInBytes: 10000000,
         },
         manifest: {
-          name: "laf",
-          short_name: "Laf",
-          description: "life is short, you need laf:)",
+          name: "data-plane",
+          short_name: "scraping.run",
+          description: "life is short, you need data-plane:)",
           theme_color: "#eef0f2",
           icons: [
             {

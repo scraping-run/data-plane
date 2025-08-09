@@ -8,7 +8,7 @@ export async function handleOpenAPIDefinition(req: IRequest, res: Response) {
   // verify the openapi token
   const token = req.query['token'] as string
   if (!token) {
-    return res.status(400).send('x-laf-openapi-token is required')
+    return res.status(400).send('x-data-plane-openapi-token is required')
   }
   const auth = parseToken(token) || null
   if (auth?.type !== 'openapi') {
@@ -16,7 +16,7 @@ export async function handleOpenAPIDefinition(req: IRequest, res: Response) {
   }
 
   const doc = buildOpenAPIDefinition({
-    title: `Laf Application ${Config.APPID} Cloud Function API`,
+    title: `scraping.run Application ${Config.APPID} Cloud Function API`,
     version: '1.0.0',
     host: req.get('host'),
     apiVersion: '3.0.0',

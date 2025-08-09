@@ -1,7 +1,7 @@
 {
   "name": "runtime-exporter",
   "version": "1.0.0",
-  "description": "the runtime metrics exporter of laf",
+  "description": "the runtime metrics exporter of data-plane",
   "main": "./dist/index.js",
   "private": true,
   "scripts": {

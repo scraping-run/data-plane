@@ -12,7 +12,7 @@ describe('db-ql(unit): db::doc().create()', () => {
       .doc('nonsense_id')
       .create({
         uid: new ObjectId(),
-        name: 'laf',
+        name: 'data-plane',
         created_at: new Date(),
         pic: new Binary(buf),
       })
@@ -24,7 +24,7 @@ describe('db-ql(unit): db::doc().create()', () => {
 
     // validate data
     assert.ok(req.params.data.uid.$oid)
-    assert.strictEqual(req.params.data.name, 'laf')
+    assert.strictEqual(req.params.data.name, 'data-plane')
     assert.ok(req.params.data.created_at.$date)
     assert.ok(req.params.data.pic.$binary.base64)
     assert.ok(req.params.data.pic.$binary.subType)

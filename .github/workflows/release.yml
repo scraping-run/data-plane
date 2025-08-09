@@ -41,8 +41,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/laf-server
-            docker.io/${{ secrets.DOCKER_USERNAME }}/laf-server
+            ghcr.io/${{ github.repository_owner }}/data-plane-server
+            docker.io/${{ secrets.DOCKER_USERNAME }}/data-plane-server
           # https://github.com/docker/metadata-action#typesemver
           tags: |
             type=semver,pattern={{version}}
@@ -103,8 +103,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/laf-web
-            docker.io/${{ secrets.DOCKER_USERNAME }}/laf-web
+            ghcr.io/${{ github.repository_owner }}/data-plane-web
+            docker.io/${{ secrets.DOCKER_USERNAME }}/data-plane-web
           # https://github.com/docker/metadata-action#typesemver
           tags: |
             type=semver,pattern={{version}}

@@ -1,11 +1,11 @@
 {
-  "name": "laf-project",
+  "name": "data-plane-project",
   "version": "1.0.0-beta.4",
-  "description": "laf.js serverless cloud development platform",
+  "description": "data-plane.js serverless cloud development platform",
   "private": "true",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labring/laf.git"
+    "url": "git+https://github.com/scraping-run/data-plane.git"
   },
   "scripts": {
     "install": "lerna exec npm install --parallel",
@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "laf",
+    "data-plane",
     "faas",
     "baas",
     "serverless",
@@ -35,7 +35,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "editorconfig": "^2.0.0",
-    "eslint-config-laf": "./packages/eslint-config-laf",
+    "eslint-config-data-plane": "./packages/eslint-config-data-plane",
     "husky": "^8.0.0",
     "lerna": "^6.4.1",
     "lint-staged": "^15.1.0",

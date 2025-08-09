@@ -51,7 +51,7 @@ const Navbar = () => {
   useEffect(() => {
     (async () => {
       const axiosRes = await axios.get(
-        "https://img.shields.io/github/stars/labring/laf?style=plastic",
+        "https://img.shields.io/github/stars/scraping-run/data-plane?style=plastic",
       );
       const str = axiosRes.data;
       const reg = /(\d+(\.\d+)?)(k)/;

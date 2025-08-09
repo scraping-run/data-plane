@@ -304,12 +304,12 @@ export class BillingService {
     })
 
     const cpuTask = prom
-      .instantQuery(`laf:billing:cpu{appid="${app.appid}"}`, endAt)
+      .instantQuery(`data-plane:billing:cpu{appid="${app.appid}"}`, endAt)
       .then((res) => res.result[0])
       .then((res) => Number(res.value.value))
 
     const memoryTask = prom
-      .instantQuery(`laf:billing:memory{appid="${app.appid}"}`, endAt)
+      .instantQuery(`data-plane:billing:memory{appid="${app.appid}"}`, endAt)
       .then((res) => res.result[0])
       .then((res) => Number(res.value.value))
 

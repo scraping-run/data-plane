@@ -12,8 +12,8 @@ export async function invokeFunction(
   customerHeader: any = {},
 ): Promise<{ res: any; requestId: string }> {
   const header: AxiosRequestHeaders | any = {
-    'x-laf-develop-token': token,
-    'x-laf-func-data': urlencode(JSON.stringify(funcData)),
+    'x-data-plane-develop-token': token,
+    'x-data-plane-func-data': urlencode(JSON.stringify(funcData)),
     'Content-Type': 'application/x-www-form-urlencoded', // default content type
     ...customerHeader,
   }

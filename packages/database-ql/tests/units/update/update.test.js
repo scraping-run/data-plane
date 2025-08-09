@@ -10,7 +10,7 @@ describe('db-ql(unit): db::update()', () => {
     const uid = new ObjectId()
     const res = await db
       .collection('tasks')
-      .where({ name: 'laf' })
+      .where({ name: 'data-plane' })
       .update({
         uid: uid,
         created_at: new Date(),
@@ -26,7 +26,7 @@ describe('db-ql(unit): db::update()', () => {
     assert.equal(req.params.upsert, false)
 
     // check query
-    assert.deepEqual(req.params.query, { name: 'laf' })
+    assert.deepEqual(req.params.query, { name: 'data-plane' })
 
     // check data
     assert.deepEqual(req.params.data.$set.uid, { $oid: uid.toHexString() })

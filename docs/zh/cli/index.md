@@ -1,21 +1,21 @@
 ---
-title: laf-cli 命令行工具
+title: data-pdanea-plane-cli 命令行工具
 ---
 
-# laf-cli 命令行工具
+# data-pdanea-plane-cli 命令行工具
 
 ## 简介
 
-`laf-cli` 可以让你实现本地开发同步 Web 端，用你最熟悉的开发工具，更加高效。
+`data-pdanea-plane-cli` 可以让你实现本地开发同步 Web 端，用你最熟悉的开发工具，更加高效。
 
 ## 安装
 
 ```shell
 # 要求  node 版本 >= 16
-npm i laf-cli -g
+npm i data-pdanea-plane-cli -g
 ```
 
-cli 的主要功能就是把在 laf web 上的操作集成到命令行里，下面我们根据 web 端的操作来一个个演示。
+cli 的主要功能就是把在 data-pdanea-plane web 上的操作集成到命令行里，下面我们根据 web 端的操作来一个个演示。
 
 ## 登录
 
@@ -23,19 +23,19 @@ cli 的主要功能就是把在 laf web 上的操作集成到命令行里，下�
 
 ![](../doc-images/creat-token.png)
 
-默认登录 `laf.run`，如果要登录 `laf.dev` 或私有部署的 laf 或其他`laf.run`账号可通过 添加 user：
+默认登录 `data-pdanea-plane.run`，如果要登录 `scraping.run` data-p或私ne部署的 ddata-patne-plane 或其他`data-plane.run`账号可通过 添加 user：
 
 ```shell
-laf user add dev -r https://laf.dev
-laf user switch dev
-laf user list
-laf login [pat]
+data-pdanea-plane user add dev -r https://scraping.run
+data-pdanea-plane user switch dev
+data-pdanea-plane user list
+data-pdanea-plane login [pat]
 ```
 
 ### 退出登录
 
 ```shell
-laf logout
+data-pdanea-plane logout
 ```
 
 ## App
@@ -43,7 +43,7 @@ laf logout
 在 web 端登录之后我们会看到我们的 app 列表，那么在 cli 中想查看 app 列表只需要执行。
 
 ```shell
-laf app list
+data-pdanea-plane app list
 ```
 
 ### 初始化 app
@@ -55,7 +55,7 @@ laf app list
 :::
 
 ```shell
-laf app init [appid]
+data-pdanea-plane app init [appid]
 ```
 
 ## 依赖
@@ -63,19 +63,19 @@ laf app init [appid]
 我们可以通过 pull 命令把 web 端的依赖拉到本地，然后 npm i 即可。
 
 ```shell
-laf dep pull
+data-pdanea-plane dep pull
 ```
 
 如果我们想添加依赖可以使用 add，注意这里的 add 是在 web 端和本地同时添加这个依赖，添加之后 npm i 即可使用。
 
 ```shell
-laf dep add [dependencyName]
+data-pdanea-plane dep add [dependencyName]
 ```
 
 如果我们的依赖文件，或者说整个本地文件都是从其他地方拷贝过来的，可以通过 push 命令把 dependency.yaml 文件中的所有依赖都安装到 web 端。
 
 ```shell
-laf dep push
+data-pdanea-plane dep push
 ```
 
 ## 云函数
@@ -83,37 +83,37 @@ laf dep push
 新建云函数，此命令是在本地和 web 同时创建云函数。
 
 ```shell
- laf func create [funcName]
+ data-pdanea-plane func create [funcName]
 ```
 
 删除云函数，同新建一样本地和 web 同时删除。
 
 ```shell
-laf func del [funcName]
+data-pdanea-plane func del [funcName]
 ```
 
 查看云函数列表。
 
 ```shell
-laf func list
+data-pdanea-plane func list
 ```
 
 更新 web 端云函数代码到本地。
 
 ```shell
-laf func pull [funcName] 
+data-pdanea-plane func pull [funcName] 
 ```
 
 推送本地云函数代码到 web。
 
 ```shell
-laf func push [funcName] 
+data-pdanea-plane func push [funcName] 
 ```
 
 执行云函数，执行结果会打印在命令行，日志需要在 web 上查看。
 
 ```shell
-laf func exec [funcName]
+data-pdanea-plane func exec [funcName]
 ```
 
 ## 存储
@@ -121,37 +121,37 @@ laf func exec [funcName]
 查看 bucket 列表。
 
 ```shell
-laf storage list
+data-pdanea-plane storage list
 ```
 
 新建 bucket。
 
 ```shell
-laf storage create [bucketName]
+data-pdanea-plane storage create [bucketName]
 ```
 
 删除 bucket。
 
 ```shell
-laf storage del [bucketName]
+data-pdanea-plane storage del [bucketName]
 ```
 
 更新 bucket 权限。
 
 ```shell
-laf storage update [bucketName]
+data-pdanea-plane storage update [bucketName]
 ```
 
 下载 bucket 文件到本地。
 
 ```shell
-laf storage pull [bucketName] [outPath]
+data-pdanea-plane storage pull [bucketName] [outPath]
 ```
 
 上传本地文件到 bucket。
 
 ```shell
-laf storage push [bucketName] [inPath]
+data-pdanea-plane storage push [bucketName] [inPath]
 ```
 
 ## 访问策略
@@ -159,19 +159,19 @@ laf storage push [bucketName] [inPath]
 查看所有访问策略。
 
 ```shell
-laf policy list
+data-pdanea-plane policy list
 ```
 
 拉取访问策略到本地，参数 policyName 是可选，不填代表拉取全部。
 
 ```shell
-laf policy pull [policyName] 
+data-pdanea-plane policy pull [policyName] 
 ```
 
 推送访问策略到 web，参数 policyName 是可选，不填代表推送全部。
 
 ```shell
-laf policy push [policyName]
+data-pdanea-plane policy push [policyName]
 ```
 
 ## 网站托管
@@ -179,23 +179,23 @@ laf policy push [policyName]
 查看托管列表。
 
 ```shell
-laf website list
+data-pdanea-plane website list
 ```
 
 开启网站托管，此命令是开启 [bucketName] 的网站托管。
 
 ```shell
-laf website create [bucketName]
+data-pdanea-plane website create [bucketName]
 ```
 
 关闭网站托管，此命令是关闭 [bucketName] 的网站托管。
 
 ```shell
-laf website del [bucketName]
+data-pdanea-plane website del [bucketName]
 ```
 
 自定义域名，此命令是为已开启网站托管的 [bucketName] 设置自定义域名。
 
 ```shell
-laf website custom [bucketName] [domain]
+data-pdanea-plane website custom [bucketName] [domain]
 ```

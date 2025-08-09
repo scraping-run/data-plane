@@ -13,9 +13,9 @@ Which versions are currently being supported with security updates.
 
 ## Security
 
-Laf takes the security of our software products and services seriously.
+data-plane takes the security of our software products and services seriously.
 
-If you believe you have found a security vulnerability in laf repository, please report it to us as described below.
+If you believe you have found a security vulnerability in data-plane repository, please report it to us as described below.
 
 ## Reporting Security Issues
 

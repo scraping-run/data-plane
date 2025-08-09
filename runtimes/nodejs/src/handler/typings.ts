@@ -22,9 +22,9 @@ const nodeModulesRoot = path.resolve(__dirname, '../../node_modules')
  */
 export async function handlePackageTypings(req: IRequest, res: Response) {
   // verify the debug token
-  const token = req.get('x-laf-develop-token')
+  const token = req.get('x-data-plane-develop-token')
   if (!token) {
-    return res.status(400).send('x-laf-develop-token is required')
+    return res.status(400).send('x-data-plane-develop-token is required')
   }
   const auth = parseToken(token) || null
   if (auth?.type !== 'develop') {

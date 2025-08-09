@@ -69,8 +69,8 @@ export const Routes = {
 };
 
 export const site_url = {
-  laf_github: "https://github.com/labring/laf",
-  laf_index_video: "https://itceb8-video.oss.laf.run/laf-website.mp4",
+  laf_github: "https://github.com/scraping-run/data-plane",
+  laf_index_video: "https://itceb8-video.oss.data-plane.run/data-plane-website.mp4",
 };
 
 export const CHAKRA_UI_COLOR_MODE_KEY = "chakra-ui-color-mode";
@@ -84,7 +84,7 @@ export const DEFAULT_CODE = `import cloud from '@lafjs/cloud'
 
 export default async function (ctx: FunctionContext) {
   console.log('Hello World')
-  return { data: 'hi, laf' }
+  return { data: 'hi, data-plane' }
 }
 `;
 

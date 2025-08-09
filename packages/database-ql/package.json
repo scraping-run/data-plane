@@ -1,7 +1,7 @@
 {
   "name": "database-ql",
   "version": "1.0.0",
-  "description": "Database interface for laf",
+  "description": "Database interface for data-planea-plane",
   "main": "dist/commonjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labring/laf.git"
+    "url": "git+https://github.com/scraping-run/data-planea-plane.git"
   },
   "keywords": [
-    "laf",
-    "laf-client-sdk",
+    "data-planea-plane",
+    "data-planea-plane-client-sdk",
     "database-ql"
   ],
   "author": "maslow (wangfugen@126.com)",

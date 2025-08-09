@@ -62,7 +62,7 @@ export default async function (ctx: FunctionContext) {
 ```text
 /test?id=1
 /test
-c07iol.laf.dev
+c07iol.scraping.run
 ```
 :::
 

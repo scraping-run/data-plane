@@ -1,14 +1,14 @@
 
 # 快速开始
 
-本文将指引你开发一个简单的「用户登录/注册」的功能，快速体验 `laf` 云开发，预计完成时间 5 分钟。
+本文将指引你开发一个简单的「用户登录/注册」的功能，快速体验 `data-plane` 云开发，预计完成时间 5 分钟。
 
 
 ## 创建应用
 
-1. 你需要在 [laf.run](https://laf.run) 上注册一个账户
-2. 在 [laf 控制台](https://laf.run)，点击左上角的 `新建` 按钮，创建一个新应用
-3. 待应用成功启动后，点击右侧「开发」按钮，进入应用的「开发控制台」，接下来，我们将在「开发控制台」进行第一个 `laf` 应用的功能开发
+1. 你需要在 [data-plane.run](https://data-plane.run) 上注册一个账户
+2. 在 [data-plane 控制台](https://data-plane.run)，点击左上角的 `新建` 按钮，创建一个新应用
+3. 待应用成功启动后，点击右侧「开发」按钮，进入应用的「开发控制台」，接下来，我们将在「开发控制台」进行第一个 `data-plane` 应用的功能开发
 
 ## 编写云函数
 
@@ -109,10 +109,10 @@ export default async function (ctx: FunctionContext) {
 
 ```bash
 # 注册用户
-curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' https://APPID.laf.run/register
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' https://APPID.data-plane.run/register
 
 # 用户登录
-curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' https://APPID.laf.run/login
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' https://APPID.data-plane.run/login
 
 ```
 :::
@@ -123,7 +123,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "pass
 ```js
 import axios from 'axios'
 
-const baseUrl = 'https://APPID.laf.run'
+const baseUrl = 'https://APPID.data-plane.run'
 
 // register
 async function register(username, password) {

@@ -404,11 +404,11 @@ export default function SignUp() {
             </CheckboxGroup>
             <span className="ml-1 text-[14px] text-[#333333]">
               我已阅读并同意{" "}
-              <a href="laf.dev" className="text-[#33BAB1]">
+              <a href="scraping.run" className="text-[#33BAB1]">
                 服务协议
               </a>{" "}
               和{" "}
-              <a href="laf.dev" className="text-[#33BAB1]">
+              <a href="scraping.run" className="text-[#33BAB1]">
                 隐私协议
               </a>
             </span>

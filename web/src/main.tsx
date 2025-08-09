@@ -12,12 +12,12 @@ import "focus-visible/dist/focus-visible";
 
 import App from "./App";
 
-if (["laf.run", "laf.dev"].includes(window.location.hostname)) {
+if (["data-plane.run", "scraping.run"].includes(window.location.hostname)) {
   const commitId = import.meta.env.VITE_GITHUB_SHA;
 
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
-    release: `laf@${commitId}`,
+    release: `data-plane@${commitId}`,
     integrations: [
       new Sentry.BrowserTracing({
         routingInstrumentation: Sentry.reactRouterV6Instrumentation(

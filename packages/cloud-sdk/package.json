@@ -1,7 +1,7 @@
 {
   "name": "@lafjs/cloud",
   "version": "1.0.0",
-  "description": "The cloud sdk for laf cloud function",
+  "description": "The cloud sdk for data-plane cloud function",
   "main": "dist/index.js",
   "scripts": {
     "watch": "tsc -w",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labring/laf.git"
+    "url": "git+https://github.com/scraping-run/data-plane.git"
   },
   "bugs": {
-    "url": "https://github.com/labring/laf/issues"
+    "url": "https://github.com/scraping-run/data-plane/issues"
   },
-  "homepage": "https://github.com/labring/laf#readme",
+  "homepage": "https://github.com/scraping-run/data-plane#readme",
   "keywords": [
-    "laf"
+    "data-plane"
   ],
   "author": "maslow (wangfugen@126.com)",
   "license": "ISC",

@@ -5,7 +5,7 @@
 version=$(node -p "require('./package.json').version")
 
 # build main image
-docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/runtime-node:$version -f Dockerfile .
+docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/runtime-node:$version -t docker.io/junsik/runtime-node:latest -f Dockerfile .
 
 # build init image
-docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/runtime-node-init:$version -f Dockerfile.init .
+docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/runtime-node-init:$version -t docker.io/junsik/runtime-node-init:latest -f Dockerfile.init .

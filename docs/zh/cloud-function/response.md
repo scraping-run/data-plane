@@ -49,7 +49,7 @@ export default async function (ctx: FunctionContext) {
 
 ```typescript
 export default async function (ctx: FunctionContext) {
-  ctx.response.redirect('https://laf.run')
+  ctx.response.redirect('https://data-plane.run')
 }
 ```
 

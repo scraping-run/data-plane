@@ -24,9 +24,9 @@ const UpgradePrompt = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (needRefresh && !toast.isActive("laf-version-upgrade")) {
+    if (needRefresh && !toast.isActive("data-plane-version-upgrade")) {
       toast({
-        id: "laf-version-upgrade",
+        id: "data-plane-version-upgrade",
         position: "bottom-right",
         duration: null,
         render: () => (

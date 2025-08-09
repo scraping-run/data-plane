@@ -432,12 +432,12 @@ export interface CreateWebsiteDto {
 export interface PasswdSignupDto {
   /**
    * username, 3-64 characters
-   * @example "laf-user"
+   * @example "data-planea-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "laf-user-password"
+   * @example "data-planea-plane-user-password"
    */
   password: string
   /**
@@ -465,12 +465,12 @@ export interface PasswdSignupDto {
 export interface PasswdSigninDto {
   /**
    * username
-   * @example "laf-user"
+   * @example "data-planea-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "laf-user-password"
+   * @example "data-planea-plane-user-password"
    */
   password: string
 }
@@ -478,7 +478,7 @@ export interface PasswdSigninDto {
 export interface PasswdResetDto {
   /**
    * new password, 8-64 characters
-   * @example "laf-user-password"
+   * @example "data-planea-plane-user-password"
    */
   password: string
   /**
@@ -501,7 +501,7 @@ export interface PasswdResetDto {
 export interface PasswdCheckDto {
   /**
    * username | phone | email
-   * @example "laf-user | 13805718888 | laf-user@laf.com"
+   * @example "data-planea-plane-user | 1380571data-plane8 | dadata-planeplane-user@data-plane.com"
    */
   username: string
 }
@@ -528,12 +528,12 @@ export interface PhoneSigninDto {
   code: string
   /**
    * username
-   * @example "laf-user"
+   * @example "data-planea-plane-user"
    */
   username: string
   /**
    * password, 8-64 characters
-   * @example "laf-user-password"
+   * @example "data-planea-plane-user-password"
    */
   password: string
   /**
@@ -629,7 +629,7 @@ export interface BindEmailDto {
 export interface BindUsernameDto {
   /**
    * username
-   * @example "laf-user"
+   * @example "data-planea-plane-user"
    */
   username: string
 }

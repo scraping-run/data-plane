@@ -8,7 +8,7 @@ describe('db-ql(unit): db::remove()', () => {
 
     // const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
     // const uid = new ObjectId()
-    const res = await db.collection('tasks').where({ name: 'laf' }).remove()
+    const res = await db.collection('tasks').where({ name: 'data-plane' }).remove()
 
     assert.strictEqual(req.action, Actions.remove)
     assert.strictEqual(req.params.collectionName, 'tasks')
@@ -18,7 +18,7 @@ describe('db-ql(unit): db::remove()', () => {
     assert.equal(req.params.multi, false)
 
     // check query
-    assert.deepEqual(req.params.query, { name: 'laf' })
+    assert.deepEqual(req.params.query, { name: 'data-plane' })
 
     // check result
     assert.ok(!res.code)
