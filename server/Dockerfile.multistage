@@ -32,8 +32,9 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Clean up source files (optional, to reduce image size)
-RUN rm -rf src/
+# Create directory for i18n generated types (required at runtime)
+RUN mkdir -p src/generated && \
+    touch src/generated/i18n.generated.ts
 
 # Expose port
 EXPOSE 3000
