@@ -10,7 +10,7 @@
 ├─────────────────────────────────────────────────────────┤
 │  Account 1      Account 2      Account 3     Account 4  │
 │  ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐│
-│  │instance-20250216-2117 │   │instance-20250209-1502 │   │instance-20250209-1504 │   │Worker03 ││
+│  │instance-20250216-2117 │   │instance-20250209-1502 │   │instance-20250209-1504 │   │instance-20250306-1735 ││
 │  │Control  │   │Database │   │  App    │   │Storage  ││
 │  │ Plane   │   │  Node   │   │  Node   │   │  Node   ││
 │  └────┬────┘   └────┬────┘   └────┬────┘   └────┬────┘│
@@ -43,7 +43,7 @@
 | Node 1 | instance-20250216-2117 | 100.64.0.1 | Control Plane | • Kubernetes API Server<br>• etcd<br>• Controller Manager<br>• Scheduler |
 | Node 2 | instance-20250209-1502 | 100.64.0.2 | Worker (DB) | • MongoDB Primary<br>• Data Plane Server (Primary)<br>• Higress Gateway |
 | Node 3 | instance-20250209-1504 | 100.64.0.3 | Worker (App) | • MongoDB Secondary<br>• Data Plane Server (Secondary)<br>• Data Plane Web |
-| Node 4 | worker03 | 100.64.0.4 | Worker (Storage) | • MinIO<br>• Prometheus<br>• Grafana<br>• Backup Services |
+| Node 4 | instance-20250306-1735 | 100.64.0.6 | Worker (Storage) | • MinIO<br>• Prometheus<br>• Grafana<br>• Backup Services |
 
 #### 리소스 사양 (각 노드)
 - **CPU**: 4 OCPU (ARM Ampere A1)
@@ -98,7 +98,7 @@ sudo hostnamectl set-hostname instance-20250209-1502
 sudo hostnamectl set-hostname instance-20250209-1504
 
 # Node 4 (Worker)
-sudo hostnamectl set-hostname worker03
+sudo hostnamectl set-hostname instance-20250306-1735
 ```
 
 ### 2.3 Tailscale 설정 확인 (필수)
@@ -114,7 +114,7 @@ tailscale ip -4
 tailscale ping instance-20250216-2117  # 각 노드에서 실행
 tailscale ping instance-20250209-1502
 tailscale ping instance-20250209-1504
-tailscale ping worker03
+tailscale ping instance-20250306-1735
 ```
 
 ### 2.4 /etc/hosts 파일 설정 (모든 노드)
@@ -126,7 +126,7 @@ cat <<EOF | sudo tee -a /etc/hosts
 100.64.0.1 instance-20250216-2117
 100.64.0.2 instance-20250209-1502
 100.64.0.3 instance-20250209-1504
-100.64.0.4 worker03
+100.64.0.4 instance-20250306-1735
 EOF
 
 # 각 노드의 실제 Tailscale IP 확인 방법:
@@ -401,12 +401,12 @@ kubectl get nodes
 
 ## 4. Worker 노드 설정
 
-각 Worker 노드(instance-20250209-1502, instance-20250209-1504, worker03)에서 아래 단계를 실행합니다.
+각 Worker 노드(instance-20250209-1502, instance-20250209-1504, instance-20250306-1735)에서 아래 단계를 실행합니다.
 
-### 4.1 Worker 노드 Join (instance-20250209-1502, instance-20250209-1504, worker03에서 각각 실행)
+### 4.1 Worker 노드 Join (instance-20250209-1502, instance-20250209-1504, instance-20250306-1735에서 각각 실행)
 
 ```bash
-# 1. Tailscale IP 설정 (필수)
+# 1. Tailscale IP 확인 (필수)
 TAIL_IP=$(tailscale ip -4 | head -n 1)
 if [ -z "$TAIL_IP" ]; then
     echo "ERROR: Tailscale IP를 찾을 수 없습니다. Tailscale이 실행 중인지 확인하세요."
@@ -414,18 +414,25 @@ if [ -z "$TAIL_IP" ]; then
 fi
 echo "Worker Tailscale IP: $TAIL_IP"
 
-# kubelet이 Tailscale IP를 사용하도록 설정
-echo "KUBELET_EXTRA_ARGS=--node-ip=$TAIL_IP" | sudo tee /etc/default/kubelet
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
+# 2. kubelet에 Tailscale IP 설정
+# 중요: kubeadm join은 --node-ip 플래그를 지원하지 않음
+# 대신 /etc/default/kubelet에 설정해야 함
+cat <<EOF | sudo tee /etc/default/kubelet
+KUBELET_EXTRA_ARGS="--node-ip=${TAIL_IP}"
+EOF
 
-# 2. Master에서 받은 join 명령 실행
-# Master 노드에서 'kubeadm token create --print-join-command' 실행하여 얻은 명령을 여기에 붙여넣기
-# 중요: Master의 Tailscale IP를 사용해야 함
-# 예시:
+# systemd 재로드
+sudo systemctl daemon-reload
+
+# 3. Master에서 받은 join 명령 실행
+# Master 노드에서 'kubeadm token create --print-join-command' 실행하여 얻은 명령 사용
+# 예시 (실제 토큰과 해시로 교체):
 sudo kubeadm join 100.64.0.1:6443 \
   --token abcdef.1234567890abcdef \
   --discovery-token-ca-cert-hash sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+# 4. Join 후 kubelet 상태 확인
+sudo systemctl status kubelet --no-pager
 ```
 
 ### 4.2 Join 문제 해결
@@ -448,10 +455,27 @@ tailscale ping instance-20250216-2117
 # 또는 Master의 Tailscale IP로 직접 ping
 ping 100.64.0.1
 
-# 4. Worker 노드에서 kubeadm reset 후 재시도
+# 4. Worker 노드 완전 초기화 (leftover 설정 제거)
+# 기존 설정이 남아있어 문제가 발생하는 경우 사용
 sudo kubeadm reset -f
-sudo rm -rf /etc/kubernetes /var/lib/kubelet
-# 그 다음 join 명령 재실행
+sudo systemctl stop kubelet
+sudo rm -rf /etc/kubernetes /var/lib/kubelet /var/lib/etcd
+sudo rm -rf /etc/cni/net.d /var/lib/cni/
+sudo rm -f /etc/default/kubelet
+
+# iptables 정리
+sudo iptables -F && sudo iptables -t nat -F && sudo iptables -t mangle -F && sudo iptables -X
+
+# kubelet 재시작
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+# 5. Tailscale IP로 다시 Join
+TAIL_IP=$(tailscale ip -4)
+echo "KUBELET_EXTRA_ARGS=\"--node-ip=${TAIL_IP}\"" | sudo tee /etc/default/kubelet
+sudo systemctl daemon-reload
+
+# Master에서 받은 join 명령 재실행
 ```
 
 ### 4.3 Join 상태 확인 (Master에서 실행)
@@ -466,7 +490,7 @@ kubectl get nodes -w
 # instance-20250216-2117   NotReady   control-plane   10m   v1.28.15
 # instance-20250209-1502   NotReady   <none>          1m    v1.28.15
 # instance-20250209-1504   NotReady   <none>          1m    v1.28.15
-# worker03   NotReady   <none>          1m    v1.28.15
+# instance-20250306-1735   NotReady   <none>          1m    v1.28.15
 
 # NotReady 상태는 CNI가 아직 설치되지 않아서임 (정상)
 # 섹션 5.1에서 Cilium 설치 후 Ready로 변경됨
@@ -494,12 +518,12 @@ kubectl get nodes
 # Worker 노드 레이블 설정 (노드가 존재할 때만 실행)
 kubectl label nodes instance-20250209-1502 node-role.kubernetes.io/worker=true --overwrite
 kubectl label nodes instance-20250209-1504 node-role.kubernetes.io/worker=true --overwrite
-kubectl label nodes worker03 node-role.kubernetes.io/worker=true --overwrite
+kubectl label nodes instance-20250306-1735 node-role.kubernetes.io/worker=true --overwrite
 
 # 용도별 레이블 설정
 kubectl label nodes instance-20250209-1502 node-role=database --overwrite
 kubectl label nodes instance-20250209-1504 node-role=application --overwrite
-kubectl label nodes worker03 node-role=storage --overwrite
+kubectl label nodes instance-20250306-1735 node-role=storage --overwrite
 
 # 레이블 확인
 kubectl get nodes --show-labels
@@ -808,7 +832,7 @@ metadata:
   name: letsencrypt-cloudflare
 spec:
   acme:
-    email: your-email@example.com  # 실제 이메일로 변경
+    email: junsik.park@gmail.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-cloudflare-account-key
@@ -831,7 +855,7 @@ metadata:
   name: letsencrypt-staging
 spec:
   acme:
-    email: your-email@example.com  # 실제 이메일로 변경
+    email: junsik.park@gmail.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-staging-account-key
@@ -936,188 +960,131 @@ kubectl -n data-plane-system delete secret prod-scraping-run-wildcards-tls
 
 ---
 
-## 7. 고가용성 Data Plane 배포
+## 7. Data Plane 배포
 
-### 7.1 환경 변수 설정
+### 7.1 배포 준비
+
+#### 환경 변수 설정
 
 ```bash
+# 배포 디렉토리로 이동
+cd /path/to/data-plane/build
+
+# 환경 변수 설정
 export DOMAIN=prod.scraping.run
 export NAMESPACE=data-plane-system
-export DB_PV_SIZE=20Gi
+export DB_PV_SIZE=30Gi
 export OSS_PV_SIZE=50Gi
+export PROMETHEUS_PV_SIZE=20Gi
 export EXTERNAL_HTTP_SCHEMA=https
 export ENABLE_MONITOR=true
+
+# 도메인 확인
+host $DOMAIN
 ```
 
-### 7.2 MongoDB 고가용성 배포 (instance-20250209-1502, instance-20250209-1504)
+### 7.2 start.sh 스크립트 실행
 
 ```bash
-# MongoDB root 패스워드 생성
-MONGO_ROOT_PASSWORD=$(openssl rand -base64 32)
-kubectl create secret generic mongodb-root-password \
-  --namespace data-plane-system \
-  --from-literal=password=$MONGO_ROOT_PASSWORD
+# start.sh 스크립트 실행 권한 부여
+chmod +x start.sh
 
-# MongoDB StatefulSet 생성 (고가용성)
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb-headless
-  namespace: data-plane-system
-spec:
-  clusterIP: None
-  selector:
-    app: mongodb
-  ports:
-    - port: 27017
-      targetPort: 27017
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: mongodb
-  namespace: data-plane-system
-spec:
-  serviceName: mongodb-headless
-  replicas: 2
-  selector:
-    matchLabels:
-      app: mongodb
-  template:
-    metadata:
-      labels:
-        app: mongodb
-    spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app: mongodb
-            topologyKey: kubernetes.io/hostname
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role
-                operator: In
-                values: ["database", "application"]
-      containers:
-      - name: mongodb
-        image: mongo:4.4.29
-        ports:
-        - containerPort: 27017
-        env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          value: "root"
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-root-password
-              key: password
-        volumeMounts:
-        - name: data
-          mountPath: /data/db
-        resources:
-          limits:
-            cpu: 2000m
-            memory: 8Gi
-          requests:
-            cpu: 1000m
-            memory: 4Gi
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      storageClassName: openebs-hostpath
-      resources:
-        requests:
-          storage: 50Gi
-EOF
+# Data Plane 전체 배포 실행
+./start.sh
 
-# MongoDB 연결 문자열 생성
-echo "MongoDB Connection String:"
-echo "mongodb://root:$MONGO_ROOT_PASSWORD@mongodb.data-plane-system.svc.cluster.local:27017/data-plane?authSource=admin"
+# 스크립트는 다음 작업을 자동으로 수행합니다:
+# 1. 네임스페이스 생성 (data-plane-system)
+# 2. MongoDB 4.4 배포 (mongodb-4.4.yaml 사용)
+# 3. Prometheus 설치 (ENABLE_MONITOR=true인 경우)
+# 4. MinIO 객체 스토리지 배포
+# 5. Data Plane Server 배포
+# 6. Data Plane Web 배포
+# 7. 시스템 관리자 계정 생성
 ```
 
-### 7.3 MinIO 배포 (Worker03)
+### 7.3 배포 상태 확인
 
 ```bash
-# MinIO Helm 차트 배포 (Storage 노드 지정)
-helm upgrade --install minio ./charts/minio \
-  --namespace data-plane-system \
-  --set domain=$DOMAIN \
-  --set persistence.size=$OSS_PV_SIZE \
-  --set ingress.enabled=true \
-  --set ingress.className=nginx \
-  --set nodeSelector.node-role=storage \
-  --set resources.requests.cpu=1000m \
-  --set resources.requests.memory=2Gi
+# 전체 Pod 상태 확인
+kubectl -n data-plane-system get pods
+
+# 서비스 확인
+kubectl -n data-plane-system get svc
+
+# Ingress 확인
+kubectl -n data-plane-system get ingress
+
+# PVC 상태 확인
+kubectl -n data-plane-system get pvc
 ```
 
-### 7.4 Data Plane Server 배포 (고가용성)
+### 7.4 배포 검증
 
 ```bash
-# Data Plane Server 배포 (2개 레플리카, instance-20250209-1502/02에 분산)
-helm upgrade --install data-plane-server ./charts/data-plane-server \
-  --namespace data-plane-system \
-  --set replicaCount=2 \
-  --set apiServerHost=api.$DOMAIN \
-  --set databaseUrl=mongodb://root:${MONGO_ROOT_PASSWORD}@mongodb-headless:27017/data-plane?authSource=admin \
-  --set default_region.database_url=mongodb://root:${MONGO_ROOT_PASSWORD}@mongodb-headless:27017/data-plane?authSource=admin \
-  --set default_region.minio_domain=$DOMAIN \
-  --set default_region.minio_external_endpoint=https://oss.$DOMAIN \
-  --set default_region.minio_internal_endpoint=http://minio:9000 \
-  --set default_region.runtime_domain=$DOMAIN \
-  --set default_region.website_domain=$DOMAIN \
-  --set default_region.tls.enabled=true \
-  --set default_region.tls.wildcard_certificate_secret_name=prod-scraping-run-wildcards-tls \
-  --set ingress.enabled=true \
-  --set ingress.className=nginx \
-  --set ingress.tls[0].secretName=prod-scraping-run-wildcards-tls \
-  --set ingress.tls[0].hosts[0]=api.$DOMAIN \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight=100 \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].key=app \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].operator=In \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].values[0]=data-plane-server \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.topologyKey=kubernetes.io/hostname
+# MongoDB 연결 테스트
+kubectl -n data-plane-system exec mongodb-0 -- mongo --eval "db.version()"
+
+# MinIO 상태 확인
+kubectl -n data-plane-system logs -l app=minio --tail=20
+
+# Data Plane Server 로그 확인
+kubectl -n data-plane-system logs -l app=data-plane-server --tail=50
+
+# Web UI 접근 테스트
+curl -k https://$DOMAIN
+curl -k https://api.$DOMAIN/healthz
 ```
 
-### 7.5 Data Plane Web 배포 (고가용성)
+### 7.5 문제 해결
 
+#### Pod가 시작되지 않는 경우
 ```bash
-# Data Plane Web 배포 (2개 레플리카, instance-20250209-1504/03에 분산)
-helm upgrade --install data-plane-web ./charts/data-plane-web \
-  --namespace data-plane-system \
-  --set replicaCount=2 \
-  --set domain=$DOMAIN \
-  --set ingress.enabled=true \
-  --set ingress.className=nginx \
-  --set ingress.tls[0].secretName=prod-scraping-run-wildcards-tls \
-  --set ingress.tls[0].hosts[0]=$DOMAIN \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight=100 \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].key=app \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].operator=In \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].values[0]=data-plane-web \
-  --set affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.topologyKey=kubernetes.io/hostname
+# Pod 상세 정보 확인
+kubectl -n data-plane-system describe pod <POD_NAME>
+
+# 이벤트 확인
+kubectl -n data-plane-system get events --sort-by='.lastTimestamp'
 ```
 
-### 7.6 Prometheus & Grafana 배포 (선택사항)
+#### PVC가 Pending 상태인 경우
+```bash
+# StorageClass 확인
+kubectl get storageclass
+
+# OpenEBS 상태 확인
+kubectl -n openebs get pods
+```
+
+#### Ingress가 작동하지 않는 경우
+```bash
+# Higress/Nginx Ingress Controller 상태 확인
+kubectl -n higress-system get pods
+kubectl -n ingress-nginx get pods
+
+# Ingress 리소스 상세 정보
+kubectl -n data-plane-system describe ingress
+```
+
+### 7.6 초기 설정
+
+스크립트 실행 완료 후 출력되는 정보를 확인하세요:
 
 ```bash
-# Prometheus Stack 배포
-if [ "$ENABLE_MONITOR" = "true" ]; then
-  helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
-    --namespace monitoring \
-    --create-namespace \
-    -f prometheus-helm.yaml \
-    --set grafana.ingress.enabled=true \
-    --set grafana.ingress.hosts[0]=grafana.$DOMAIN \
-    --set grafana.ingress.tls[0].secretName=prod-scraping-run-wildcards-tls \
-    --set grafana.ingress.tls[0].hosts[0]=grafana.$DOMAIN
-fi
+# 출력 예시:
+========================================
+Data-Plane services:
+========================================
+API Server: https://api.prod.scraping.run
+Web Console: https://prod.scraping.run
+MinIO Console: https://minio.prod.scraping.run
+OSS Endpoint: https://oss.prod.scraping.run
+
+Admin credentials:
+Username: admin
+Password: [자동 생성된 패스워드]
+
+Please save these credentials securely!
+========================================
 ```
 
 ---
@@ -1133,7 +1100,7 @@ kubectl top nodes
 # Pod 분포 확인
 kubectl get pods -A -o wide --field-selector spec.nodeName=instance-20250209-1502
 kubectl get pods -A -o wide --field-selector spec.nodeName=instance-20250209-1504
-kubectl get pods -A -o wide --field-selector spec.nodeName=worker03
+kubectl get pods -A -o wide --field-selector spec.nodeName=instance-20250306-1735
 
 # 서비스 헬스체크
 kubectl -n data-plane-system get pods
@@ -1239,8 +1206,8 @@ kubectl taint nodes instance-20250209-1502 node-type=database:PreferNoSchedule
 # instance-20250209-1504 (App 노드) - 애플리케이션 우선  
 kubectl label nodes instance-20250209-1504 node-type=application
 
-# Worker03 (Storage 노드) - 스토리지/모니터링 우선
-kubectl label nodes worker03 node-type=storage
+# instance-20250306-1735 (Storage 노드) - 스토리지/모니터링 우선
+kubectl label nodes instance-20250306-1735 node-type=storage
 ```
 
 #### Pod 리소스 제한 설정
@@ -1323,7 +1290,7 @@ tailscale status
 # 노드 간 ping 테스트
 ping 100.64.0.2  # instance-20250209-1502
 ping 100.64.0.3  # instance-20250209-1504
-ping 100.64.0.4  # worker03
+ping 100.64.0.4  # instance-20250306-1735
 
 # iptables 규칙 확인
 sudo iptables -L -n | grep TAILSCALE
@@ -1372,7 +1339,7 @@ echo "==================================="
 # 환경 변수 설정
 export DOMAIN=${DOMAIN:-prod.scraping.run}
 export NAMESPACE=${NAMESPACE:-data-plane-system}
-export NODE_TYPE=${1:-master}  # master, instance-20250209-1502, instance-20250209-1504, worker03
+export NODE_TYPE=${1:-master}  # master, instance-20250209-1502, instance-20250209-1504, instance-20250306-1735
 
 case $NODE_TYPE in
   master)
@@ -1535,6 +1502,6 @@ persistence:
 - **instance-20250216-2117**: Control Plane 전용
 - **instance-20250209-1502**: MongoDB Primary, Data Plane Server
 - **instance-20250209-1504**: MongoDB Secondary, Data Plane Server, Web
-- **worker03**: MinIO, 모니터링, 백업
+- **instance-20250306-1735**: MinIO, 모니터링, 백업
 
 문제 발생 시 트러블슈팅 섹션을 참조하거나 로그를 확인하세요.
