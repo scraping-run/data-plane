@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.domain }}
-    secretName: minio-oss-tls
+    secretName: prod-scraping-run-wildcards-tls
   rules:
   - host: {{ .Values.domain }}
     http:

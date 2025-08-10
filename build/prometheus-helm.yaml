@@ -20,7 +20,7 @@ alertmanager:
     tls:
       - hosts:
         - alertmanager.$DOMAIN
-        secretName: alertmanager-tls
+        secretName: prod-scraping-run-wildcards-tls
 grafana:
   enabled: true
   adminPassword: aldhr1011  # 기본 관리자 비밀번호
@@ -35,7 +35,7 @@ grafana:
     tls:
       - hosts:
         - grafana.$DOMAIN
-        secretName: grafana-tls
+        secretName: prod-scraping-run-wildcards-tls
 coreDns:
   enabled: false
 nodeExporter:

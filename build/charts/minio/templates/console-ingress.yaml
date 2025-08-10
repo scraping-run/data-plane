@@ -13,7 +13,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.consoleHost }}
-    secretName: minio-console-tls
+    secretName: prod-scraping-run-wildcards-tls
   rules:
   - host: {{ .Values.consoleHost }}
     http:
