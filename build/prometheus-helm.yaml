@@ -16,10 +16,10 @@ alertmanager:
       cert-manager.io/issuer: "data-plane-issuer"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
-      - alertmanager.${DOMAIN}  # AlertManager 접속 도메인
+      - alertmanager.$DOMAIN  # AlertManager 접속 도메인
     tls:
       - hosts:
-        - alertmanager.${DOMAIN}
+        - alertmanager.$DOMAIN
         secretName: alertmanager-tls
 grafana:
   enabled: true
@@ -31,10 +31,10 @@ grafana:
       cert-manager.io/issuer: "data-plane-issuer"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
-      - grafana.${DOMAIN}  # Grafana 접속 도메인
+      - grafana.$DOMAIN  # Grafana 접속 도메인
     tls:
       - hosts:
-        - grafana.${DOMAIN}
+        - grafana.$DOMAIN
         secretName: grafana-tls
 coreDns:
   enabled: false

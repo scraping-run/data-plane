@@ -41,6 +41,7 @@ PROMETHEUS_URL=http://prometheus-operated.${NAMESPACE}.svc.cluster.local:9090
 if [ "$ENABLE_MONITOR" = "true" ]; then
     sed -e "s/\$NAMESPACE/$NAMESPACE/g" \
         -e "s/\$PROMETHEUS_PV_SIZE/${PROMETHEUS_PV_SIZE:-20Gi}/g" \
+        -e "s/\$DOMAIN/${DOMAIN}/g" \
         prometheus-helm.yaml >prometheus-helm-with-values.yaml
 
     helm install prometheus --version 48.3.3 -n ${NAMESPACE} \
