@@ -2,4 +2,4 @@
 
 
 
-docker buildx build --platform linux/amd64,linux/arm64 --push -t docker.io/junsik/data-plane-server:latest -f Dockerfile .
+docker buildx build --platform linux/arm64 --push -t docker.io/junsik/data-plane-server:latest -f Dockerfile.multistage .

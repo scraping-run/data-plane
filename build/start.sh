@@ -34,7 +34,30 @@ DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.da
 DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
 DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
 DB_ENDPOINT="mongodb.${NAMESPACE}.svc.cluster.local:27017"
-DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_ENDPOINT}/${DB_DATABASE}?authSource=admin"
+
+# URL encode the password to handle special characters
+urlencode() {
+    local string="${1}"
+    local strlen=${#string}
+    local encoded=""
+    local pos c o
+    
+    for (( pos=0 ; pos<strlen ; pos++ )); do
+        c=${string:$pos:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9] ) o="${c}" ;;
+            * ) printf -v o '%%%02x' "'$c" ;;
+        esac
+        encoded+="${o}"
+    done
+    echo "${encoded}"
+}
+
+# Encode password for safe URL usage
+DB_PASSWORD_ENCODED=$(urlencode "${DB_PASSWORD}")
+DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD_ENCODED}@${DB_ENDPOINT}/${DB_DATABASE}?authSource=admin"
+
+echo "MongoDB connection configured with URL-encoded password"
 
 ## 2. install prometheus
 PROMETHEUS_URL=http://prometheus-operated.${NAMESPACE}.svc.cluster.local:9090

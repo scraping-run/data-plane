@@ -181,7 +181,7 @@ export class DatabaseController {
     }
 
     try {
-      await writeFile(tempFilePath, file.buffer)
+      await writeFile(tempFilePath, new Uint8Array(file.buffer))
       await this.dbService.importDatabase(
         appid,
         sourceAppid,

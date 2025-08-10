@@ -40,8 +40,8 @@
 
 | 노드 | 호스트명 | Tailscale IP | 역할 | 컴포넌트 배치 |
 |------|---------|-------------|------|-------------|
-| Node 1 | instance-20250216-2117 | 100.64.0.1 | Control Plane | • Kubernetes API Server<br>• etcd<br>• Controller Manager<br>• Scheduler |
-| Node 2 | instance-20250209-1502 | 100.64.0.2 | Worker (DB) | • MongoDB Primary<br>• Data Plane Server (Primary)<br>• Higress Gateway |
+| Node 1 | instance-20250216-2117 | 100.64.0.1 | Control Plane | • Kubernetes API Server<br>• etcd<br>• Controller Manager<br>• Scheduler<br>• Higress Gateway & Console |
+| Node 2 | instance-20250209-1502 | 100.64.0.2 | Worker (DB) | • MongoDB Primary<br>• Data Plane Server (Primary) |
 | Node 3 | instance-20250209-1504 | 100.64.0.3 | Worker (App) | • MongoDB Secondary<br>• Data Plane Server (Secondary)<br>• Data Plane Web |
 | Node 4 | instance-20250306-1735 | 100.64.0.6 | Worker (Storage) | • MinIO<br>• Prometheus<br>• Grafana<br>• Backup Services |
 
@@ -696,10 +696,10 @@ helm upgrade --install metrics-server metrics-server/metrics-server \
   --set 'args={--kubelet-insecure-tls,--kubelet-preferred-address-types=InternalIP}'
 ```
 
-### 5.5 Higress 설치 (최신 v2.1.6)
+### 5.5 Higress 설치 (최신 v2.1.6) - Console 포함 (Master 노드에만 배포)
 
 ```bash
-# Higress values 파일 생성
+# Higress values 파일 생성 (Console 포함, Master 노드 전용)
 cat <<EOF > higress-values.yaml
 higress-core:
   gateway:
@@ -709,6 +709,7 @@ higress-core:
       nodePorts:
         http: 30080
         https: 30443
+    httpsPort: 443  # HTTPS 포트 활성화
     resources:
       limits:
         cpu: 1000m
@@ -717,6 +718,13 @@ higress-core:
         cpu: 100m
         memory: 128Mi
     hostNetwork: true
+    # Master 노드에만 배포
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+    tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
   controller:
     replicas: 1
     resources:
@@ -726,25 +734,119 @@ higress-core:
       requests:
         cpu: 100m
         memory: 128Mi
+    # Master 노드에만 배포
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+    tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+
+# Higress Console 설정
+higress-console:
+  enabled: true
+  domain: higress.prod.scraping.run
+  service:
+    type: ClusterIP
+    port: 8080
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  # 관리자 계정 설정
+  adminUsername: admin
+  adminPassword: aldhr1011
+
 global:
   ingressClass: nginx  # nginx 호환 모드
-  enableStatus: true
+  enableStatus: false
+  enableGatewayAPI: false
+  disableAlpnH2: false
+  enableIstioAPI: true
+  enableSRDS: true
   # ARM64 호환성
   arch: arm64
 EOF
 
-# Higress 설치 (v2.1.6) - nginx 호환 모드
+# Higress 설치 (v2.1.6) with Console
 helm upgrade --install higress higress/higress \
   --namespace higress-system \
   --create-namespace \
   --version 2.1.6 \
-  --values higress-values.yaml
+  --values higress-values.yaml \
+  --set higress-console.domain=higress.prod.scraping.run \
+  --render-subchart-notes \
+  --wait
 
-# Ingress Class 확인
-kubectl get ingressclass
+# 설치 확인 (모든 Pod가 Running 될 때까지 대기)
+kubectl wait --for=condition=ready pod --all -n higress-system --timeout=300s
+
+# 와일드카드 인증서를 higress-system 네임스페이스로 복사
+echo "인증서 복사 중..."
+kubectl get secret prod-scraping-run-wildcards-tls -n data-plane-system -o yaml | \
+  sed 's/namespace: data-plane-system/namespace: higress-system/' | \
+  kubectl apply -f -
+
+# Higress Console Ingress 생성
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: higress-console
+  namespace: higress-system
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - higress.prod.scraping.run
+    secretName: prod-scraping-run-wildcards-tls
+  rules:
+  - host: higress.prod.scraping.run
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: higress-console
+            port:
+              number: 8080
+EOF
+
+# Console 접속 정보 출력
+echo ""
+echo "========================================="
+echo "Higress Console 설치 완료!"
+echo "========================================="
+echo "Console URL: https://gw.prod.scraping.run"
+echo "Username: admin"
+echo "Password: aldhr1011"
+echo ""
+echo "Grafana (내장 모니터링): https://gw.prod.scraping.run/grafana"
+echo "========================================="
+
+# 서비스 상태 확인
+kubectl get pods -n higress-system
+kubectl get svc -n higress-system
+kubectl get ingress -n higress-system
 ```
 
-> 💡 **참고**: Higress는 nginx ingress controller를 완벽하게 호환하므로 `nginx` ingress class를 사용합니다.
+> 💡 **Higress Console 기능**:
+> - **Gateway 관리**: Ingress 규칙 설정 및 라우팅 정책 관리
+> - **플러그인 관리**: WAF, Rate Limiting, 인증 플러그인 설정
+> - **모니터링 대시보드**: 요청률, 에러율, P95/P99 레이턴시 확인
+> - **서비스 디스커버리**: Kubernetes 서비스 자동 감지 및 설정
+
+> ⚠️ **중요**: DNS에 `gw.prod.scraping.run` A 레코드를 추가해야 Console 접속이 가능합니다.
 
 ### 5.6 KubeBlocks 설치 (ARM64 데이터베이스 관리)
 
