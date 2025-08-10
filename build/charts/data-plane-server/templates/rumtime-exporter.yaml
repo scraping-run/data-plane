@@ -96,9 +96,9 @@ spec:
       interval: 60s
       rules:
         - record: data-plane:billing:cpu
-          expr: max_over_time(sum by (appid) (data_plane_runtime_cpu_limit{container!=""})[1h:])
+          expr: max_over_time(sum by (appid) (data_plane_runtime_cpu_limit{container!=""})[1h])
         - record: data-plane:billing:memory
-          expr: max_over_time(sum by (appid) (data_plane_runtime_memory_limit{container!=""})[1h:])
+          expr: max_over_time(sum by (appid) (data_plane_runtime_memory_limit{container!=""})[1h])
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
