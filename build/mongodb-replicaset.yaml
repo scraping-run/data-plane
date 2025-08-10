@@ -1,0 +1,232 @@
+---
+# MongoDB Replica Set for Data Plane
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  clusterIP: None
+  selector:
+    app: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-0
+  labels:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-0
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-1
+  labels:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-1
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-2
+  labels:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-2
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    app: mongodb
+    statefulset.kubernetes.io/pod-name: mongodb-2
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+type: Opaque
+stringData:
+  mongodb-root-username: "root"
+  mongodb-root-password: "DataPlane2024"
+  mongodb-database: "data-plane"
+  mongodb-keyfile: |
+    j7FeGYZsYDop3dlHqmHoSgPUPzaVey6L8MtZYaWJm1BljXCu4RmwWMgJqOiTZKVT
+    GUycVL9mKDinGX0dUTPR1rBmKGakBBjTmVAIaXYd8eVFohZU7KfFYHqGWWbIJpvl
+    sSQzKbLLzfLTYN1hKav9PovOVLlr0hYnxQlQvWukMPrZ8nwZA1j8ybcGMUv3Tj8h
+    gZVTvl7wgupdCqzPSgJ8mHFGQBJlg6OBkz1h8htqv0K9t8ptPZ3ZHQmHeaVU8GdZ
+    WCiGMR7dtyHNgMO8ljL5gjMYXqFz1CW0Da8qKEau7Tz3BCLjqwAKxOckolwVaMLm
+    ZRzjxvDKxnCLNXVzj9MBBQecKKem6IjnE0TqfzeWnEEKk3W3qV1Mk6tZDxGhPpqC
+    AFvRqpGqr3vFZbskVOyt7JYEnMREuj0VmD5FQQYnEON29CsvIIyJlV9j2sJXRpBv
+    cDCFrLcwOgp9lh8A0KPHBMhNq3hR6p55sLdLb8dAIilBcT7cm4Md7osrCJlwKyJG
+    qmNyQ8Q9y0A1qWaRDPJVL81YnTD6rQqO2BJkOtvPo7FDebErLhrZ3Pl5MieIqgKN
+    T94OuBNPQCLEmAKVmcPqXmaqgeXqrIjmkeFngPDWBj1SSzUHsENeRVLKFLnmcdQB
+    HTov9HfGCrMEViSJMPFHJ8L7kqvpbVZ3caOWBRkAqTGfVwLmkakD5AFkEmHf4Gfu
+    lPXroMx5DMEPcLaObAvfITPK2xnD5e3jkkklBpBGzYqYfVl6jkNO8hbC1Ld8otmS
+    BOMwYWdJvAC5KM7Z3erOmMqTGuKEkR4jMx2nCGjHuVsF0Ha8rAEnplaHBjFGnYPG
+    XmWhAt5h9c2EYZsmkEhMBj2B7xzKlPBtqJy21oN5H8fcyn2XlpvVsYN6W0TaS2vE
+    w3oHVMh1BieJU8dUtkQUseFqvGCG5OhB38V3TmWUllGNYAdm
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  serviceName: mongodb
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:4.4.29
+        command:
+        - mongod
+        - "--replSet"
+        - "rs0"
+        - "--bind_ip_all"
+        - "--keyFile"
+        - "/etc/mongodb-keyfile/keyfile"
+        - "--auth"
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-password
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-database
+        volumeMounts:
+        - name: data
+          mountPath: /data/db
+        - name: keyfile
+          mountPath: /etc/mongodb-keyfile
+          readOnly: true
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: keyfile
+        secret:
+          secretName: mongodb-secret
+          defaultMode: 0400
+          items:
+          - key: mongodb-keyfile
+            path: keyfile
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: openebs-hostpath
+      resources:
+        requests:
+          storage: $CAPACITY
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-init-replica
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: mongodb-init
+        image: mongo:4.4.29
+        command:
+        - bash
+        - -c
+        - |
+          set -e
+          echo "Waiting for MongoDB pods to be ready..."
+          for i in 0 1 2; do
+            until mongo --host mongodb-$i.mongodb --eval "print('MongoDB-$i is ready')"; do
+              echo "Waiting for mongodb-$i..."
+              sleep 5
+            done
+          done
+          
+          echo "Initiating replica set..."
+          mongo --host mongodb-0.mongodb -u "$MONGO_ROOT_USERNAME" -p "$MONGO_ROOT_PASSWORD" --authenticationDatabase admin --eval "
+            rs.initiate({
+              _id: 'rs0',
+              members: [
+                { _id: 0, host: 'mongodb-0.mongodb:27017', priority: 2 },
+                { _id: 1, host: 'mongodb-1.mongodb:27017', priority: 1 },
+                { _id: 2, host: 'mongodb-2.mongodb:27017', priority: 1 }
+              ]
+            })
+          "
+          
+          echo "Waiting for replica set to be ready..."
+          sleep 10
+          
+          mongo --host mongodb-0.mongodb -u "$MONGO_ROOT_USERNAME" -p "$MONGO_ROOT_PASSWORD" --authenticationDatabase admin --eval "rs.status()"
+          
+          echo "MongoDB replica set initialization completed"
+        env:
+        - name: MONGO_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-username
+        - name: MONGO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongodb-root-password

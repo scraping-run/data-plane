@@ -22,18 +22,40 @@ ENABLE_MONITOR=${ENABLE_MONITOR:-true}
 ## 0. create namespace
 kubectl create namespace ${NAMESPACE} || true
 
-## 1. install mongodb
+## 1. install mongodb replica set
 set -e
 set -x
 
-sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-4.4.yaml | kubectl apply -n ${NAMESPACE} -f -
-kubectl wait --for=condition=available --timeout=120s deployment/mongodb -n ${NAMESPACE}
+# Check if we should use replica set or single instance
+USE_REPLICA_SET=${USE_REPLICA_SET:-true}
 
-# MongoDB 4.4 credentials from mongodb-secret
+if [ "$USE_REPLICA_SET" = "true" ]; then
+    echo "Installing MongoDB Replica Set..."
+    sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-replicaset.yaml | kubectl apply -n ${NAMESPACE} -f -
+    
+    # Wait for StatefulSet to be ready
+    kubectl wait --for=jsonpath='{.status.readyReplicas}'=3 statefulset/mongodb -n ${NAMESPACE} --timeout=300s
+    
+    # Wait for init job to complete
+    kubectl wait --for=condition=complete job/mongodb-init-replica -n ${NAMESPACE} --timeout=120s || true
+    
+    # MongoDB replica set connection string
+    DB_ENDPOINT="mongodb-0.mongodb.${NAMESPACE}.svc.cluster.local:27017,mongodb-1.mongodb.${NAMESPACE}.svc.cluster.local:27017,mongodb-2.mongodb.${NAMESPACE}.svc.cluster.local:27017"
+    REPLICA_SET_PARAM="?replicaSet=rs0&authSource=admin"
+else
+    echo "Installing single MongoDB instance..."
+    sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-4.4.yaml | kubectl apply -n ${NAMESPACE} -f -
+    kubectl wait --for=condition=available --timeout=120s deployment/mongodb -n ${NAMESPACE}
+    
+    # Single instance connection
+    DB_ENDPOINT="mongodb.${NAMESPACE}.svc.cluster.local:27017"
+    REPLICA_SET_PARAM="?authSource=admin"
+fi
+
+# MongoDB credentials from mongodb-secret
 DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-username}' | base64 -d)
 DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
 DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
-DB_ENDPOINT="mongodb.${NAMESPACE}.svc.cluster.local:27017"
 
 # URL encode the password to handle special characters
 urlencode() {
@@ -55,9 +77,14 @@ urlencode() {
 
 # Encode password for safe URL usage
 DB_PASSWORD_ENCODED=$(urlencode "${DB_PASSWORD}")
-DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD_ENCODED}@${DB_ENDPOINT}/${DB_DATABASE}?authSource=admin"
+DATABASE_URL="mongodb://${DB_USERNAME}:${DB_PASSWORD_ENCODED}@${DB_ENDPOINT}/${DB_DATABASE}${REPLICA_SET_PARAM}"
 
 echo "MongoDB connection configured with URL-encoded password"
+if [ "$USE_REPLICA_SET" = "true" ]; then
+    echo "Using MongoDB Replica Set with connection: ${DB_ENDPOINT}"
+else
+    echo "Using single MongoDB instance"
+fi
 
 ## 2. install prometheus
 PROMETHEUS_URL=http://prometheus-operated.${NAMESPACE}.svc.cluster.local:9090
