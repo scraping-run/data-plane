@@ -62,14 +62,25 @@ fi
 # *************** Remove MongoDB ************** #
 echo ""
 echo "2. Removing MongoDB..."
-# Remove both single instance and replica set resources
+
+# Check if KubeBlocks MongoDB cluster exists
+if kubectl get cluster mongodb -n ${NAMESPACE} >/dev/null 2>&1; then
+    echo "   - Removing KubeBlocks MongoDB cluster..."
+    kubectl delete cluster mongodb -n ${NAMESPACE} --ignore-not-found=true
+    # Wait for cluster to be deleted
+    sleep 10
+fi
+
+# Remove manual MongoDB installations (both single instance and replica set)
 kubectl delete deployment mongodb -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete statefulset mongodb -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete service mongodb mongodb-0 mongodb-1 mongodb-2 -n ${NAMESPACE} --ignore-not-found=true
+kubectl delete service mongodb-mongodb mongodb-mongodb-0 mongodb-mongodb-1 mongodb-mongodb-2 -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete job mongodb-init-replica -n ${NAMESPACE} --ignore-not-found=true
-kubectl delete secret mongodb-secret -n ${NAMESPACE} --ignore-not-found=true
+kubectl delete secret mongodb-secret mongodb-conn-credential -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete pvc mongodb-data -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete pvc data-mongodb-0 data-mongodb-1 data-mongodb-2 -n ${NAMESPACE} --ignore-not-found=true
+kubectl delete pvc data-mongodb-mongodb-0 data-mongodb-mongodb-1 data-mongodb-mongodb-2 -n ${NAMESPACE} --ignore-not-found=true
 kubectl delete pv mongodb-data-pv --ignore-not-found=true
 
 # *************** Remove Additional Resources ************** #

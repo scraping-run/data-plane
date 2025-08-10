@@ -22,15 +22,57 @@ ENABLE_MONITOR=${ENABLE_MONITOR:-true}
 ## 0. create namespace
 kubectl create namespace ${NAMESPACE} || true
 
-## 1. install mongodb replica set
+## 1. install mongodb with KubeBlocks
 set -e
 set -x
 
-# Check if we should use replica set or single instance
+# Check which MongoDB deployment method to use
+USE_KUBEBLOCKS=${USE_KUBEBLOCKS:-true}
 USE_REPLICA_SET=${USE_REPLICA_SET:-true}
 
-if [ "$USE_REPLICA_SET" = "true" ]; then
-    echo "Installing MongoDB Replica Set..."
+if [ "$USE_KUBEBLOCKS" = "true" ]; then
+    echo "Installing MongoDB 5.0 with KubeBlocks..."
+    # Set replica count based on USE_REPLICA_SET
+    if [ "$USE_REPLICA_SET" = "true" ]; then
+        REPLICAS=3
+    else
+        REPLICAS=1
+    fi
+    
+    # Apply KubeBlocks MongoDB cluster with dynamic replica count
+    sed -e "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" \
+        -e "s/replicas: [0-9]*/replicas: ${REPLICAS}/g" \
+        mongodb-kubeblocks.yaml | kubectl apply -n ${NAMESPACE} -f -
+    
+    # Wait for KubeBlocks cluster to be ready
+    echo "Waiting for KubeBlocks MongoDB cluster to be ready..."
+    sleep 30  # Initial wait for cluster creation
+    
+    # Get connection info from KubeBlocks cluster
+    # KubeBlocks creates services like: mongodb-mongodb, mongodb-mongodb-0, etc.
+    if [ "$REPLICAS" = "3" ]; then
+        DB_ENDPOINT="mongodb-mongodb-0.${NAMESPACE}.svc.cluster.local:27017,mongodb-mongodb-1.${NAMESPACE}.svc.cluster.local:27017,mongodb-mongodb-2.${NAMESPACE}.svc.cluster.local:27017"
+        REPLICA_SET_PARAM="?replicaSet=mongodb&authSource=admin"
+    else
+        DB_ENDPOINT="mongodb-mongodb.${NAMESPACE}.svc.cluster.local:27017"
+        REPLICA_SET_PARAM="?authSource=admin"
+    fi
+    
+    # Get credentials from KubeBlocks secret (usually mongodb-conn-credential)
+    echo "Retrieving MongoDB credentials from KubeBlocks..."
+    # Try to get credentials from KubeBlocks generated secret
+    if kubectl get secret mongodb-conn-credential -n ${NAMESPACE} >/dev/null 2>&1; then
+        DB_USERNAME=$(kubectl get secret mongodb-conn-credential -n ${NAMESPACE} -o jsonpath='{.data.username}' | base64 -d)
+        DB_PASSWORD=$(kubectl get secret mongodb-conn-credential -n ${NAMESPACE} -o jsonpath='{.data.password}' | base64 -d)
+    else
+        # Fallback to our custom secret
+        DB_USERNAME=$(kubectl get secret mongodb-secret -n ${NAMESPACE} -o jsonpath='{.data.mongodb-root-username}' | base64 -d)
+        DB_PASSWORD=$(kubectl get secret mongodb-secret -n ${NAMESPACE} -o jsonpath='{.data.mongodb-root-password}' | base64 -d)
+    fi
+    DB_DATABASE="data-plane"
+    
+elif [ "$USE_REPLICA_SET" = "true" ]; then
+    echo "Installing MongoDB Replica Set (manual)..."
     sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-replicaset.yaml | kubectl apply -n ${NAMESPACE} -f -
     
     # Wait for StatefulSet to be ready
@@ -42,6 +84,12 @@ if [ "$USE_REPLICA_SET" = "true" ]; then
     # MongoDB replica set connection string
     DB_ENDPOINT="mongodb-0.mongodb.${NAMESPACE}.svc.cluster.local:27017,mongodb-1.mongodb.${NAMESPACE}.svc.cluster.local:27017,mongodb-2.mongodb.${NAMESPACE}.svc.cluster.local:27017"
     REPLICA_SET_PARAM="?replicaSet=rs0&authSource=admin"
+    
+    # Get credentials from secret
+    DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-username}' | base64 -d)
+    DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
+    DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
+    
 else
     echo "Installing single MongoDB instance..."
     sed "s/\$CAPACITY/${DB_PV_SIZE:-30Gi}/g" mongodb-4.4.yaml | kubectl apply -n ${NAMESPACE} -f -
@@ -50,12 +98,12 @@ else
     # Single instance connection
     DB_ENDPOINT="mongodb.${NAMESPACE}.svc.cluster.local:27017"
     REPLICA_SET_PARAM="?authSource=admin"
+    
+    # Get credentials from secret
+    DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-username}' | base64 -d)
+    DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
+    DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
 fi
-
-# MongoDB credentials from mongodb-secret
-DB_USERNAME=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-username}' | base64 -d)
-DB_PASSWORD=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-root-password}' | base64 -d)
-DB_DATABASE=$(kubectl get secret -n ${NAMESPACE} mongodb-secret -ojsonpath='{.data.mongodb-database}' | base64 -d)
 
 # URL encode the password to handle special characters
 urlencode() {

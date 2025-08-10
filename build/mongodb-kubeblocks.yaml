@@ -1,0 +1,56 @@
+---
+# MongoDB 5.0 Replica Set using KubeBlocks
+apiVersion: apps.kubeblocks.io/v1alpha1
+kind: Cluster
+metadata:
+  name: mongodb
+  namespace: data-plane-system
+  finalizers:
+    - cluster.kubeblocks.io/finalizer
+  labels:
+    clusterdefinition.kubeblocks.io/name: mongodb
+    clusterversion.kubeblocks.io/name: mongodb-5.0
+spec:
+  affinity:
+    nodeLabels: {}
+    podAntiAffinity: Preferred
+    tenancy: SharedNode
+    topologyKeys: []
+  clusterDefinitionRef: mongodb
+  clusterVersionRef: mongodb-5.0
+  componentSpecs:
+    - componentDefRef: mongodb
+      monitor: true
+      name: mongodb
+      replicas: 3  # 3-node replica set
+      serviceAccountName: ""
+      resources:
+        limits:
+          cpu: "2"
+          memory: "4Gi"
+        requests:
+          cpu: "500m"
+          memory: "2Gi"
+      volumeClaimTemplates:
+        - name: data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            storageClassName: openebs-hostpath
+            resources:
+              requests:
+                storage: $CAPACITY
+  terminationPolicy: Delete
+  tolerations: []
+---
+# MongoDB Connection Secret for compatibility
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+  namespace: data-plane-system
+type: Opaque
+stringData:
+  mongodb-root-username: "root"
+  mongodb-root-password: "DataPlane2024"
+  mongodb-database: "data-plane"
